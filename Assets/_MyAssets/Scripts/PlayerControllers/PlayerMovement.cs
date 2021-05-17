@@ -22,7 +22,7 @@ public class PlayerMovement : MonoBehaviour
     Vector3 velocity;
     private bool isGrounded;
     private bool isMoving = false;
-    bool shouldAlternativeSpeedApplied = false; //유효한 상태에서 점프키를 누를 때 Left Shift키도 누르고 있었는지 확인
+    bool shouldAlternativeSpeedApplied = false;
 
 
     //발소리 재생
@@ -68,27 +68,27 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift))
         {
             isLeftShiftKeyDown = true;
-            if(isGrounded)
+            if (isGrounded)
             {
                 shouldAlternativeSpeedApplied = true;
             }
         }
 
-        //움직이고 있는지 확인
-        if (move.x != 0 || move.z != 0) isMoving = true;
-        else isMoving = false;
-
-
+        //점프키를 눌렀는지 확인
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
+            //설정된 높이에 맞게 점프
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+
+            //점프키를 누르는 프레임에서 LeftShift키도 누르고 있었는지 확인
             if (!isLeftShiftKeyDown)
             {
-                shouldAlternativeSpeedApplied = false;
+                shouldAlternativeSpeedApplied = false;  //누르고있지 않았다면 점프중에 Alternative Speed를 적용하지 않음
             }
         }
 
-        if(shouldAlternativeSpeedApplied)
+        //Alternative Speed를 적용해야하는지 확인 후 적용
+        if (shouldAlternativeSpeedApplied)
         {
             move *= alternativeSpeedFactor;
         }
@@ -99,7 +99,6 @@ public class PlayerMovement : MonoBehaviour
         //플레이어 y축 이동
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
-
 
         //발자국 소리 출력
         time += Time.deltaTime;
@@ -112,6 +111,10 @@ public class PlayerMovement : MonoBehaviour
         {
             isFootstepSoundRequired = time > frequency;
         }
+
+        //움직이고 있는지 확인
+        if (move.x != 0 || move.z != 0) isMoving = true;
+        else isMoving = false;
 
         if (isMoving && isGrounded && isFootstepSoundRequired)
         {
