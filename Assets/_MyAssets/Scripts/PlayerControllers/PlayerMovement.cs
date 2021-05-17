@@ -22,6 +22,8 @@ public class PlayerMovement : MonoBehaviour
     Vector3 velocity;
     private bool isGrounded;
     private bool isMoving = false;
+    bool shouldAlternativeSpeedApplied = false; //유효한 상태에서 점프키를 누를 때 Left Shift키도 누르고 있었는지 확인
+
 
     //발소리 재생
     public AudioClip[] audioClips;
@@ -43,47 +45,68 @@ public class PlayerMovement : MonoBehaviour
     {
         //착지 상태 체크
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-
-        //중력이 중첩적용되는 것을 방지
-        if (isGrounded && velocity.y < 0)
+        if (isGrounded)
         {
-            velocity.y = 0f;
+            shouldAlternativeSpeedApplied = false;
+
+            //중력이 중첩적용되는 것을 방지
+            if (velocity.y < 0)
+            {
+                velocity.y = 0f;
+            }
         }
 
-        //이동 처리
+        //이동 관련 키 입력 받아오기
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
         Vector3 move = transform.right * x + transform.forward * z;
         move *= speed;
 
+        //Left Shift키가 눌렸는지 확인
         bool isLeftShiftKeyDown = false;
         if (Input.GetKey(KeyCode.LeftShift))
         {
             isLeftShiftKeyDown = true;
-            move *= alternativeSpeedFactor;
+            if(isGrounded)
+            {
+                shouldAlternativeSpeedApplied = true;
+            }
         }
 
+        //움직이고 있는지 확인
         if (move.x != 0 || move.z != 0) isMoving = true;
         else isMoving = false;
 
-        controller.Move(move * Time.deltaTime);
 
-        //점프 처리
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            if (!isLeftShiftKeyDown)
+            {
+                shouldAlternativeSpeedApplied = false;
+            }
         }
 
+        if(shouldAlternativeSpeedApplied)
+        {
+            move *= alternativeSpeedFactor;
+        }
+
+        //플레이어 xz평면 이동
+        controller.Move(move * Time.deltaTime);
+
+        //플레이어 y축 이동
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+
 
         //발자국 소리 출력
         time += Time.deltaTime;
         bool isFootstepSoundRequired;
         if (isLeftShiftKeyDown)
         {
-            isFootstepSoundRequired = time  * alternativeSpeedFactor > frequency ;
+            isFootstepSoundRequired = time * alternativeSpeedFactor > frequency;
         }
         else
         {
