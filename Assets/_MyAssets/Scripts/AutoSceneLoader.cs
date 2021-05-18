@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneLoader : MonoBehaviour
+public class AutoSceneLoader : MonoBehaviour
 {
+    public float time;
+    public string targetSceneName;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        Invoke("LoadTargetScene", time);
     }
 
     // Update is called once per frame
@@ -17,8 +20,8 @@ public class SceneLoader : MonoBehaviour
         
     }
 
-    public void LoadScene(string name)
+    void LoadTargetScene()
     {
-        SceneManager.LoadScene(name);
+        SceneManager.LoadScene(targetSceneName);
     }
 }
