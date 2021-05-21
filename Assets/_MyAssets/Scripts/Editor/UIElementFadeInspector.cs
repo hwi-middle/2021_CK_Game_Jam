@@ -12,18 +12,24 @@ public class UIElementInspctor : Editor
 
     private void OnEnable()
     {
-        _target = (UIElementFade)target;
+        _target = target as UIElementFade;
     }
 
     public override void OnInspectorGUI()
     {
-        base.OnInspectorGUI();
+        //base.OnInspectorGUI();
+
         _target.fadeType = (EFadeType)EditorGUILayout.EnumPopup("Fade Type", _target.fadeType);
         _target.autoPlay = EditorGUILayout.Toggle(new GUIContent("Auto Start"), _target.autoPlay);
         if (_target.autoPlay)
         {
-            _target.delay = EditorGUILayout.FloatField(new GUIContent("Delay"), _target.delay);
+            _target.delay = EditorGUILayout.Slider(new GUIContent("Delay"), _target.delay, 0, 10);
         }
-        _target.duration = EditorGUILayout.FloatField(new GUIContent("Duration"), _target.duration);
+        _target.duration = EditorGUILayout.Slider(new GUIContent("Duration"), _target.duration, 0, 10);
+
+        if (GUI.changed)
+        {
+            EditorUtility.SetDirty(target);
+        }
     }
 }
