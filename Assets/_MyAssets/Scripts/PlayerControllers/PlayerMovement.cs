@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(CharacterController))]
+
 public class PlayerMovement : MonoBehaviour
 {
     //값 설정
@@ -9,21 +11,17 @@ public class PlayerMovement : MonoBehaviour
     public float gravityScale = 1.0f;
     private float gravity;
     public float speed = 12f;
+    public bool hasAlternativeSpeed = false;
     public float alternativeSpeedFactor = 1f; // 왼쪽 Shift 키가 눌렸을 때의 속도(일반 속도보다 느리거나 빠르게 지정)
+    public bool canJump = false;
     public float jumpHeight = 3f;
 
-    //바닥에 닿았는지 체크하는 groundCheck 오브젝트
-    public Transform groundCheck;
-    public float groundDistance = 0.4f;
-    public LayerMask groundMask;
-
-    //이동 관련
-    public CharacterController controller;
-    Vector3 velocity;
+    //이동 관련 내부 처리용
+    private CharacterController controller;
+    private Vector3 velocity;
     private bool isGrounded;
     private bool isMoving = false;
-    bool shouldAlternativeSpeedApplied = false;
-
+    private bool shouldAlternativeSpeedApplied = false;
 
     //발소리 재생
     public AudioClip[] audioClips;
@@ -32,10 +30,16 @@ public class PlayerMovement : MonoBehaviour
     public float frequency;
     private float time = 0f;
 
+    //바닥에 닿았는지 체크하는 groundCheck 오브젝트
+    public Transform groundCheck;
+    public float groundDistance = 0.4f;
+    private LayerMask groundMask;
 
     // Start is called before the first frame update
     void Start()
     {
+        controller = GetComponent<CharacterController>();
+        groundMask = 1 << LayerMask.NameToLayer("Ground");
         audioSource = GetComponent<AudioSource>();
         gravity = GRAVITY_CONSTANT * gravityScale;
     }
@@ -65,7 +69,7 @@ public class PlayerMovement : MonoBehaviour
 
         //Left Shift키가 눌렸는지 확인
         bool isLeftShiftKeyDown = false;
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (hasAlternativeSpeed && Input.GetKey(KeyCode.LeftShift))
         {
             isLeftShiftKeyDown = true;
             if (isGrounded)
@@ -75,7 +79,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //점프키를 눌렀는지 확인
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        if (canJump && Input.GetButtonDown("Jump") && isGrounded)
         {
             //설정된 높이에 맞게 점프
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);

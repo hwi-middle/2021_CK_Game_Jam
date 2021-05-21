@@ -625,14 +625,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gravityScale: 3
   speed: 12
+  hasAlternativeSpeed: 1
   alternativeSpeedFactor: 1.6
+  canJump: 1
   jumpHeight: 3
-  groundCheck: {fileID: 1021141639}
-  groundDistance: 0.4
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 64
-  controller: {fileID: 1750198441}
   audioClips:
   - {fileID: 8300000, guid: 03776e733a413b84db45dcb8b66820ab, type: 3}
   - {fileID: 8300000, guid: 64d60e8916a80db48921cba5b959c6b7, type: 3}
@@ -643,6 +639,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: c08235cd6842da94da8c3f7ce2a0c400, type: 3}
   - {fileID: 8300000, guid: a40ee4b6d37d82d4d8925805a8c9a635, type: 3}
   frequency: 0.6
+  groundCheck: {fileID: 1021141639}
+  groundDistance: 0.4
 --- !u!143 &1750198441
 CharacterController:
   m_ObjectHideFlags: 0
