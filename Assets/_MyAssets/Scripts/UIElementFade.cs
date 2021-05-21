@@ -11,15 +11,26 @@ public enum EFadeType
 
 public class UIElementFade : MonoBehaviour
 {
+    [HideInInspector]
+    public bool autoPlay = false;
+    [HideInInspector]
     public EFadeType fadeType;
+    [HideInInspector]
     public float delay;
+    [HideInInspector]
     public float duration;
     private Image imgSrc;
 
+
     void Start()
     {
+        gameObject.SetActive(true);
+
         imgSrc = GetComponent<Image>();
-        Invoke("CallFadeCoroutine", delay);
+        if(autoPlay)
+        {
+            Invoke("CallFadeCoroutine", delay);
+        }
     }
 
     private void CallFadeCoroutine()
