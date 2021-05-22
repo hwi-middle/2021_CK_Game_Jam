@@ -33,6 +33,7 @@ public class PlayerMovementInspector : Editor
             {
                 SerializedProperty element = list.serializedProperty.GetArrayElementAtIndex(index);
                 rect.y += 2;    //보기좋게 상단에 Padding
+                var origin = EditorGUIUtility.labelWidth;
                 EditorGUIUtility.labelWidth = 45;   //레이블 폭 줄이기
                 EditorGUI.PropertyField(
                     new Rect(rect.x + 5, rect.y, 10, EditorGUIUtility.singleLineHeight),
@@ -42,6 +43,7 @@ public class PlayerMovementInspector : Editor
                     new Rect(rect.x + 80, rect.y, rect.width - 80, EditorGUIUtility.singleLineHeight),
                     element.FindPropertyRelative("clip"), GUIContent.none
                     );
+                EditorGUIUtility.labelWidth = origin;
             };
 
         //헤더
@@ -79,7 +81,7 @@ public class PlayerMovementInspector : Editor
             if (_target.hasAlternativeSpeed)
             {
                 EditorGUI.indentLevel++;
-                _target.alternativeSpeedFactor = EditorGUILayout.FloatField("Alternative Speed Scale", _target.alternativeSpeedFactor);
+                _target.alternativeSpeedScale = EditorGUILayout.FloatField("Alternative Speed Scale", _target.alternativeSpeedScale);
                 EditorGUI.indentLevel--;
             }
             _target.canJump = EditorGUILayout.Toggle(new GUIContent("Can Jump"), _target.canJump);
@@ -103,6 +105,28 @@ public class PlayerMovementInspector : Editor
             list.DoLayoutList();
             serializedObject.ApplyModifiedProperties();
             EditorGUI.indentLevel--;
+
+            EditorGUILayout.BeginHorizontal();
+            if (GUILayout.Button("Activate All", GUILayout.Width(100)))
+            {
+                for(int i = 0; i < _target.audioDatas.Count;i++)
+                {
+                    AudioData temp = _target.audioDatas[i];
+                    temp.isActivated = true;
+                    _target.audioDatas[i] = temp;
+                }
+            }
+            if (GUILayout.Button("Deactivate All", GUILayout.Width(100)))
+            {
+                for (int i = 0; i < _target.audioDatas.Count; i++)
+                {
+                    AudioData temp = _target.audioDatas[i];
+                    temp.isActivated = false;
+                    _target.audioDatas[i] = temp;
+                }
+            }
+            EditorGUILayout.EndHorizontal();
+
         }
 
         showDangerZone = EditorGUI.Foldout(EditorGUILayout.GetControlRect(), showDangerZone, "Danger Zone ", true);

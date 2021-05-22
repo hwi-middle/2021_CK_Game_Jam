@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     private float gravity;
     public float speed = 12f;
     public bool hasAlternativeSpeed = false;
-    public float alternativeSpeedFactor = 1f; // 왼쪽 Shift 키가 눌렸을 때의 속도(일반 속도보다 느리거나 빠르게 지정)
+    public float alternativeSpeedScale = 1f; // 왼쪽 Shift 키가 눌렸을 때의 속도(일반 속도보다 느리거나 빠르게 지정)
     public bool canJump = false;
     public float jumpHeight = 3f;
 
@@ -25,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
 
     //발소리 재생
     public List<AudioData> audioDatas = new List<AudioData>();
+    private List<AudioData> activatedAudioDatas = new List<AudioData>();
     private int prevClipIndex = -1;
     private AudioSource audioSource;
     public float frequency;
@@ -94,7 +95,7 @@ public class PlayerMovement : MonoBehaviour
         //Alternative Speed를 적용해야하는지 확인 후 적용
         if (shouldAlternativeSpeedApplied)
         {
-            move *= alternativeSpeedFactor;
+            move *= alternativeSpeedScale;
         }
 
         //플레이어 xz평면 이동
@@ -104,13 +105,23 @@ public class PlayerMovement : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
 
-        //발걸음 소리 출력
+        //발걸음 소리 출력이 필요한지 확인
         time += Time.deltaTime;
         bool isFootstepSoundRequired;
-        if (isLeftShiftKeyDown)
+        CountActivatedAudioClips();
+        int activatedAudioClipsNum = activatedAudioDatas.Count;
+
+        //활성화된 클립이 없으면 출력하지 않음
+        if (activatedAudioClipsNum == 0)
         {
-            isFootstepSoundRequired = time * alternativeSpeedFactor > frequency;
+            isFootstepSoundRequired = false;
         }
+        //Left Shift키가 눌렸을 때에는 alternativeSpeedScale값에 따라 frequency가 조절
+        else if (isLeftShiftKeyDown)
+        {
+            isFootstepSoundRequired = time * alternativeSpeedScale > frequency;
+        }
+        //평상시에는 frequency만큼 시간이 지났는지 확인
         else
         {
             isFootstepSoundRequired = time > frequency;
@@ -120,23 +131,43 @@ public class PlayerMovement : MonoBehaviour
         if (move.x != 0 || move.z != 0) isMoving = true;
         else isMoving = false;
 
-        if (isMoving && isGrounded && isFootstepSoundRequired)
+        //발걸음 소리 출력
+        if (isFootstepSoundRequired && isMoving && isGrounded)
         {
             time = 0f;
 
-            int clipIndex = 0;
-            do
+            int clipIndex;
+            if (activatedAudioClipsNum == 1)
             {
-                clipIndex = Random.Range(0, audioDatas.Count);
-            } while (prevClipIndex == clipIndex || !audioDatas[clipIndex].isActivated);
+                clipIndex = 0;
+            }
+            else
+            {
+                do
+                {
+                    clipIndex = Random.Range(0, activatedAudioDatas.Count);
+                } while (prevClipIndex == clipIndex || !audioDatas[clipIndex].isActivated);
+            }
 
             Debug.Log(clipIndex);
 
             prevClipIndex = clipIndex;
-            audioSource.clip = audioDatas[clipIndex].clip;
+            audioSource.clip = activatedAudioDatas[clipIndex].clip;
             if (!audioSource.isPlaying)
             {
                 audioSource.Play();
+            }
+        }
+    }
+
+    void CountActivatedAudioClips()
+    {
+        activatedAudioDatas.Clear();
+        for (int i = 0; i < audioDatas.Count; i++)
+        {
+            if (audioDatas[i].isActivated)
+            {
+                activatedAudioDatas.Add(audioDatas[i]);
             }
         }
     }
