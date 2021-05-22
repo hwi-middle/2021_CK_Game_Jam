@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
     private bool shouldAlternativeSpeedApplied = false;
 
     //발소리 재생
-    public AudioClip[] audioClips;
+    public List<AudioData> audioDatas = new List<AudioData>();
     private int prevClipIndex = -1;
     private AudioSource audioSource;
     public float frequency;
@@ -104,7 +104,7 @@ public class PlayerMovement : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
 
-        //발자국 소리 출력
+        //발걸음 소리 출력
         time += Time.deltaTime;
         bool isFootstepSoundRequired;
         if (isLeftShiftKeyDown)
@@ -127,10 +127,10 @@ public class PlayerMovement : MonoBehaviour
             int clipIndex = 0;
             do
             {
-                clipIndex = Random.Range(0, audioClips.Length);
+                clipIndex = Random.Range(0, audioDatas.Count);
             } while (prevClipIndex == clipIndex);
             prevClipIndex = clipIndex;
-            audioSource.clip = audioClips[clipIndex];
+            audioSource.clip = audioDatas[clipIndex].clip;
             if (!audioSource.isPlaying)
             {
                 audioSource.Play();

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using UnityEditorInternal;
 
 [CustomEditor(typeof(PlayerMovement))]
 
@@ -9,15 +10,55 @@ public class PlayerMovementInspector : Editor
 {
 
     PlayerMovement _target;
+    private ReorderableList list;
 
     bool showPlayerMovement = true;
     bool showFootstep = true;
-    bool showAudioClip = false;
     bool showDangerZone = false;
 
     private void OnEnable()
     {
         _target = target as PlayerMovement;
+        list = new ReorderableList(serializedObject,
+         serializedObject.FindProperty("audioDatas"),
+         true, true, true, true);
+
+        // Element 가 그려질 때 Callback
+        list.drawElementCallback =
+            (Rect rect, int index, bool isActive, bool isFocused) =>
+            {
+                // 현재 그려질 요소
+                SerializedProperty element = list.serializedProperty.GetArrayElementAtIndex(index);
+                rect.y += 2; // 위쪽 패딩
+                EditorGUI.PropertyField(
+                    new Rect(rect.x + 5, rect.y, 50, EditorGUIUtility.singleLineHeight),
+                    element.FindPropertyRelative("isActivated"), new GUIContent("Clip " + index.ToString()));
+
+                EditorGUI.PropertyField(
+                    new Rect(rect.x + 50, rect.y, rect.width - 50, EditorGUIUtility.singleLineHeight),
+                    element.FindPropertyRelative("clip"), GUIContent.none
+                    );
+
+
+            };
+
+        list.drawHeaderCallback = rect =>
+        {
+            EditorGUI.LabelField(rect, "Audio Clips", EditorStyles.boldLabel);
+        };
+
+        list.onRemoveCallback = (ReorderableList l) =>
+        {
+            string warningText = "Are you sure you want to remove this clip?\n" +
+            "You cannot undo this action!\n\n" +
+            "Clip index: " + l.index.ToString() + "\n" +
+            "Please note that this number starts at zero.\n";
+
+            if (EditorUtility.DisplayDialog("Warning!", warningText, "Yes", "No"))
+            {
+                ReorderableList.defaultBehaviours.DoRemoveButton(l);
+            }
+        };
     }
 
     public override void OnInspectorGUI()
@@ -52,20 +93,14 @@ public class PlayerMovementInspector : Editor
         {
             EditorGUI.indentLevel++;
             //EditorGUILayout.LabelField("Audio Clips", EditorStyles.boldLabel);
-            showAudioClip = EditorGUI.Foldout(EditorGUILayout.GetControlRect(), showAudioClip, "Audio Clips", true);
-            if (showAudioClip)
-            {
-                EditorGUI.indentLevel++;
-                for (int i = 0; i < _target.audioClips.Length; i++)
-                {
-                    string fieldName = "Clip " + i;
-                    _target.audioClips[i] = (AudioClip)EditorGUILayout.ObjectField(fieldName, _target.audioClips[i], typeof(AudioClip), false);
-                }
-                EditorGUI.indentLevel--;
-            }
             _target.frequency = EditorGUILayout.Slider(new GUIContent("Frequency"), _target.frequency, 0, 5);
+            EditorGUILayout.Space();
+            serializedObject.Update();
+            list.DoLayoutList();
+            serializedObject.ApplyModifiedProperties();
             EditorGUI.indentLevel--;
         }
+
         showDangerZone = EditorGUI.Foldout(EditorGUILayout.GetControlRect(), showDangerZone, "Danger Zone ", true);
         if (showDangerZone)
         {
