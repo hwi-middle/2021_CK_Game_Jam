@@ -128,7 +128,10 @@ public class PlayerMovement : MonoBehaviour
             do
             {
                 clipIndex = Random.Range(0, audioDatas.Count);
-            } while (prevClipIndex == clipIndex);
+            } while (prevClipIndex == clipIndex || !audioDatas[clipIndex].isActivated);
+
+            Debug.Log(clipIndex);
+
             prevClipIndex = clipIndex;
             audioSource.clip = audioDatas[clipIndex].clip;
             if (!audioSource.isPlaying)

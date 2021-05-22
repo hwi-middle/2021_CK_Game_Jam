@@ -19,34 +19,38 @@ public class PlayerMovementInspector : Editor
     private void OnEnable()
     {
         _target = target as PlayerMovement;
+
+        //Audio Data 관련 Reorderable List 설정
+
+        //초기화
         list = new ReorderableList(serializedObject,
          serializedObject.FindProperty("audioDatas"),
          true, true, true, true);
 
-        // Element 가 그려질 때 Callback
+        //인스펙터에 그리기
         list.drawElementCallback =
             (Rect rect, int index, bool isActive, bool isFocused) =>
             {
-                // 현재 그려질 요소
                 SerializedProperty element = list.serializedProperty.GetArrayElementAtIndex(index);
-                rect.y += 2; // 위쪽 패딩
+                rect.y += 2;    //보기좋게 상단에 Padding
+                EditorGUIUtility.labelWidth = 45;   //레이블 폭 줄이기
                 EditorGUI.PropertyField(
-                    new Rect(rect.x + 5, rect.y, 50, EditorGUIUtility.singleLineHeight),
+                    new Rect(rect.x + 5, rect.y, 10, EditorGUIUtility.singleLineHeight),
                     element.FindPropertyRelative("isActivated"), new GUIContent("Clip " + index.ToString()));
 
                 EditorGUI.PropertyField(
-                    new Rect(rect.x + 50, rect.y, rect.width - 50, EditorGUIUtility.singleLineHeight),
+                    new Rect(rect.x + 80, rect.y, rect.width - 80, EditorGUIUtility.singleLineHeight),
                     element.FindPropertyRelative("clip"), GUIContent.none
                     );
-
-
             };
 
+        //헤더
         list.drawHeaderCallback = rect =>
         {
             EditorGUI.LabelField(rect, "Audio Clips", EditorStyles.boldLabel);
         };
 
+        //요소 삭제 시 경고창 출력
         list.onRemoveCallback = (ReorderableList l) =>
         {
             string warningText = "Are you sure you want to remove this clip?\n" +
