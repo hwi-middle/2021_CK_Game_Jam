@@ -18,6 +18,14 @@ public class PrefabGeneratorInspector : Editor
     {
         //base.OnInspectorGUI();
 
+        _target.hasParent = EditorGUILayout.Toggle(new GUIContent("Has Parent"), _target.hasParent);
+        _target.prefab = (GameObject)EditorGUILayout.ObjectField("Prefab", _target.prefab, typeof(GameObject), true);
+
+        if (_target.hasParent)
+        {
+            _target.parent = (GameObject)EditorGUILayout.ObjectField("Parent", _target.parent, typeof(GameObject), true);
+        }
+
         _target.prefabName = EditorGUILayout.TextField("Name", _target.prefabName);
 
         if (GUILayout.Button("Generate", GUILayout.Width(100)))
@@ -25,6 +33,10 @@ public class PrefabGeneratorInspector : Editor
             if (_target.prefabName == "")
             {
                 Debug.LogError("Please Input the Name.");
+            }
+            else if (_target.parent == null)
+            {
+                Debug.LogError("Parent Object is Null");
             }
             else
             {
