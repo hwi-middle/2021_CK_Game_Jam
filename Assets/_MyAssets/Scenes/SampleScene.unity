@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 164904218}
   - component: {fileID: 164904217}
   - component: {fileID: 164904216}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -306,7 +306,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 645476607}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.69, y: 0, z: -7}
+  m_LocalPosition: {x: 5.35, y: 0, z: -13.65}
   m_LocalScale: {x: 500, y: 500, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -324,10 +324,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d67dd34a4bbab284586f5e766f506787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  genType: 0
+  pos: {x: 1, y: 0, z: 0}
   prefab: {fileID: 8396302914321750782, guid: 02a579306a0577e40b4c3f22c9f120d8, type: 3}
   hasParent: 1
   parent: {fileID: 1128261011}
-  prefabName: name!
+  prefabName: custom debris
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0

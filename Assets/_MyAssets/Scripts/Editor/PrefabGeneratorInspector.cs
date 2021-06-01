@@ -17,7 +17,6 @@ public class PrefabGeneratorInspector : Editor
     public override void OnInspectorGUI()
     {
         //base.OnInspectorGUI();
-
         _target.hasParent = EditorGUILayout.Toggle(new GUIContent("Has Parent"), _target.hasParent);
         _target.prefab = (GameObject)EditorGUILayout.ObjectField("Prefab", _target.prefab, typeof(GameObject), true);
 
@@ -27,6 +26,16 @@ public class PrefabGeneratorInspector : Editor
         }
 
         _target.prefabName = EditorGUILayout.TextField("Name", _target.prefabName);
+
+        _target.genType = (EPrefabGenerationType)EditorGUILayout.EnumPopup("Type", _target.genType);
+        switch(_target.genType)
+        {
+            case EPrefabGenerationType.PlaceBySpecificPosition:
+                _target.pos = EditorGUILayout.Vector3Field("Position", _target.pos);
+                break;
+            case EPrefabGenerationType.PlaceHere:
+                break;
+        }
 
         if (GUILayout.Button("Generate", GUILayout.Width(100)))
         {
