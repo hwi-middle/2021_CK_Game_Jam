@@ -17,8 +17,8 @@ public class PrefabGeneratorInspector : Editor
     public override void OnInspectorGUI()
     {
         //base.OnInspectorGUI();
-        _target.hasParent = EditorGUILayout.Toggle(new GUIContent("Has Parent"), _target.hasParent);
         _target.prefab = (GameObject)EditorGUILayout.ObjectField("Prefab", _target.prefab, typeof(GameObject), true);
+        _target.hasParent = EditorGUILayout.Toggle(new GUIContent("Has Parent"), _target.hasParent);
 
         if (_target.hasParent)
         {
