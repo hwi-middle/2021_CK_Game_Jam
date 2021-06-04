@@ -28,7 +28,7 @@ public class PrefabGeneratorInspector : Editor
         _target.prefabName = EditorGUILayout.TextField("Name", _target.prefabName);
 
         _target.genType = (EPrefabGenerationType)EditorGUILayout.EnumPopup("Type", _target.genType);
-        switch(_target.genType)
+        switch (_target.genType)
         {
             case EPrefabGenerationType.PlaceBySpecificPosition:
                 _target.pos = EditorGUILayout.Vector3Field("Position", _target.pos);
@@ -36,6 +36,8 @@ public class PrefabGeneratorInspector : Editor
             case EPrefabGenerationType.PlaceHere:
                 break;
         }
+
+        _target.rot = EditorGUILayout.Vector3Field("Rotation", _target.rot);
 
         if (GUILayout.Button("Generate", GUILayout.Width(100)))
         {

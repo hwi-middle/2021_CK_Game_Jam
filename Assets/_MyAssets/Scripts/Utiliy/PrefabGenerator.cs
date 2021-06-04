@@ -12,6 +12,7 @@ public class PrefabGenerator : MonoBehaviour
 {
     public EPrefabGenerationType genType;
     public Vector3 pos;
+    public Vector3 rot;
     public GameObject prefab;
     public bool hasParent = false;
     public GameObject parent;
@@ -26,19 +27,18 @@ public class PrefabGenerator : MonoBehaviour
     {
         GameObject obj;
 
-        if(genType == EPrefabGenerationType.PlaceBySpecificPosition)
+        if (genType == EPrefabGenerationType.PlaceBySpecificPosition)
         {
-            obj = Instantiate(prefab, pos, Quaternion.identity);
+            obj = Instantiate(prefab, pos, Quaternion.Euler(rot));
 
         }
         else
         {
-            obj = Instantiate(prefab, transform.position, Quaternion.identity);
-
+            obj = Instantiate(prefab, transform.position, Quaternion.Euler(rot));
         }
 
         obj.name = prefabName;
-        if(hasParent)
+        if (hasParent)
         {
             obj.transform.parent = parent.transform;
         }
