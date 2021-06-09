@@ -9,24 +9,29 @@ public class MouseLook : MonoBehaviour
 
     public Transform body;
 
-    private float xRotation = 0f;
+    Quaternion camRotation;
+    Quaternion bodyRotation;
 
     // Start is called before the first frame update
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        camRotation = transform.localRotation;
+        bodyRotation = body.localRotation;
     }
 
     // Update is called once per frame
     void Update()
     {
-        float mouseX = Input.GetAxis("Mouse X") * sensitivityX * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * sensitivityY * Time.deltaTime;
+        float yRotation = Input.GetAxis("Mouse X") * sensitivityX;
+        float xRotation = Input.GetAxis("Mouse Y") * sensitivityY;
 
-        xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+        //X축 회전값은 -90 ~ +90도로 제한하는 Clamp 필요함
 
-        transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-        body.Rotate(Vector3.up * mouseX);
+        camRotation *= Quaternion.Euler(-xRotation, 0f, 0f);
+        bodyRotation *= Quaternion.Euler(0f, yRotation, 0f);
+
+        transform.localRotation = camRotation;
+        body.localRotation = bodyRotation;
     }
 }
