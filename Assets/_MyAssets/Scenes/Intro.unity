@@ -322,7 +322,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &347721020
 Transform:
   m_ObjectHideFlags: 0
@@ -346,10 +346,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 347721019}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 842643b4eae7dc24d83821dcf13fa28d, type: 3}
+  m_Script: {fileID: 11500000, guid: 38ab884f891994e4a8c3525f282800a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  time: 3
+  isAuto: 1
+  delay: 3
   targetSceneName: Lobby
 --- !u!1 &770734211
 GameObject:
@@ -535,7 +536,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   autoPlay: 1
   fadeType: 0
-  delay: 1
+  delay: 2
   duration: 1
 --- !u!114 &974902237
 MonoBehaviour:
