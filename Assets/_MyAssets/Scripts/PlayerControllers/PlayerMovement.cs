@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    //값 설정
+    //이동관련 값
     private const float GRAVITY_CONSTANT = -9.81f;
     public float gravityScale = 1.0f;
     private float gravity;
@@ -15,6 +15,13 @@ public class PlayerMovement : MonoBehaviour
     public float alternativeSpeedScale = 1f; // 왼쪽 Shift 키가 눌렸을 때의 속도(일반 속도보다 느리거나 빠르게 지정)
     public bool canJump = false;
     public float jumpHeight = 3f;
+
+    //마우스 움직임 처리
+    public float sensitivityX = 2f;
+    public float sensitivityY = 2f;
+    private Camera cam;
+    Quaternion camRotation;
+    Quaternion bodyRotation;
 
     //이동 관련 내부 처리용
     private CharacterController controller;
@@ -43,11 +50,28 @@ public class PlayerMovement : MonoBehaviour
         groundMask = 1 << LayerMask.NameToLayer("Ground");
         audioSource = GetComponent<AudioSource>();
         gravity = GRAVITY_CONSTANT * gravityScale;
+
+        cam = Camera.main;
+        Cursor.lockState = CursorLockMode.Locked;
+        camRotation = cam.transform.localRotation;
+        bodyRotation = transform.localRotation;
     }
 
     // Update is called once per frame
     void Update()
     {
+        //마우스 처리
+        float yRotation = Input.GetAxis("Mouse X") * sensitivityX;
+        float xRotation = Input.GetAxis("Mouse Y") * sensitivityY;
+
+        //X축 회전값은 -90 ~ +90도로 제한하는 Clamp 필요함
+
+        camRotation *= Quaternion.Euler(-xRotation, 0f, 0f);
+        bodyRotation *= Quaternion.Euler(0f, yRotation, 0f);
+
+        cam.transform.localRotation = camRotation;
+        transform.localRotation = bodyRotation;
+
         //착지 상태 체크
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
         if (isGrounded)

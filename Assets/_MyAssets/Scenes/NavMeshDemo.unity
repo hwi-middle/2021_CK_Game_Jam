@@ -373,7 +373,6 @@ GameObject:
   - component: {fileID: 1013154114}
   - component: {fileID: 1013154117}
   - component: {fileID: 1013154116}
-  - component: {fileID: 1013154115}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -395,21 +394,6 @@ Transform:
   m_Father: {fileID: 1750198442}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1013154115
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1013154113}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3fe4ca80fddf51469a4802a7bf5d15f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sensitivityX: 2
-  sensitivityY: 2
-  body: {fileID: 1750198442}
 --- !u!81 &1013154116
 AudioListener:
   m_ObjectHideFlags: 0
@@ -1154,6 +1138,8 @@ MonoBehaviour:
   alternativeSpeedScale: 1.6
   canJump: 1
   jumpHeight: 3
+  sensitivityX: 2
+  sensitivityY: 2
   audioDatas:
   - isActivated: 1
     clip: {fileID: 8300000, guid: 03776e733a413b84db45dcb8b66820ab, type: 3}

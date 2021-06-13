@@ -14,6 +14,7 @@ public class PlayerMovementInspector : Editor
 
     bool showPlayerMovement = true;
     bool showFootstep = true;
+    bool showMouseLook = true;
     bool showDangerZone = false;
 
     private void OnEnable()
@@ -127,6 +128,13 @@ public class PlayerMovementInspector : Editor
             }
             EditorGUILayout.EndHorizontal();
 
+        }
+
+        showMouseLook = EditorGUI.Foldout(EditorGUILayout.GetControlRect(), showMouseLook, "Mouse Look", true);
+        if (showMouseLook)
+        {
+            _target.sensitivityX = EditorGUILayout.FloatField(new GUIContent("X Sensitivity"), _target.sensitivityX);
+            _target.sensitivityY = EditorGUILayout.FloatField(new GUIContent("Y Sensitivity"), _target.sensitivityY);
         }
 
         showDangerZone = EditorGUI.Foldout(EditorGUILayout.GetControlRect(), showDangerZone, "Danger Zone ", true);
