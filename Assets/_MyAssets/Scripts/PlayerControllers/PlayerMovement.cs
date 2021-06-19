@@ -49,7 +49,6 @@ public class PlayerMovement : MonoBehaviour
         controller = GetComponent<CharacterController>();
         groundMask = 1 << LayerMask.NameToLayer("Ground");
         audioSource = GetComponent<AudioSource>();
-        gravity = GRAVITY_CONSTANT * gravityScale;
 
         cam = Camera.main;
         Cursor.lockState = CursorLockMode.Locked;
@@ -60,6 +59,9 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //인스펙터에서 gravityScale이 변경될 수 있으므로 Update 메서드에서 처리
+        gravity = GRAVITY_CONSTANT * gravityScale;
+
         //마우스 처리
         float yRotation = Input.GetAxis("Mouse X") * sensitivityX;
         float xRotation = Input.GetAxis("Mouse Y") * sensitivityY;
