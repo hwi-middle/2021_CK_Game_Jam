@@ -166,7 +166,7 @@ public class PlayerMovement : MonoBehaviour
                 } while (prevClipIndex == clipIndex || !audioDatas[clipIndex].isActivated);
             }
 
-            Debug.Log(clipIndex);
+            //Debug.Log(clipIndex);
 
             prevClipIndex = clipIndex;
             audioSource.clip = activatedAudioDatas[clipIndex].clip;
