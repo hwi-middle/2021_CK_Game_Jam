@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class RotateToTarget : MonoBehaviour
 {
-    public GameObject target;
-    private Quaternion rotation;
+    GameObject target;
+    Quaternion rotation;
 
     void Start()
     {
-
+        target = GameObject.FindWithTag("Player");
     }
 
     void LateUpdate()

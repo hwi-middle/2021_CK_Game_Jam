@@ -5,13 +5,13 @@ using UnityEngine.UI;
 
 public class InGameUIController : MonoBehaviour
 {
-    [SerializeField] ItemHolder itemHolder;
+    ItemHolder itemHolder;
     [SerializeField] Text usbStatus;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        itemHolder = ItemHolder.Instance;
     }
 
     // Update is called once per frame
