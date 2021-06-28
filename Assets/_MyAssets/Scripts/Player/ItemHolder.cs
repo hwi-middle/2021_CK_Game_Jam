@@ -19,7 +19,6 @@ public class ItemHolder : MonoBehaviour
     {
         if (instance == null)
         {
-            Debug.LogWarning("init");
             GameObject go = GameObject.FindWithTag("Player");
             if (go == null)
             {

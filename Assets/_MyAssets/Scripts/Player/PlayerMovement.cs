@@ -16,6 +16,12 @@ public class PlayerMovement : MonoBehaviour
     public bool canJump = false;
     public float jumpHeight = 3f;
 
+    //스태미너 관련 값
+    public bool hasStamina = false;
+    public float maxStamina = 100f;
+    public float currentStamina;
+    public float staminaDecreasementAmount = 20f;
+
     //마우스 움직임 처리
     public float sensitivityX = 2f;
     public float sensitivityY = 2f;
@@ -43,9 +49,29 @@ public class PlayerMovement : MonoBehaviour
     public float groundDistance = 0.4f;
     private LayerMask groundMask;
 
+    //싱글톤
+    static PlayerMovement instance;
+    public static PlayerMovement Instance { get { Init(); return instance; } }
+
+    static void Init()
+    {
+        if (instance == null)
+        {
+            GameObject go = GameObject.FindWithTag("Player");
+            if (go == null)
+            {
+                Debug.LogError("Player not found");
+            }
+
+            instance = go.GetComponent<PlayerMovement>();
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
+        Init();
+        currentStamina = maxStamina;
         controller = GetComponent<CharacterController>();
         groundMask = 1 << LayerMask.NameToLayer("Ground");
         audioSource = GetComponent<AudioSource>();
@@ -137,6 +163,21 @@ public class PlayerMovement : MonoBehaviour
         else if (isLeftShiftKeyDown)
         {
             isFootstepSoundRequired = time * alternativeSpeedScale > frequency;
+
+            //필요 시 스태미너 시스템 적용
+            if (hasStamina)
+            {
+                currentStamina -= staminaDecreasementAmount * Time.deltaTime;
+                if(currentStamina < 0)
+                {
+                    currentStamina = 0;
+                }
+
+                if(currentStamina > 0)
+                {
+
+                }
+            }
         }
         //평상시에는 frequency만큼 시간이 지났는지 확인
         else
