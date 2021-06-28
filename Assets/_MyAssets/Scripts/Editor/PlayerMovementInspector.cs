@@ -83,14 +83,16 @@ public class PlayerMovementInspector : Editor
             {
                 EditorGUI.indentLevel++;
                 _target.alternativeSpeedScale = EditorGUILayout.FloatField("Alternative Speed Scale", _target.alternativeSpeedScale);
+                EditorGUI.indentLevel--;
 
                 _target.hasStamina = EditorGUILayout.Toggle(new GUIContent("Has Stamina"), _target.hasStamina);
                 if (_target.hasStamina)
                 {
+                    EditorGUI.indentLevel++;
                     _target.maxStamina = EditorGUILayout.FloatField("Max Stamina Amount", _target.maxStamina);
-                    _target.staminaDecreasementAmount = EditorGUILayout.FloatField("Stamina Decreasement Amount (per second)", _target.staminaDecreasementAmount);
+                    _target.staminaDecreasementAmount = EditorGUILayout.FloatField("Stamina Decreasement Amount", _target.staminaDecreasementAmount);
+                    EditorGUI.indentLevel--;
                 }
-                EditorGUI.indentLevel--;
             }
             _target.canJump = EditorGUILayout.Toggle(new GUIContent("Can Jump"), _target.canJump);
             if (_target.canJump)
