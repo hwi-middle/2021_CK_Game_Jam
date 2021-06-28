@@ -172,11 +172,6 @@ public class PlayerMovement : MonoBehaviour
                 {
                     currentStamina = 0;
                 }
-
-                if(currentStamina > 0)
-                {
-
-                }
             }
         }
         //평상시에는 frequency만큼 시간이 지났는지 확인

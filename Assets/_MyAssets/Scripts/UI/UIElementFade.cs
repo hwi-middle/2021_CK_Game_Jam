@@ -5,12 +5,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public enum EFadeType
-{
-    FadeIn,
-    FadeOut
-}
-
 public class UIElementFade : MonoBehaviour
 {
     public bool autoPlay = false;
