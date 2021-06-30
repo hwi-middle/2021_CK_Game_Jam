@@ -9,7 +9,7 @@ public class InGameUIController : MonoBehaviour
     ItemHolder itemHolder;
     [SerializeField] Text usbStatus;
 
-    public Image[] staminaGaugaes;
+    public GameObject staminaPlane;
 
     // Start is called before the first frame update
     void Start()
@@ -22,10 +22,14 @@ public class InGameUIController : MonoBehaviour
     void Update()
     {
         UpdateItemStatusText();
-        foreach (var e in staminaGaugaes)
-        {
-            e.fillAmount = player.currentStamina / player.maxStamina;
-        }
+        float cutoff = 1 - (player.currentStamina / player.maxStamina);
+        staminaPlane.GetComponent<Renderer>().sharedMaterial.SetFloat("_Cutoff", cutoff);
+
+        //Image로 처리했을 때 남은 코드
+        //foreach (var e in staminaGaugaes)
+        //{
+        //    e.fillAmount = player.currentStamina / player.maxStamina;
+        //}
     }
 
     void UpdateItemStatusText()
