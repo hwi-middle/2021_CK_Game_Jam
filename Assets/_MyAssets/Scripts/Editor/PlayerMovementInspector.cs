@@ -91,6 +91,8 @@ public class PlayerMovementInspector : Editor
                     EditorGUI.indentLevel++;
                     _target.maxStamina = EditorGUILayout.FloatField("Max Stamina Amount", _target.maxStamina);
                     _target.staminaDecreasementAmount = EditorGUILayout.FloatField("Stamina Decreasement Amount", _target.staminaDecreasementAmount);
+                    _target.staminaIncreasementAmount = EditorGUILayout.FloatField("Stamina Increasement Amount", _target.staminaIncreasementAmount);
+                    _target.staminaIncresementDelay = EditorGUILayout.FloatField("Stamina Incresement Delay", _target.staminaIncresementDelay);
                     EditorGUI.indentLevel--;
                 }
             }

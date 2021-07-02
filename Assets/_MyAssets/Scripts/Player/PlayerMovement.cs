@@ -16,11 +16,20 @@ public class PlayerMovement : MonoBehaviour
     public bool canJump = false;
     public float jumpHeight = 3f;
 
+    private CharacterController controller;
+    private Vector3 velocity;
+    private bool isGrounded;
+    private bool isMoving = false;
+    private bool shouldAlternativeSpeedApplied = false;
+
     //스태미너 관련 값
     public bool hasStamina = false;
     public float maxStamina = 100f;
     public float currentStamina;
     public float staminaDecreasementAmount = 20f;
+    public float staminaIncreasementAmount = 20f;
+    public float staminaIncresementDelay = 2f;
+    private float idleTime = 0f;
 
     //마우스 움직임 처리
     public float sensitivityX = 2f;
@@ -28,13 +37,6 @@ public class PlayerMovement : MonoBehaviour
     private Camera cam;
     Quaternion camRotation;
     Quaternion bodyRotation;
-
-    //이동 관련 내부 처리용
-    private CharacterController controller;
-    private Vector3 velocity;
-    private bool isGrounded;
-    private bool isMoving = false;
-    private bool shouldAlternativeSpeedApplied = false;
 
     //발소리 재생
     public List<AudioData> audioDatas = new List<AudioData>();
@@ -85,6 +87,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         //인스펙터에서 gravityScale이 변경될 수 있으므로 Update 메서드에서 처리
         gravity = GRAVITY_CONSTANT * gravityScale;
 
@@ -116,7 +119,18 @@ public class PlayerMovement : MonoBehaviour
         if (hasAlternativeSpeed && Input.GetKey(KeyCode.LeftShift))
         {
             isLeftShiftKeyDown = true;
-            if (isGrounded)
+
+            //필요 시 스태미너 시스템 적용
+            if (hasStamina)
+            {
+                currentStamina -= staminaDecreasementAmount * Time.deltaTime;
+                if (currentStamina < 0)
+                {
+                    currentStamina = 0;
+                }
+            }
+
+            if (isGrounded && currentStamina > 0)
             {
                 shouldAlternativeSpeedApplied = true;
             }
@@ -132,6 +146,29 @@ public class PlayerMovement : MonoBehaviour
             if (!isLeftShiftKeyDown)
             {
                 shouldAlternativeSpeedApplied = false;  //누르고있지 않았다면 점프중에 Alternative Speed를 적용하지 않음
+            }
+        }
+
+        //움직이고 있는지 확인
+        if (velocity.x != 0 || velocity.z != 0) isMoving = true;
+        else isMoving = false;
+
+        //대기 시간에 따라 스태미너 회복
+        if(!shouldAlternativeSpeedApplied)
+        {
+            idleTime += Time.deltaTime;
+        }
+        else
+        {
+            idleTime = 0f;
+        }
+
+        if(idleTime >= staminaIncresementDelay)
+        {
+            currentStamina += staminaIncreasementAmount * Time.deltaTime;
+            if (currentStamina > maxStamina)
+            {
+                currentStamina = maxStamina;
             }
         }
 
@@ -207,26 +244,12 @@ public class PlayerMovement : MonoBehaviour
         else if (isLeftShiftKeyDown)
         {
             isFootstepSoundRequired = time * alternativeSpeedScale > frequency;
-
-            //필요 시 스태미너 시스템 적용
-            if (hasStamina)
-            {
-                currentStamina -= staminaDecreasementAmount * Time.deltaTime;
-                if (currentStamina < 0)
-                {
-                    currentStamina = 0;
-                }
-            }
         }
         //평상시에는 frequency만큼 시간이 지났는지 확인
         else
         {
             isFootstepSoundRequired = time > frequency;
         }
-
-        //움직이고 있는지 확인
-        if (v.x != 0 || v.z != 0) isMoving = true;
-        else isMoving = false;
 
         //발걸음 소리 출력
         if (isFootstepSoundRequired && isMoving && isGrounded)
