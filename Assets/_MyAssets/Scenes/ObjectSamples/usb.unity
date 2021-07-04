@@ -308,7 +308,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 112696779796648491, guid: d2e1e2f7bd904c849a993389761d8538, type: 3}
       propertyPath: m_Name
-      value: usb_pink
+      value: usb05
       objectReference: {fileID: 0}
     - target: {fileID: 112696779796648495, guid: d2e1e2f7bd904c849a993389761d8538, type: 3}
       propertyPath: m_RootOrder
@@ -409,7 +409,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1793559869588829869, guid: 00d072aba9d5bf74d9c2d4cb0c211fc9, type: 3}
       propertyPath: m_Name
-      value: usb_green
+      value: usb04
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 00d072aba9d5bf74d9c2d4cb0c211fc9, type: 3}
@@ -422,7 +422,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1971911159393389351, guid: 2c6b35acdd6d82e4f9219d90a0c10cc3, type: 3}
       propertyPath: m_Name
-      value: usb_white
+      value: usb02
       objectReference: {fileID: 0}
     - target: {fileID: 1971911159393389355, guid: 2c6b35acdd6d82e4f9219d90a0c10cc3, type: 3}
       propertyPath: m_RootOrder
@@ -479,7 +479,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4629599853481525467, guid: 8909b5aa6f7bee943886a23c3eb966b7, type: 3}
       propertyPath: m_Name
-      value: usb_gray
+      value: usb03
       objectReference: {fileID: 0}
     - target: {fileID: 4629599853481525471, guid: 8909b5aa6f7bee943886a23c3eb966b7, type: 3}
       propertyPath: m_RootOrder
@@ -580,7 +580,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4727770623823028028, guid: e37f6d08978151741b1d70beba76085b, type: 3}
       propertyPath: m_Name
-      value: usb_red
+      value: usb07
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e37f6d08978151741b1d70beba76085b, type: 3}
@@ -637,7 +637,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7715792977167025541, guid: 29d8cf5306dbe064b8bcc7f55d3236a1, type: 3}
       propertyPath: m_Name
-      value: usb_black
+      value: usb01
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 29d8cf5306dbe064b8bcc7f55d3236a1, type: 3}
@@ -650,7 +650,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7872389911848800800, guid: 174b82fe6f87c5c499fb72f6a9c16f91, type: 3}
       propertyPath: m_Name
-      value: usb_purple
+      value: usb06
       objectReference: {fileID: 0}
     - target: {fileID: 7872389911848800812, guid: 174b82fe6f87c5c499fb72f6a9c16f91, type: 3}
       propertyPath: m_RootOrder
@@ -707,7 +707,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8784198551598773390, guid: 52d0429d9d2035a4fa38b3b03b0abd2f, type: 3}
       propertyPath: m_Name
-      value: usb_skyblue
+      value: usb08
       objectReference: {fileID: 0}
     - target: {fileID: 8784198551598773490, guid: 52d0429d9d2035a4fa38b3b03b0abd2f, type: 3}
       propertyPath: m_RootOrder
@@ -808,7 +808,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9160167185584955115, guid: 6103e1346ab77c4409e68c51c2bc7379, type: 3}
       propertyPath: m_Name
-      value: usb_yellow
+      value: usb09
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6103e1346ab77c4409e68c51c2bc7379, type: 3}
