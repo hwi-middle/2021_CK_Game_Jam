@@ -352,7 +352,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7553395936317194446, guid: 622db0b1d192f1a4b84ac387e03c1c85, type: 3}
       propertyPath: m_Name
-      value: trashcan_black
+      value: trashcan01
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 622db0b1d192f1a4b84ac387e03c1c85, type: 3}
@@ -409,7 +409,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3391625308705057918, guid: 5a3180ce67f920445ba123682775f91f, type: 3}
       propertyPath: m_Name
-      value: trashcan_white
+      value: trashcan02
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5a3180ce67f920445ba123682775f91f, type: 3}

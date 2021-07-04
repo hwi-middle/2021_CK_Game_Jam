@@ -352,7 +352,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3257320953467561922, guid: 39fe9343b0bba854bb06e5b71d81971f, type: 3}
       propertyPath: m_Name
-      value: book_thick1
+      value: book_thick01
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39fe9343b0bba854bb06e5b71d81971f, type: 3}
@@ -365,7 +365,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2627228274957486243, guid: c1c0bddb93a7a134d893180c4d84051f, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2627228274957486243, guid: c1c0bddb93a7a134d893180c4d84051f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -409,7 +409,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3404187637769327129, guid: c1c0bddb93a7a134d893180c4d84051f, type: 3}
       propertyPath: m_Name
-      value: book1
+      value: book01
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c1c0bddb93a7a134d893180c4d84051f, type: 3}
@@ -466,7 +466,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5675660187621195482, guid: 81e325cdc7f6b494a8c86dee121d33d4, type: 3}
       propertyPath: m_Name
-      value: book_thick
+      value: book_thick02
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 81e325cdc7f6b494a8c86dee121d33d4, type: 3}
@@ -479,7 +479,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6194932166765879090, guid: d98482a787addf24085f9eac2ed9e67c, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6194932166765879090, guid: d98482a787addf24085f9eac2ed9e67c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -523,7 +523,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6823799335131071880, guid: d98482a787addf24085f9eac2ed9e67c, type: 3}
       propertyPath: m_Name
-      value: book2
+      value: book02
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d98482a787addf24085f9eac2ed9e67c, type: 3}
@@ -536,7 +536,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5802484071748055166, guid: c08f97c0e0bbde54aba5c55081f5a985, type: 3}
       propertyPath: m_Name
-      value: book
+      value: book03
       objectReference: {fileID: 0}
     - target: {fileID: 6615013975431572164, guid: c08f97c0e0bbde54aba5c55081f5a985, type: 3}
       propertyPath: m_RootOrder
