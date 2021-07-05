@@ -301,7 +301,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 494561814}
         m_TargetAssemblyTypeName: UIElementFade, Assembly-CSharp
-        m_MethodName: FadeInAndLoadScene
+        m_MethodName: LoadSceneAfterBlackout
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -638,7 +638,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1205169845
 MonoBehaviour:
   m_ObjectHideFlags: 0
