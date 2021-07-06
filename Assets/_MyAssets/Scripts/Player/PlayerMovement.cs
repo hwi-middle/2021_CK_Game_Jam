@@ -150,14 +150,11 @@ public class PlayerMovement : MonoBehaviour
         //대기 시간에 따라 스태미너 회복
         if(isMoving && isLeftShiftKeyDown)
         {
-            Debug.LogError("reset");
             idleTime = 0f;
         }
         else
         {
             idleTime += Time.deltaTime;
-            Debug.Log(idleTime);
-
         }
 
         if (idleTime >= staminaIncresementDelay)
