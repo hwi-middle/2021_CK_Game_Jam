@@ -2754,7 +2754,7 @@ MonoBehaviour:
   gravityScale: 3
   speed: 8
   hasAlternativeSpeed: 1
-  alternativeSpeedScale: 1.4
+  alternativeSpeedScale: 2
   canJump: 0
   jumpHeight: 3
   hasStamina: 1
