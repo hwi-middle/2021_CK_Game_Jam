@@ -29,18 +29,6 @@ public class ItemHolder : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public bool TryGetUSB()
     {
         if (Instance.hasUSBItem)
@@ -50,5 +38,11 @@ public class ItemHolder : MonoBehaviour
 
         Instance.hasUSBItem = true;
         return true;
+    }
+
+    //자판기 아이템에서 사용할 함수, 구현필요
+    public void GetHealthItem(int amount)
+    {
+        return;
     }
 }

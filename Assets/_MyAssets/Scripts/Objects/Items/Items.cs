@@ -1,48 +1,59 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Items : MonoBehaviour
 {
     ItemHolder itemHolder;
-
-    public EItemType type;
+    Text itemText;
+    bool isActivated = false;
 
     // Start is called before the first frame update
     void Start()
     {
         itemHolder = ItemHolder.Instance;
+        itemText = GameObject.FindWithTag("ItemText").GetComponent<Text>();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if(isActivated && Input.GetKeyDown(KeyCode.F))
+        {
+            if (itemHolder.TryGetUSB())
+            {
+                Destroy(gameObject);
+                itemText.text = "";
+                Debug.Log("USB »πµÊ");
+            }
+            else
+            {
+                Debug.Log("¿ÃπÃ USB º“¿Ø«‘");
+            }
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.tag == "Player")
         {
-            switch (type)
-            {
-                case EItemType.USB:
-                    if (itemHolder.TryGetUSB())
-                    {
-                        Destroy(gameObject);
-                        Debug.Log("USB »πµÊ");
-                    }
-                    else
-                    {
-                        Debug.Log("¿ÃπÃ USB º“¿Ø«‘");
-                    }
-                    break;
-                case EItemType.SpeedUp:
-                    Destroy(gameObject);
-                    Debug.Log("æ∆¿Ã≈€ »πµÊ∞˙ µøΩ√ø° »ø∞˙ ¿˚øÎ");
-                    break;
-            }
+            isActivated = true;
+            itemText.text = "F≈∞∏¶ ¥≠∑Ø æ∆¿Ã≈€ »πµÊ";
+        }
+    }
 
+    private void OnTriggerStay(Collider other)
+    {
+        
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            isActivated = false;
+            itemText.text = "";
         }
     }
 }

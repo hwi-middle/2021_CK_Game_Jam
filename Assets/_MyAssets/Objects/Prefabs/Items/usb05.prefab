@@ -11,9 +11,11 @@ GameObject:
   - component: {fileID: 112696779796648495}
   - component: {fileID: 112696779796648494}
   - component: {fileID: 112696779796648489}
-  - component: {fileID: 112696779796648488}
+  - component: {fileID: -3980136650417016568}
+  - component: {fileID: 7457795902117967239}
+  - component: {fileID: 4728019664139171632}
   m_Layer: 0
-  m_Name: usb_pink
+  m_Name: usb05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -82,17 +84,40 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &112696779796648488
-MeshCollider:
+--- !u!135 &-3980136650417016568
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 112696779796648491}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+  serializedVersion: 2
+  m_Radius: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7457795902117967239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 112696779796648491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f00fc93dd495a342aeca7a6b89b0169, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4728019664139171632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 112696779796648491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3c29586ad516664fa16fc02c9fbdbf6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
