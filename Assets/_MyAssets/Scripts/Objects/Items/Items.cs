@@ -43,11 +43,6 @@ public class Items : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay(Collider other)
-    {
-        
-    }
-
     private void OnTriggerExit(Collider other)
     {
         if (other.tag == "Player")
