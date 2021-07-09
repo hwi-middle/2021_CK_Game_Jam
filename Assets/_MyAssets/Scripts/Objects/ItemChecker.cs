@@ -25,7 +25,7 @@ public class ItemChecker : MonoBehaviour
             {
                 itemText.text = "USB 판독 완료(구현 필요)";
                 Debug.Log("USB 판독을 진행했음");
-                itemHolder.HasUSBItem = false;
+                itemHolder.UseItem();
             }
             else
             {

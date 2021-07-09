@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class Items : MonoBehaviour
 {
+    public int itemIndex;
+
     ItemHolder itemHolder;
     Text itemText;
     bool isActivated = false;
@@ -27,7 +29,7 @@ public class Items : MonoBehaviour
             }
             else
             {
-                itemHolder.HasUSBItem = true;
+                itemHolder.GetItem(itemIndex);
                 Destroy(gameObject);
                 itemText.text = "";
                 Debug.Log("USB È¹µæ");
