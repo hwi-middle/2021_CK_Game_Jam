@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Items : MonoBehaviour
+public class ItemChecker : MonoBehaviour
 {
     ItemHolder itemHolder;
     Text itemText;
@@ -19,18 +19,17 @@ public class Items : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(isActivated && Input.GetKeyDown(KeyCode.F))
+        if (isActivated && Input.GetKeyDown(KeyCode.F))
         {
             if (itemHolder.HasUSBItem)
             {
-                Debug.Log("이미 USB 소유함");
+                itemText.text = "USB 판독 완료(구현 필요)";
+                Debug.Log("USB 판독을 진행했음");
+                itemHolder.HasUSBItem = false;
             }
             else
             {
-                itemHolder.HasUSBItem = true;
-                Destroy(gameObject);
-                itemText.text = "";
-                Debug.Log("USB 획득");
+                Debug.Log("판독할 USB가 없음");
             }
         }
     }
@@ -40,7 +39,14 @@ public class Items : MonoBehaviour
         if (other.tag == "Player")
         {
             isActivated = true;
-            itemText.text = "F키를 눌러 아이템 획득";
+            if (itemHolder.HasUSBItem)
+            {
+                itemText.text = "F키를 눌러 USB 판독 시작";
+            }
+            else
+            {
+                itemText.text = "USB 획득 필요";
+            }
         }
     }
 

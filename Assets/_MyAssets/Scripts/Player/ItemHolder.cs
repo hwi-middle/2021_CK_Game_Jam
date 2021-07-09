@@ -8,7 +8,7 @@ public class ItemHolder : MonoBehaviour
     public static ItemHolder Instance { get { Init(); return instance; } }
 
     bool hasUSBItem = false;
-    public bool HasUSBItem { get { return hasUSBItem; } }
+    public bool HasUSBItem { get { return hasUSBItem; } set { hasUSBItem = value; } }
 
     private void Awake()
     {
@@ -27,17 +27,6 @@ public class ItemHolder : MonoBehaviour
 
             instance = go.GetComponent<ItemHolder>();
         }
-    }
-
-    public bool TryGetUSB()
-    {
-        if (Instance.hasUSBItem)
-        {
-            return false;
-        }
-
-        Instance.hasUSBItem = true;
-        return true;
     }
 
     //자판기 아이템에서 사용할 함수, 구현필요
