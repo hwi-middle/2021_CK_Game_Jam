@@ -67,7 +67,6 @@ public class Enemy : MonoBehaviour
         Debug.LogError("복귀");
 
         int newPriority = GetTaskPriority(EEnemyTask.Return);
-        currentTask = EEnemyTask.Return;
 
         //우선순위가 더 높은 작업이 진행 중일 경우 스킵
         if (currentTaskPriority < newPriority)
@@ -75,6 +74,7 @@ public class Enemy : MonoBehaviour
             return;
         }
 
+        currentTask = EEnemyTask.Return;
         currentTaskPriority = newPriority;
         currentTarget = origin;
     }
@@ -91,16 +91,17 @@ public class Enemy : MonoBehaviour
         }
         else
         {
+
             Debug.LogError("일반 추격");
 
             newPriority = GetTaskPriority(EEnemyTask.ChaseNormal);
-            currentTask = EEnemyTask.ChaseNormal;
-
             //우선순위가 더 높은 작업이 진행 중일 경우 스킵
             if (currentTaskPriority < newPriority)
             {
                 return;
             }
+
+            currentTask = EEnemyTask.ChaseNormal;
             currentTaskPriority = newPriority;
         }
 
