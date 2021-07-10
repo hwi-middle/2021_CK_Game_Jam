@@ -18,8 +18,8 @@ public class EnemyMovableArea : MonoBehaviour
     {
         if (other.tag == "Enemy")
         {
+            Debug.LogError("제한구역 이탈");
             target.StopAndReturnToOrigin();
         }
     }
-
 }
