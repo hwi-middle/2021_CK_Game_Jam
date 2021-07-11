@@ -5,13 +5,14 @@ using UnityEngine.UI;
 
 public class InGameUIController : MonoBehaviour
 {
-    PlayerMovement player;
-    ItemHolder itemHolder;
-    [SerializeField] Text usbStatus;
+    private PlayerMovement player;
+    private ItemHolder itemHolder;
 
     public GameObject staminaPlane;
     public Image USBIcon;
     public Sprite[] USBSprites;
+
+    private bool isMemoPanelOpened = false;
 
     // Start is called before the first frame update
     void Start()
@@ -33,11 +34,31 @@ public class InGameUIController : MonoBehaviour
         //{
         //    e.fillAmount = player.currentStamina / player.maxStamina;
         //}
+
+        if (Input.GetKey(KeyCode.Z))
+        {
+            ControlMemoPanel();
+        }
+
+        if(isMemoPanelOpened)
+        {
+        }
     }
 
     void UpdateItemStatusText()
     {
         USBIcon.sprite = USBSprites[itemHolder.ItemIndex];
-        usbStatus.text = "USB º“¿Ø: " + itemHolder.HasUSBItem.ToString();
+    }
+
+    void ControlMemoPanel()
+    {
+        if (isMemoPanelOpened)
+        {
+
+        }
+        else
+        {
+
+        }
     }
 }
