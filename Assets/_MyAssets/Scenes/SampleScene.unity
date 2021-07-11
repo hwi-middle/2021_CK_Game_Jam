@@ -968,7 +968,7 @@ GameObject:
   - component: {fileID: 659439287}
   - component: {fileID: 659439286}
   m_Layer: 5
-  m_Name: USBBg_Border
+  m_Name: StaminaBg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1940,7 +1940,7 @@ GameObject:
   - component: {fileID: 962878610}
   - component: {fileID: 962878609}
   m_Layer: 5
-  m_Name: USBBg_Border (1)
+  m_Name: StaminaCircle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1990,7 +1990,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 0.612
+  m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 2
   m_UseSpriteMesh: 0
@@ -2538,6 +2538,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   staminaPlane: {fileID: 698528564}
+  staminaGuage: {fileID: 962878609}
   USBIcon: {fileID: 66555866}
   USBSprites:
   - {fileID: 21300000, guid: f0918c9b75b503f41901efaa9f264f33, type: 3}
@@ -2758,7 +2759,7 @@ GameObject:
   - component: {fileID: 2086899587}
   - component: {fileID: 2086899586}
   m_Layer: 5
-  m_Name: USBBg_Fill
+  m_Name: USBBg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

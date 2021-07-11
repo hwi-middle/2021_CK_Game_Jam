@@ -9,6 +9,7 @@ public class InGameUIController : MonoBehaviour
     private ItemHolder itemHolder;
 
     public GameObject staminaPlane;
+    public Image staminaGuage;
     public Image USBIcon;
     public Sprite[] USBSprites;
 
@@ -27,13 +28,9 @@ public class InGameUIController : MonoBehaviour
     {
         UpdateItemStatusText();
         float cutoff = 1 - (player.currentStamina / player.maxStamina);
-        staminaPlane.GetComponent<Renderer>().sharedMaterial.SetFloat("_Cutoff", cutoff);
+        //staminaPlane.GetComponent<Renderer>().sharedMaterial.SetFloat("_Cutoff", cutoff);
 
-        //Image로 처리했을 때 남은 코드
-        //foreach (var e in staminaGaugaes)
-        //{
-        //    e.fillAmount = player.currentStamina / player.maxStamina;
-        //}
+        staminaGuage.fillAmount = player.currentStamina / player.maxStamina;
 
         if (Input.GetKey(KeyCode.Z))
         {
