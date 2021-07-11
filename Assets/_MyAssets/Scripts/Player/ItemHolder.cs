@@ -7,6 +7,9 @@ public class ItemHolder : MonoBehaviour
     static ItemHolder instance;
     public static ItemHolder Instance { get { Init(); return instance; } }
 
+    int idx = 0;
+    public int ItemIndex { get { return idx; } }
+
     bool hasUSBItem = false;
     public bool HasUSBItem { get { return hasUSBItem; } }
 
@@ -29,26 +32,21 @@ public class ItemHolder : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public void GetItem(int itemIdx)
     {
-
+        hasUSBItem = true;
+        idx = itemIdx;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void UseItem()
     {
-
+        hasUSBItem = false;
+        idx = 0;
     }
 
-    public bool TryGetUSB()
+    //자판기 아이템에서 사용할 함수, 구현필요
+    public void GetHealthItem(int amount)
     {
-        if (Instance.hasUSBItem)
-        {
-            return false;
-        }
-
-        Instance.hasUSBItem = true;
-        return true;
+        return;
     }
 }

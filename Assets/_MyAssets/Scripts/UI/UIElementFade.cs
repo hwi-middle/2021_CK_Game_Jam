@@ -63,7 +63,20 @@ public class UIElementFade : MonoBehaviour
         }
     }
 
-    public void FadeInAndLoadScene(string str)
+    private IEnumerator FadeInAndLoadScene(float t, string name)
+    {
+        Color color = imgSrc.color;
+        while (imgSrc.color.a < 1f)
+        {
+            color.a += Time.deltaTime / t;
+            imgSrc.color = color;
+            yield return null;
+        }
+
+        SceneManager.LoadScene(name);
+    }
+
+    public void LoadSceneAfterBlackout(string str)
     {
         string[] res = str.Split(new char[] { ',', ' '} , StringSplitOptions.RemoveEmptyEntries);
 
@@ -75,7 +88,6 @@ public class UIElementFade : MonoBehaviour
         string targetSceneName = res[1];
 
 
-        StartCoroutine(FadeIn(duration));
-        SceneManager.LoadScene(targetSceneName);
+        StartCoroutine(FadeInAndLoadScene(duration, targetSceneName));
     }
 }
