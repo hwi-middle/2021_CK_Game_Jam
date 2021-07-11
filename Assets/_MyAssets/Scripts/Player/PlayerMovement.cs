@@ -87,7 +87,6 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
         //인스펙터에서 gravityScale이 변경될 수 있으므로 Update 메서드에서 처리
         gravity = GRAVITY_CONSTANT * gravityScale;
 
@@ -110,8 +109,7 @@ public class PlayerMovement : MonoBehaviour
         //이동 관련 키 입력 받아오기
         float x;
         float z;
-        GetInputAxis(out x, out z);
-
+        GetInputAxis(out x, out z, out isMoving);
         float y = velocity.y;
 
         //Left Shift키가 눌렸는지 확인
@@ -121,7 +119,7 @@ public class PlayerMovement : MonoBehaviour
             isLeftShiftKeyDown = true;
 
             //필요 시 스태미너 시스템 적용
-            if (hasStamina)
+            if (hasStamina && isMoving)
             {
                 currentStamina -= staminaDecreasementAmount * Time.deltaTime;
                 if (currentStamina < 0)
@@ -149,21 +147,17 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        //움직이고 있는지 확인
-        if (velocity.x != 0 || velocity.z != 0) isMoving = true;
-        else isMoving = false;
-
         //대기 시간에 따라 스태미너 회복
-        if(!shouldAlternativeSpeedApplied)
-        {
-            idleTime += Time.deltaTime;
-        }
-        else
+        if(isMoving && isLeftShiftKeyDown)
         {
             idleTime = 0f;
         }
+        else
+        {
+            idleTime += Time.deltaTime;
+        }
 
-        if(idleTime >= staminaIncresementDelay)
+        if (idleTime >= staminaIncresementDelay)
         {
             currentStamina += staminaIncreasementAmount * Time.deltaTime;
             if (currentStamina > maxStamina)
@@ -218,10 +212,14 @@ public class PlayerMovement : MonoBehaviour
         return q;
     }
 
-    void GetInputAxis(out float x, out float z)
+    void GetInputAxis(out float x, out float z, out bool isMoving)
     {
         x = Input.GetAxis("Horizontal");
         z = Input.GetAxis("Vertical");
+
+        //움직이고 있는지 확인
+        if (x != 0 || z != 0) isMoving = true;
+        else isMoving = false;
     }
 
     void PlayFootstepSound(bool isLeftShiftKeyDown, Vector3 v)

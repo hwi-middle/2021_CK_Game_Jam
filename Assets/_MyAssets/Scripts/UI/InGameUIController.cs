@@ -10,10 +10,13 @@ public class InGameUIController : MonoBehaviour
     [SerializeField] Text usbStatus;
 
     public GameObject staminaPlane;
+    public Image USBIcon;
+    public Sprite[] USBSprites;
 
     // Start is called before the first frame update
     void Start()
     {
+        USBIcon.sprite = USBSprites[0];
         itemHolder = ItemHolder.Instance;
         player = PlayerMovement.Instance;
     }
@@ -34,6 +37,7 @@ public class InGameUIController : MonoBehaviour
 
     void UpdateItemStatusText()
     {
+        USBIcon.sprite = USBSprites[itemHolder.ItemIndex];
         usbStatus.text = "USB º“¿Ø: " + itemHolder.HasUSBItem.ToString();
     }
 }
