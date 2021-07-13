@@ -5,13 +5,16 @@ using UnityEngine.UI;
 
 public class InGameUIController : MonoBehaviour
 {
-    PlayerMovement player;
-    ItemHolder itemHolder;
-    [SerializeField] Text usbStatus;
+    private PlayerMovement player;
+    private ItemHolder itemHolder;
 
     public GameObject staminaPlane;
+    public Image staminaGuage;
     public Image USBIcon;
     public Sprite[] USBSprites;
+    public Text healthDebugText;
+
+    private bool isMemoPanelOpened = false;
 
     // Start is called before the first frame update
     void Start()
@@ -24,20 +27,42 @@ public class InGameUIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateItemStatusText();
+        UpdateItemStatus();
+        UpdateHealthStatus();
         float cutoff = 1 - (player.currentStamina / player.maxStamina);
-        staminaPlane.GetComponent<Renderer>().sharedMaterial.SetFloat("_Cutoff", cutoff);
+        //staminaPlane.GetComponent<Renderer>().sharedMaterial.SetFloat("_Cutoff", cutoff);
 
-        //Image로 처리했을 때 남은 코드
-        //foreach (var e in staminaGaugaes)
-        //{
-        //    e.fillAmount = player.currentStamina / player.maxStamina;
-        //}
+        staminaGuage.fillAmount = player.currentStamina / player.maxStamina;
+
+        if (Input.GetKey(KeyCode.Z))
+        {
+            ControlMemoPanel();
+        }
+
+        if(isMemoPanelOpened)
+        {
+        }
     }
 
-    void UpdateItemStatusText()
+    void UpdateItemStatus()
     {
         USBIcon.sprite = USBSprites[itemHolder.ItemIndex];
-        usbStatus.text = "USB 소유: " + itemHolder.HasUSBItem.ToString();
+    }
+
+    void UpdateHealthStatus()
+    {
+        healthDebugText.text = player.currentHealth.ToString() + "%";
+    }
+
+    void ControlMemoPanel()
+    {
+        if (isMemoPanelOpened)
+        {
+
+        }
+        else
+        {
+
+        }
     }
 }

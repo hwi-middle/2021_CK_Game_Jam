@@ -83,8 +83,6 @@ public class PlayerMovementInspector : Editor
             {
                 EditorGUI.indentLevel++;
                 _target.alternativeSpeedScale = EditorGUILayout.FloatField("Alternative Speed Scale", _target.alternativeSpeedScale);
-                EditorGUI.indentLevel--;
-
                 _target.hasStamina = EditorGUILayout.Toggle(new GUIContent("Has Stamina"), _target.hasStamina);
                 if (_target.hasStamina)
                 {
@@ -95,7 +93,25 @@ public class PlayerMovementInspector : Editor
                     _target.staminaIncresementDelay = EditorGUILayout.FloatField("Stamina Incresement Delay", _target.staminaIncresementDelay);
                     EditorGUI.indentLevel--;
                 }
+                EditorGUI.indentLevel--;
             }
+
+            _target.hasHealth = EditorGUILayout.Toggle(new GUIContent("Has Health"), _target.hasHealth);
+            if (_target.hasHealth)
+            {
+                EditorGUI.indentLevel++;
+                _target.maxHealth = EditorGUILayout.FloatField("Max Health", _target.maxHealth);
+                _target.automaticallyDecreaseHealth = EditorGUILayout.Toggle("Automatically Decrease Health", _target.automaticallyDecreaseHealth);
+                if(_target.automaticallyDecreaseHealth)
+                {
+                    EditorGUI.indentLevel++;
+                    _target.healthDecreasementAmount = EditorGUILayout.FloatField("Health Decreasement Amount", _target.healthDecreasementAmount);
+                    _target.healthDecreasementFrequency = EditorGUILayout.FloatField("Health Decreasement Frequency", _target.healthDecreasementFrequency);
+                    EditorGUI.indentLevel--;
+                }
+                EditorGUI.indentLevel--;
+            }
+
             _target.canJump = EditorGUILayout.Toggle(new GUIContent("Can Jump"), _target.canJump);
             if (_target.canJump)
             {

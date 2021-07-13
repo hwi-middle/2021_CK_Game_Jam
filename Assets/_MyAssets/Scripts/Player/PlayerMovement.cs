@@ -22,6 +22,15 @@ public class PlayerMovement : MonoBehaviour
     private bool isMoving = false;
     private bool shouldAlternativeSpeedApplied = false;
 
+    //체력 관련 값
+    public bool hasHealth = false;
+    public bool automaticallyDecreaseHealth = false;
+    public float maxHealth = 100f;
+    public float currentHealth;
+    public float healthDecreasementAmount = 1f;
+    public float healthDecreasementFrequency = 5f;
+    public bool isDead = false;
+
     //스태미너 관련 값
     public bool hasStamina = false;
     public float maxStamina = 100f;
@@ -73,6 +82,12 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         Init();
+        currentHealth = maxHealth;
+        if(hasHealth)
+        {
+            StartCoroutine(DecreaseHealth());
+        }
+
         currentStamina = maxStamina;
         controller = GetComponent<CharacterController>();
         groundMask = 1 << LayerMask.NameToLayer("Ground");
@@ -90,27 +105,14 @@ public class PlayerMovement : MonoBehaviour
         //인스펙터에서 gravityScale이 변경될 수 있으므로 Update 메서드에서 처리
         gravity = GRAVITY_CONSTANT * gravityScale;
 
-        //마우스 처리
-        SetCamera();
-
-        //착지 상태 체크
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-        if (isGrounded)
-        {
-            shouldAlternativeSpeedApplied = false;
-
-            //중력이 중첩적용되는 것을 방지
-            if (velocity.y < 0)
-            {
-                velocity.y = 0f;
-            }
-        }
+        SetCamera(); //마우스 처리
+        CheckGrounded(); //착지 상태 체크
 
         //이동 관련 키 입력 받아오기
         float x;
+        float y = velocity.y;
         float z;
         GetInputAxis(out x, out z, out isMoving);
-        float y = velocity.y;
 
         //Left Shift키가 눌렸는지 확인
         bool isLeftShiftKeyDown = false;
@@ -148,7 +150,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //대기 시간에 따라 스태미너 회복
-        if(isMoving && isLeftShiftKeyDown)
+        if (isMoving && isLeftShiftKeyDown)
         {
             idleTime = 0f;
         }
@@ -194,6 +196,21 @@ public class PlayerMovement : MonoBehaviour
 
         cam.transform.localRotation = camRotation;
         transform.localRotation = bodyRotation;
+    }
+
+    void CheckGrounded()
+    {
+        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        if (isGrounded)
+        {
+            shouldAlternativeSpeedApplied = false;
+
+            //중력이 중첩적용되는 것을 방지
+            if (velocity.y < 0)
+            {
+                velocity.y = 0f;
+            }
+        }
     }
 
     Quaternion ClampRotationAroundXAxis(Quaternion q)
@@ -286,6 +303,21 @@ public class PlayerMovement : MonoBehaviour
             if (audioDatas[i].isActivated)
             {
                 activatedAudioDatas.Add(audioDatas[i]);
+            }
+        }
+    }
+
+    IEnumerator DecreaseHealth()
+    {
+        while(true)
+        {
+            yield return new WaitForSeconds(5f);
+
+            currentHealth -= healthDecreasementAmount;
+            if(currentHealth <= 0)
+            {
+                isDead = true;
+                break;
             }
         }
     }
