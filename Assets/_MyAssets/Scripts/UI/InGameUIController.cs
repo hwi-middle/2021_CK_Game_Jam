@@ -12,6 +12,7 @@ public class InGameUIController : MonoBehaviour
     public Image staminaGuage;
     public Image USBIcon;
     public Sprite[] USBSprites;
+    public Text healthDebugText;
 
     private bool isMemoPanelOpened = false;
 
@@ -26,7 +27,8 @@ public class InGameUIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateItemStatusText();
+        UpdateItemStatus();
+        UpdateHealthStatus();
         float cutoff = 1 - (player.currentStamina / player.maxStamina);
         //staminaPlane.GetComponent<Renderer>().sharedMaterial.SetFloat("_Cutoff", cutoff);
 
@@ -42,9 +44,14 @@ public class InGameUIController : MonoBehaviour
         }
     }
 
-    void UpdateItemStatusText()
+    void UpdateItemStatus()
     {
         USBIcon.sprite = USBSprites[itemHolder.ItemIndex];
+    }
+
+    void UpdateHealthStatus()
+    {
+        healthDebugText.text = player.currentHealth.ToString() + "%";
     }
 
     void ControlMemoPanel()
