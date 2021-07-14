@@ -71,7 +71,7 @@ public class PlayerMovementInspector : Editor
     public override void OnInspectorGUI()
     {
         //base.OnInspectorGUI();
-
+        EditorGUIUtility.labelWidth = 300f;
         showPlayerMovement = EditorGUI.Foldout(EditorGUILayout.GetControlRect(), showPlayerMovement, "Player Movement", true);
         if (showPlayerMovement)
         {
@@ -100,7 +100,7 @@ public class PlayerMovementInspector : Editor
             if (_target.hasHealth)
             {
                 EditorGUI.indentLevel++;
-                _target.maxHealth = EditorGUILayout.FloatField("Max Health", _target.maxHealth);
+                _target.maxHealth = EditorGUILayout.FloatField("Max Health Amount", _target.maxHealth);
                 _target.automaticallyDecreaseHealth = EditorGUILayout.Toggle("Automatically Decrease Health", _target.automaticallyDecreaseHealth);
                 if(_target.automaticallyDecreaseHealth)
                 {
