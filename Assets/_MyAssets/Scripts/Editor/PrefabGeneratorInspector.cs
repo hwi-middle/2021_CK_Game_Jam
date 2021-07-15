@@ -51,7 +51,7 @@ public class PrefabGeneratorInspector : Editor
             }
             else
             {
-                Undo.RegisterCreatedObjectUndo(_target.GeneratePrefab(), "Create" + name);
+                Undo.RegisterCreatedObjectUndo(_target.GeneratePrefab(), "Create " + name);
             }
         }
 

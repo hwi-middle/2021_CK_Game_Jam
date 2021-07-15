@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 public enum EPrefabGenerationType
 {
@@ -29,12 +30,15 @@ public class PrefabGenerator : MonoBehaviour
 
         if (genType == EPrefabGenerationType.PlaceBySpecificPosition)
         {
-            obj = Instantiate(prefab, pos, Quaternion.Euler(rot));
-
+            obj = PrefabUtility.InstantiatePrefab(prefab) as GameObject;
+            obj.transform.position = pos;
+            obj.transform.rotation = Quaternion.Euler(rot);
         }
         else
         {
-            obj = Instantiate(prefab, transform.position, Quaternion.Euler(rot));
+            obj = PrefabUtility.InstantiatePrefab(prefab) as GameObject;
+            obj.transform.position = transform.position;
+            obj.transform.rotation = Quaternion.Euler(rot);
         }
 
         obj.name = prefabName;
