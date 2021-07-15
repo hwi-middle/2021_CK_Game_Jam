@@ -134,7 +134,6 @@ public class UIElementFade : MonoBehaviour
         float duration = float.Parse(res[0]);
         string targetSceneName = res[1];
 
-
         StartCoroutine(FadeInAndLoadScene(duration, targetSceneName));
     }
 }

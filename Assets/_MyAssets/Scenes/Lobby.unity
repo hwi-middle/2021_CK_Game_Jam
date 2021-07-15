@@ -615,7 +615,6 @@ GameObject:
   - component: {fileID: 494561816}
   - component: {fileID: 494561815}
   - component: {fileID: 494561814}
-  - component: {fileID: 494561813}
   m_Layer: 5
   m_Name: Cover
   m_TagString: Untagged
@@ -642,22 +641,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &494561813
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 494561811}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e3435b640bbe3842a8ea0e719e519a4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  autoPlay: 1
-  fadeType: 0
-  delay: 2
-  duration: 1
 --- !u!114 &494561814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -672,8 +655,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   autoPlay: 1
   fadeType: 1
-  delay: 0
-  duration: 1
+  startDelay: 0
+  duration1: 1
+  duration2: 0
+  fadeDelay: 0
 --- !u!114 &494561815
 MonoBehaviour:
   m_ObjectHideFlags: 0
