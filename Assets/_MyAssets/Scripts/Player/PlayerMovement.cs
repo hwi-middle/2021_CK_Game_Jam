@@ -41,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
     private float idleTime = 0f;
 
     //付快胶 框流烙 贸府
+    public bool shouldCameraFreeze = false;
     public float sensitivityX = 2f;
     public float sensitivityY = 2f;
     private Camera cam;
@@ -187,6 +188,8 @@ public class PlayerMovement : MonoBehaviour
 
     void SetCamera()
     {
+        if (shouldCameraFreeze) return;
+
         float yRotation = Input.GetAxis("Mouse X") * sensitivityX;
         float xRotation = Input.GetAxis("Mouse Y") * sensitivityY;
 

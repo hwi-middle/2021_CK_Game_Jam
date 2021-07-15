@@ -15,6 +15,7 @@ public class InGameUIController : MonoBehaviour
     public Text healthDebugText;
 
     private bool isMemoPanelOpened = false;
+    private bool isStopped = false;
 
     // Start is called before the first frame update
     void Start()
@@ -34,7 +35,25 @@ public class InGameUIController : MonoBehaviour
 
         staminaGuage.fillAmount = player.currentStamina / player.maxStamina;
 
-        if (Input.GetKey(KeyCode.Z))
+        //키입력은 우선순위별로 1개만 받기
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            if(isStopped)
+            {
+                isStopped = false;
+                player.shouldCameraFreeze = false;
+                Debug.Log("게임 재개");
+                Time.timeScale = 1f;
+            }
+            else
+            {
+                isStopped = true;
+                player.shouldCameraFreeze = true;
+                Debug.Log("게임 정지");
+                Time.timeScale = 0f;
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.Z))
         {
             ControlMemoPanel();
         }
