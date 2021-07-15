@@ -350,7 +350,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAuto: 1
-  delay: 3
+  delay: 3.5
   targetSceneName: Lobby
 --- !u!1 &391441150
 GameObject:
@@ -607,7 +607,6 @@ GameObject:
   - component: {fileID: 974902235}
   - component: {fileID: 974902234}
   - component: {fileID: 974902237}
-  - component: {fileID: 974902236}
   m_Layer: 5
   m_Name: Cover
   m_TagString: Untagged
@@ -672,22 +671,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 974902232}
   m_CullTransparentMesh: 1
---- !u!114 &974902236
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 974902232}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e3435b640bbe3842a8ea0e719e519a4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  autoPlay: 1
-  fadeType: 0
-  delay: 2
-  duration: 1
 --- !u!114 &974902237
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -701,9 +684,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   autoPlay: 1
-  fadeType: 1
-  delay: 0
-  duration: 1
+  fadeType: 2
+  startDelay: 0
+  duration1: 1
+  duration2: 1
+  fadeDelay: 1
 --- !u!1 &1121893488
 GameObject:
   m_ObjectHideFlags: 0

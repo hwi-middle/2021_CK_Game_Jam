@@ -1,5 +1,7 @@
 public enum EFadeType
 {
     FadeIn,
-    FadeOut
+    FadeOut,
+    FadeOutAndFadeIn,
+    FadeInAndFadeOut
 }
