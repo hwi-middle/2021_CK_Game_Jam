@@ -1,5 +1,6 @@
 public enum EItemType
 {
-    USB,
-    SpeedUp
+    MonsterEnergy,
+    TomatoJuice,
+    CucumberJuice
 }

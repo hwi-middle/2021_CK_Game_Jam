@@ -8,14 +8,17 @@ public class InGameUIController : MonoBehaviour
     private PlayerMovement player;
     private ItemHolder itemHolder;
 
-    public GameObject staminaPlane;
-    public Image staminaGuage;
-    public Image USBIcon;
-    public Sprite[] USBSprites;
-    public Text healthDebugText;
+    [SerializeField] private GameObject staminaPlane;
+    [SerializeField] private Image staminaGuage;
+    [SerializeField] private Image USBIcon;
+    [SerializeField] private Sprite[] USBSprites;
+    [SerializeField] private Text healthDebugText;
 
     private bool isMemoPanelOpened = false;
     private bool isStopped = false;
+
+    [SerializeField] private Canvas inGameCanvas;
+    [SerializeField] private Canvas pauseCanvas;
 
     // Start is called before the first frame update
     void Start()
@@ -40,6 +43,9 @@ public class InGameUIController : MonoBehaviour
         {
             if(isStopped)
             {
+                player.SetCursorLockState(CursorLockMode.Locked);
+                inGameCanvas.gameObject.SetActive(true);
+                pauseCanvas.gameObject.SetActive(false);
                 isStopped = false;
                 player.shouldCameraFreeze = false;
                 Debug.Log("게임 재개");
@@ -47,6 +53,9 @@ public class InGameUIController : MonoBehaviour
             }
             else
             {
+                player.SetCursorLockState(CursorLockMode.None);
+                inGameCanvas.gameObject.SetActive(false);
+                pauseCanvas.gameObject.SetActive(true);
                 isStopped = true;
                 player.shouldCameraFreeze = true;
                 Debug.Log("게임 정지");

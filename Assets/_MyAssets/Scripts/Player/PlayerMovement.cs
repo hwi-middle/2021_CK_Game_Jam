@@ -95,7 +95,7 @@ public class PlayerMovement : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
 
         cam = Camera.main;
-        Cursor.lockState = CursorLockMode.Locked;
+        SetCursorLockState(CursorLockMode.Locked);
         camRotation = cam.transform.localRotation;
         bodyRotation = transform.localRotation;
     }
@@ -184,6 +184,11 @@ public class PlayerMovement : MonoBehaviour
         //velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
         PlayFootstepSound(isLeftShiftKeyDown, velocity);
+    }
+
+    public void SetCursorLockState(CursorLockMode mode)
+    {
+        Cursor.lockState = mode;
     }
 
     void SetCamera()
