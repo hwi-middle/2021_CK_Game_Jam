@@ -103,6 +103,9 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //사망시 조작 불가
+        if (isDead) return;
+
         //인스펙터에서 gravityScale이 변경될 수 있으므로 Update 메서드에서 처리
         gravity = GRAVITY_CONSTANT * gravityScale;
 
@@ -319,7 +322,7 @@ public class PlayerMovement : MonoBehaviour
     {
         while(true)
         {
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(healthDecreasementFrequency);
 
             currentHealth -= healthDecreasementAmount;
             if(currentHealth <= 0)

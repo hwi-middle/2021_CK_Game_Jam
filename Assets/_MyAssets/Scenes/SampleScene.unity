@@ -209,7 +209,7 @@ GameObject:
   - component: {fileID: 101735893}
   - component: {fileID: 101735892}
   m_Layer: 0
-  m_Name: VolumeModifier
+  m_Name: GlitchEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -228,6 +228,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   volume: {fileID: 1366228010}
+  effectStartThreshold: 90
+  healthGlitchMaxValue: 20
 --- !u!4 &101735893
 Transform:
   m_ObjectHideFlags: 0
@@ -2775,7 +2777,7 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 0
   healthDecreasementAmount: 1
-  healthDecreasementFrequency: 5
+  healthDecreasementFrequency: 0.5
   isDead: 0
   hasStamina: 1
   maxStamina: 100
