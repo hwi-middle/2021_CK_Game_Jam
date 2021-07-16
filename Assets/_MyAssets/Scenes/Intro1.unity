@@ -350,8 +350,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAuto: 1
-  delay: 3.5
-  targetSceneName: Lobby
+  delay: 4
+  targetSceneName: Intro2
 --- !u!1 &391441150
 GameObject:
   m_ObjectHideFlags: 0
