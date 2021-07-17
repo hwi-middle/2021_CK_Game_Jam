@@ -25,6 +25,19 @@ public class OptionsController : MonoBehaviour
         volume.profile.TryGet(out glitch);
         volume.profile.TryGet(out colorAdjustments);
         volume.profile.TryGet(out whiteBalance);
+
+        if(PlayerPrefs.GetInt("DisableVFX")==1)
+        {
+            VFXToggle.isOn = true;
+        }
+        else
+        {
+            VFXToggle.isOn = false;
+        }
+
+        ContrastSlider.value = PlayerPrefs.GetFloat("ContrastValue");
+        SaturationSlider.value = PlayerPrefs.GetFloat("SaturationValue");
+        BlueLightFilterSlider.value = PlayerPrefs.GetFloat("BlueLightFilterValue");
     }
 
     // Update is called once per frame
