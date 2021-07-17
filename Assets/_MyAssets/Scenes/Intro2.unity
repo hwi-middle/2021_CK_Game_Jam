@@ -340,7 +340,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -749.99, y: 224}
+  m_AnchoredPosition: {x: -715.99, y: 224}
   m_SizeDelta: {x: 98.9504, y: 98.95}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &227953307
@@ -723,8 +723,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -30.258, y: -99}
-  m_SizeDelta: {x: 1538.4143, y: 462.4654}
+  m_AnchoredPosition: {x: 15.9858, y: -63.746094}
+  m_SizeDelta: {x: 1570.386, y: 341.9576}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1290326059
 MonoBehaviour:
@@ -766,13 +766,12 @@ MonoBehaviour:
     \uC5B8\uC81C\uB4E0\uC9C0 \uC774\uB7EC\uD55C \uD6A8\uACFC\uB97C \uBE44\uD65C\uC131\uD654
     \uD558\uAC70\uB098 \uC0C9\uAC10\uC744 \uC870\uC808\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4.
     \uAD11\uACFC\uBBFC\uC131 \uBC1C\uC791\uC744 \uC608\uBC29\uD558\uAE30 \uC704\uD574\uC11C\uB294
-    \uC544\uB798\uC758 \uAD8C\uACE0\uB97C \uB530\uB974\uC2ED\uC2DC\uC624.\n\n-\uD50C\uB808\uC774
-    \uB3C4\uC911 \uB450\uD1B5\uACFC \uC5B4\uC9C0\uB7EC\uC6C0\uC744 \uD3EC\uD568\uD55C
-    \uBD88\uD3B8\uAC10\uC744 \uB290\uB07C\uAC70\uB098 \uBC1C\uC791\uC744 \uC77C\uC73C\uD0AC
-    \uACBD\uC6B0 \uC989\uC2DC \uD50C\uB808\uC774\uB97C \uC911\uB2E8\uD558\uACE0 \uC758\uC0AC\uC640
-    \uC0C1\uC758\uD558\uC2ED\uC2DC\uC624.\n\n-\uB418\uB3C4\uB85D \uBC1D\uC740 \uACF3\uC5D0\uC11C
-    \uD50C\uB808\uC774\uD558\uACE0 \uD53C\uB85C\uB97C \uB290\uB084 \uB54C \uD50C\uB808\uC774\uD558\uC9C0
-    \uB9C8\uC2ED\uC2DC\uC624."
+    \uB418\uB3C4\uB85D \uBC1D\uC740 \uACF3\uC5D0\uC11C \uD50C\uB808\uC774\uD558\uACE0
+    \uD53C\uB85C\uB97C \uB290\uB084 \uB54C \uD50C\uB808\uC774\uD558\uC9C0 \uB9C8\uC2ED\uC2DC\uC624.
+    \uD50C\uB808\uC774 \uB3C4\uC911 \uB450\uD1B5\uACFC \uC5B4\uC9C0\uB7EC\uC6C0\uC744
+    \uD3EC\uD568\uD55C \uBD88\uD3B8\uAC10\uC744 \uB290\uB07C\uAC70\uB098 \uBC1C\uC791\uC744
+    \uC77C\uC73C\uD0AC \uACBD\uC6B0 \uC989\uC2DC \uD50C\uB808\uC774\uB97C \uC911\uB2E8\uD558\uACE0
+    \uC758\uC0AC\uC640 \uC0C1\uC758\uD558\uC2ED\uC2DC\uC624."
 --- !u!222 &1290326060
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -815,7 +814,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -304, y: 230.04999}
+  m_AnchoredPosition: {x: -270, y: 230.04999}
   m_SizeDelta: {x: 705.2438, y: 86.8423}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1673378972

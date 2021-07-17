@@ -5,8 +5,16 @@ using UnityEngine.UI;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-public class OptionsController : MonoBehaviour
+public class SettingsController : MonoBehaviour
 {
+    [SerializeField] private GameObject[] sections;
+    /* 
+     * 각 카테고리별 요소들을 자식으로 갖는 오브젝트들
+     * 0: 사운드
+     * 1: 접근성
+     * 2: 조작
+     */
+
     [SerializeField] private Toggle VFXToggle;
     [SerializeField] private Slider ContrastSlider;
     [SerializeField] private Slider SaturationSlider;
@@ -26,7 +34,7 @@ public class OptionsController : MonoBehaviour
         volume.profile.TryGet(out colorAdjustments);
         volume.profile.TryGet(out whiteBalance);
 
-        if(PlayerPrefs.GetInt("DisableVFX")==1)
+        if (PlayerPrefs.GetInt("DisableVFX") == 1)
         {
             VFXToggle.isOn = true;
         }
@@ -44,6 +52,36 @@ public class OptionsController : MonoBehaviour
     void Update()
     {
 
+    }
+
+    public void ChangeSection(string name)
+    {
+        foreach (var g in sections)
+        {
+            g.SetActive(false);
+        }
+
+        int targetIdx = -1;
+        switch (name)
+        {
+            case "Sound":
+                targetIdx = 0;
+                break;
+            case "Accessibility":
+                targetIdx = 1;
+                break;
+            case "Input":
+                targetIdx = 3;
+                break;
+            case "General":
+                targetIdx = 4;
+                break;
+            default:
+                Debug.Assert(false);
+                break;
+        }
+
+        sections[targetIdx].SetActive(true);
     }
 
     public void ApplyVFXValue()

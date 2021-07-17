@@ -4,10 +4,10 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-public class VolumeModifier : MonoBehaviour
+public class GlitchVolumeModifier : MonoBehaviour
 {
     [SerializeField] private Volume volume;
-    [Range(0f,100f)]
+    [Range(0f, 100f)]
     [SerializeField] private float effectStartThreshold = 90f;
     [Range(0f, 80f)]
     [SerializeField] private float healthGlitchMaxValue = 20f;
@@ -26,12 +26,14 @@ public class VolumeModifier : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(player.isDead)
+        if (PlayerPrefs.GetInt("DisableVFX") == 1) return;
+
+        if (player.isDead)
         {
             healthGlitch.enable.value = false;
             gameOverGlitch.enable.value = true;
         }
-        else if(player.currentHealth <= effectStartThreshold)
+        else if (player.currentHealth <= effectStartThreshold)
         {
             healthGlitch.enable.value = true;
             //Ã¼·ÂÀÌ ³·¾ÆÁú¼ö·Ï amount°ªÀº ÃÖ´ñ°ª¿¡ ¼ö·Å

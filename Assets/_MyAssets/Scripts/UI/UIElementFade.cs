@@ -14,6 +14,7 @@ public class UIElementFade : MonoBehaviour
     public float duration2;
     public float fadeDelay;
     private Image imgSrc;
+    private bool isPlaying = false;
 
 
     void Start()
@@ -50,6 +51,8 @@ public class UIElementFade : MonoBehaviour
 
     private IEnumerator FadeIn(float t)
     {
+        if (isPlaying) yield break;
+        isPlaying = true;
         Color color = imgSrc.color;
         while (imgSrc.color.a < 1f)
         {
@@ -57,10 +60,13 @@ public class UIElementFade : MonoBehaviour
             imgSrc.color = color;
             yield return null;
         }
+        isPlaying = false;
     }
 
     private IEnumerator FadeOut(float t)
     {
+        if (isPlaying) yield break;
+        isPlaying = true;
         Color color = imgSrc.color;
         while (imgSrc.color.a > 0f)
         {
@@ -68,10 +74,13 @@ public class UIElementFade : MonoBehaviour
             imgSrc.color = color;
             yield return null;
         }
+        isPlaying = false;
     }
 
     private IEnumerator FadeOutAndFadeIn(float t1, float t2, float delay)
     {
+        if (isPlaying) yield break;
+        isPlaying = true;
         Color color = imgSrc.color;
         while (imgSrc.color.a > 0f)
         {
@@ -88,10 +97,13 @@ public class UIElementFade : MonoBehaviour
             imgSrc.color = color;
             yield return null;
         }
+        isPlaying = false;
     }
 
     private IEnumerator FadeInAndFadeOut(float t1, float t2, float delay)
     {
+        if (isPlaying) yield break;
+        isPlaying = true;
         Color color = imgSrc.color;
         while (imgSrc.color.a < 1f)
         {
@@ -108,10 +120,13 @@ public class UIElementFade : MonoBehaviour
             imgSrc.color = color;
             yield return null;
         }
+        isPlaying = false;
     }
 
     private IEnumerator FadeInAndLoadScene(float t, string name)
     {
+        if (isPlaying) yield break;
+        isPlaying = true;
         Color color = imgSrc.color;
         while (imgSrc.color.a < 1f)
         {
@@ -120,6 +135,7 @@ public class UIElementFade : MonoBehaviour
             yield return null;
         }
 
+        isPlaying = false;
         SceneManager.LoadScene(name);
     }
 
