@@ -70,7 +70,7 @@ MonoBehaviour:
     m_Value: 2
   minMax:
     m_OverrideState: 1
-    m_Value: {x: 0.1, y: 2}
+    m_Value: {x: 0.2, y: 3}
     min: 0
     max: 60
   frequency:

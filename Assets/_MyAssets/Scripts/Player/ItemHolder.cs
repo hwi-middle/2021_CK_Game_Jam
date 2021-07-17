@@ -4,14 +4,23 @@ using UnityEngine;
 
 public class ItemHolder : MonoBehaviour
 {
-    static ItemHolder instance;
+    private static ItemHolder instance;
     public static ItemHolder Instance { get { Init(); return instance; } }
 
-    int idx = 0;
-    public int ItemIndex { get { return idx; } }
-
-    bool hasUSBItem = false;
+    private bool hasUSBItem = false;
     public bool HasUSBItem { get { return hasUSBItem; } }
+
+    private int USBIndex = 0;
+    public int USBItemIndex { get { return USBIndex; } }
+
+    private int coin = 99;
+    public int Coin { get { return coin; } }
+
+    private bool hasHealthItem = false;
+    public bool HasHealthItem { get { return hasHealthItem; } set { hasHealthItem = value; } }
+
+    private EItemType type;
+    public EItemType HealthItemType { get { return type; } }
 
     private void Awake()
     {
@@ -32,21 +41,33 @@ public class ItemHolder : MonoBehaviour
         }
     }
 
-    public void GetItem(int itemIdx)
+    public void GetUSBItem(int itemIdx)
     {
         hasUSBItem = true;
-        idx = itemIdx;
+        USBIndex = itemIdx;
     }
 
-    public void UseItem()
+    public void UseUSBItem()
     {
         hasUSBItem = false;
-        idx = 0;
+        USBIndex = 0;
     }
 
-    //자판기 아이템에서 사용할 함수, 구현필요
-    public void GetHealthItem(int amount)
+    public void GetHealthItem()
     {
-        return;
+        int rand = Random.Range(0, 3);
+        type = (EItemType)rand;
+        hasHealthItem = true;
+    }
+
+    public void IncreaseCoin()
+    {
+        coin++;
+    }
+
+    public void DecreaseCoin()
+    {
+        if (coin <= 0) return;
+        coin--;
     }
 }

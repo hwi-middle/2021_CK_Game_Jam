@@ -29,7 +29,7 @@ public class Items : MonoBehaviour
             }
             else
             {
-                itemHolder.GetItem(itemIndex);
+                itemHolder.GetUSBItem(itemIndex);
                 Destroy(gameObject);
                 itemText.text = "";
                 Debug.Log("USB È¹µæ");

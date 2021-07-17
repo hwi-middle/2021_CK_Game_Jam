@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ItemChecker : MonoBehaviour
+public class VendingMachine : MonoBehaviour
 {
     ItemHolder itemHolder;
     Text itemText;
@@ -21,15 +21,17 @@ public class ItemChecker : MonoBehaviour
     {
         if (isActivated && Input.GetKeyDown(KeyCode.F))
         {
-            if (itemHolder.HasUSBItem)
+            if (itemHolder.Coin > 0)
             {
-                itemText.text = "USB 판독 완료(구현 필요)";
-                Debug.Log("USB 판독을 진행했음");
-                itemHolder.UseUSBItem();
+                itemText.text = "아이템 뽑기 완료(구현 필요)";
+                Debug.Log("아이템 뽑기를 진행했음");
+                itemHolder.DecreaseCoin();
+                itemHolder.GetHealthItem();
             }
             else
             {
-                Debug.Log("판독할 USB가 없음");
+                itemText.text = "코인이 부족합니다.";
+                Debug.Log("코인 부족");
             }
         }
     }
@@ -39,13 +41,13 @@ public class ItemChecker : MonoBehaviour
         if (other.tag == "Player")
         {
             isActivated = true;
-            if (itemHolder.HasUSBItem)
+            if (itemHolder.Coin > 0)
             {
-                itemText.text = "F키를 눌러 USB 판독 시작";
+                itemText.text = "F키를 눌러 아이템 뽑기";
             }
             else
             {
-                itemText.text = "USB 획득 필요";
+                itemText.text = "코인 획득 필요";
             }
         }
     }

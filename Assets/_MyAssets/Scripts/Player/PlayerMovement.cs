@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    //이동관련 값
+    //이동 처리
     private const float GRAVITY_CONSTANT = -9.81f;
     public float gravityScale = 1.0f;
     private float gravity;
@@ -22,7 +22,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isMoving = false;
     private bool shouldAlternativeSpeedApplied = false;
 
-    //체력 관련 값
+    //체력 처리
     public bool hasHealth = false;
     public bool automaticallyDecreaseHealth = false;
     public float maxHealth = 100f;
@@ -31,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
     public float healthDecreasementFrequency = 5f;
     public bool isDead = false;
 
-    //스태미너 관련 값
+    //스태미너 처리
     public bool hasStamina = false;
     public float maxStamina = 100f;
     public float currentStamina;
@@ -48,7 +48,7 @@ public class PlayerMovement : MonoBehaviour
     Quaternion camRotation;
     Quaternion bodyRotation;
 
-    //발소리 재생
+    //발소리 재생 처리
     public List<AudioData> audioDatas = new List<AudioData>();
     private List<AudioData> activatedAudioDatas = new List<AudioData>();
     private int prevClipIndex = -1;
@@ -56,12 +56,12 @@ public class PlayerMovement : MonoBehaviour
     public float frequency;
     private float time = 0f;
 
-    //바닥에 닿았는지 체크하는 groundCheck 오브젝트
+    //바닥에 닿았는지 체크 처리
     public Transform groundCheck;
     public float groundDistance = 0.4f;
     private LayerMask groundMask;
 
-    //싱글톤
+    //싱글톤 처리
     static PlayerMovement instance;
     public static PlayerMovement Instance { get { Init(); return instance; } }
 
@@ -331,5 +331,11 @@ public class PlayerMovement : MonoBehaviour
                 break;
             }
         }
+    }
+
+    public void Heal(int amount)
+    {
+        currentHealth += amount;
+        if (currentHealth > maxHealth) currentHealth = maxHealth;
     }
 }
