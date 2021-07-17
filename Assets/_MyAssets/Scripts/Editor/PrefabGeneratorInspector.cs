@@ -51,7 +51,7 @@ public class PrefabGeneratorInspector : Editor
             }
             else
             {
-                Undo.RegisterCreatedObjectUndo(_target.GeneratePrefab(), "Create " + name);
+                Undo.RegisterCreatedObjectUndo(GeneratePrefab(), "Create " + name);
             }
         }
 
@@ -59,5 +59,30 @@ public class PrefabGeneratorInspector : Editor
         {
             EditorUtility.SetDirty(target);
         }
+    }
+
+    public GameObject GeneratePrefab()
+    {
+        GameObject obj;
+
+        if (_target.genType == EPrefabGenerationType.PlaceBySpecificPosition)
+        {
+            obj = PrefabUtility.InstantiatePrefab(_target.prefab) as GameObject;
+            obj.transform.position = _target.pos;
+            obj.transform.rotation = Quaternion.Euler(_target.rot);
+        }
+        else
+        {
+            obj = PrefabUtility.InstantiatePrefab(_target.prefab) as GameObject;
+            obj.transform.position = _target.transform.position;
+            obj.transform.rotation = Quaternion.Euler(_target.rot);
+        }
+
+        obj.name = _target.prefabName;
+        if (_target.hasParent)
+        {
+            obj.transform.parent = _target.parent.transform;
+        }
+        return obj;
     }
 }
