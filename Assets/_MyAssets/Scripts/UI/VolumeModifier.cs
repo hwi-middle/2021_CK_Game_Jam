@@ -21,7 +21,6 @@ public class VolumeModifier : MonoBehaviour
         player = PlayerMovement.Instance;
         volume.profile.TryGet(out healthGlitch);
         volume.profile.TryGet(out gameOverGlitch);
-        healthGlitch.enable.value = true;
     }
 
     // Update is called once per frame
@@ -33,9 +32,15 @@ public class VolumeModifier : MonoBehaviour
             gameOverGlitch.enable.value = true;
         }
         else if(player.currentHealth <= effectStartThreshold)
-        {       
+        {
+            healthGlitch.enable.value = true;
             //체력이 낮아질수록 amount값은 최댓값에 수렴
             healthGlitch.amount.value = healthGlitchMaxValue * (1 - (player.currentHealth / player.maxHealth));
+        }
+        else
+        {
+            //회복으로 인해 역치값보다 체력값이 커지면 효과 off
+            healthGlitch.enable.value = false;
         }
     }
 }
