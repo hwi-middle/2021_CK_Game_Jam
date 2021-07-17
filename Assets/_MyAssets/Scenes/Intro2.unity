@@ -340,8 +340,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 179}
-  m_SizeDelta: {x: 160, y: 160}
+  m_AnchoredPosition: {x: -749.99, y: 224}
+  m_SizeDelta: {x: 98.9504, y: 98.95}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &227953307
 MonoBehaviour:
@@ -425,7 +425,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAuto: 1
-  delay: 5.5
+  delay: 6.5
   targetSceneName: Lobby
 --- !u!1 &770734211
 GameObject:
@@ -613,7 +613,7 @@ MonoBehaviour:
   startDelay: 0
   duration1: 1
   duration2: 1
-  fadeDelay: 3
+  fadeDelay: 4
 --- !u!1 &1121893488
 GameObject:
   m_ObjectHideFlags: 0
@@ -723,8 +723,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -177}
-  m_SizeDelta: {x: 1598.9343, y: 251.9767}
+  m_AnchoredPosition: {x: -30.258, y: -99}
+  m_SizeDelta: {x: 1538.4143, y: 462.4654}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1290326059
 MonoBehaviour:
@@ -753,21 +753,26 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 100
-    m_Alignment: 1
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uBCF8 \uAC8C\uC784\uBB3C\uC758 \uC870\uBA85 \uC5F0\uCD9C\uC740 \uC77C\uBD80
-    \uC0AC\uC6A9\uC790\uC5D0\uAC8C \uAD11\uACFC\uBBFC\uC131 \uBC1C\uC791\uC744 \uC77C\uC73C\uD0AC
-    \uC218 \uC788\uC2B5\uB2C8\uB2E4. \uAC04\uC9C8 \uBCD1\uB825\uC774 \uC788\uAC70\uB098
-    \uC6D0\uD560 \uACBD\uC6B0 \uC124\uC815\uC5D0\uC11C \uC5B8\uC81C\uB4E0\uC9C0 \uC774\uB7EC\uD55C
-    \uD6A8\uACFC\uB97C \uBE44\uD65C\uC131\uD654 \uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4.
-    \uD50C\uB808\uC774 \uB3C4\uC911 \uB450\uD1B5\uACFC \uC5B4\uC9C0\uB7EC\uC6C0\uC744
-    \uD3EC\uD568\uD55C \uBD88\uD3B8\uAC10\uC744 \uB290\uB07C\uAC70\uB098 \uBC1C\uC791\uC744
-    \uC77C\uC73C\uD0AC \uACBD\uC6B0 \uC989\uC2DC \uD50C\uB808\uC774\uB97C \uC911\uB2E8\uD558\uACE0
-    \uC758\uC0AC\uC640 \uC0C1\uC758\uD558\uC2ED\uC2DC\uC624."
+  m_Text: "\uBCF8 \uAC8C\uC784\uBB3C\uC758 \uD2B9\uC218\uD6A8\uACFC\uB294 \uADF9\uD788
+    \uC18C\uC218\uC758 \uD50C\uB808\uC774\uC5B4\uC5D0\uAC8C \uAD11\uACFC\uBBFC\uC131
+    \uBC1C\uC791\uC744 \uC77C\uC73C\uD0AC \uC218 \uC788\uC2B5\uB2C8\uB2E4. \uAC04\uC9C8
+    \uBCD1\uB825\uC774 \uC788\uAC70\uB098 \uC6D0\uD560 \uACBD\uC6B0 \uC124\uC815\uC5D0\uC11C
+    \uC5B8\uC81C\uB4E0\uC9C0 \uC774\uB7EC\uD55C \uD6A8\uACFC\uB97C \uBE44\uD65C\uC131\uD654
+    \uD558\uAC70\uB098 \uC0C9\uAC10\uC744 \uC870\uC808\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4.
+    \uAD11\uACFC\uBBFC\uC131 \uBC1C\uC791\uC744 \uC608\uBC29\uD558\uAE30 \uC704\uD574\uC11C\uB294
+    \uC544\uB798\uC758 \uAD8C\uACE0\uB97C \uB530\uB974\uC2ED\uC2DC\uC624.\n\n-\uD50C\uB808\uC774
+    \uB3C4\uC911 \uB450\uD1B5\uACFC \uC5B4\uC9C0\uB7EC\uC6C0\uC744 \uD3EC\uD568\uD55C
+    \uBD88\uD3B8\uAC10\uC744 \uB290\uB07C\uAC70\uB098 \uBC1C\uC791\uC744 \uC77C\uC73C\uD0AC
+    \uACBD\uC6B0 \uC989\uC2DC \uD50C\uB808\uC774\uB97C \uC911\uB2E8\uD558\uACE0 \uC758\uC0AC\uC640
+    \uC0C1\uC758\uD558\uC2ED\uC2DC\uC624.\n\n-\uB418\uB3C4\uB85D \uBC1D\uC740 \uACF3\uC5D0\uC11C
+    \uD50C\uB808\uC774\uD558\uACE0 \uD53C\uB85C\uB97C \uB290\uB084 \uB54C \uD50C\uB808\uC774\uD558\uC9C0
+    \uB9C8\uC2ED\uC2DC\uC624."
 --- !u!222 &1290326060
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -810,7 +815,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000015378, y: 37.579}
+  m_AnchoredPosition: {x: -304, y: 230.04999}
   m_SizeDelta: {x: 705.2438, y: 86.8423}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1673378972
@@ -840,7 +845,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 6
     m_MaxSize: 100
-    m_Alignment: 7
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
