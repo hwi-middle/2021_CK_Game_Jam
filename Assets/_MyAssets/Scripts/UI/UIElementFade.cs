@@ -28,7 +28,7 @@ public class UIElementFade : MonoBehaviour
         }
     }
 
-    private void CallFadeCoroutine()
+    public void CallFadeCoroutine()
     {
         switch (fadeType)
         {
