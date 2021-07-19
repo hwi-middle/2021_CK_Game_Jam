@@ -48,6 +48,20 @@ public class PlayerMovement : MonoBehaviour
     Quaternion camRotation;
     Quaternion bodyRotation;
 
+    //카메라 흔들림(Head Bobbing) 처리
+    public bool useHeadBob;
+    public Transform headTransform;
+    public Transform camTransform;
+
+    public float bobFrequency = 5f;
+    public float bobHorizontalAmplitude = 0.1f;
+    public float bobVerticalAmplitude = 0.1f;
+    public float headBobSmoothing = 0.1f;
+
+    private float walkingTime = 0f;
+    private Vector3 targetCameraPos;
+
+
     //발소리 재생 처리
     public List<AudioData> audioDatas = new List<AudioData>();
     private List<AudioData> activatedAudioDatas = new List<AudioData>();
@@ -84,7 +98,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Init();
         currentHealth = maxHealth;
-        if(hasHealth)
+        if (hasHealth)
         {
             StartCoroutine(DecreaseHealth());
         }
@@ -98,6 +112,8 @@ public class PlayerMovement : MonoBehaviour
         SetCursorLockState(CursorLockMode.Locked);
         camRotation = cam.transform.localRotation;
         bodyRotation = transform.localRotation;
+
+        camTransform = cam.transform;
     }
 
     // Update is called once per frame
@@ -154,12 +170,21 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //대기 시간에 따라 스태미너 회복
-        if (isMoving && isLeftShiftKeyDown)
+        if (isMoving)
         {
-            idleTime = 0f;
+            walkingTime += Time.deltaTime;
+            if (isLeftShiftKeyDown)
+            {
+                idleTime = 0f;
+            }
+            else
+            {
+                idleTime += Time.deltaTime;
+            }
         }
         else
         {
+            walkingTime = 0f;
             idleTime += Time.deltaTime;
         }
 
@@ -170,6 +195,15 @@ public class PlayerMovement : MonoBehaviour
             {
                 currentStamina = maxStamina;
             }
+        }
+
+        //HeadBob 적용
+        targetCameraPos = headTransform.position + CalculateHeadBobOffset(walkingTime);
+        camTransform.position = Vector3.Lerp(camTransform.position, targetCameraPos, headBobSmoothing);
+
+        if ((camTransform.position - targetCameraPos).magnitude <= Mathf.Epsilon)
+        {
+            camTransform.position = targetCameraPos;
         }
 
         //Alternative Speed를 적용해야하는지 확인 후 적용
@@ -207,6 +241,28 @@ public class PlayerMovement : MonoBehaviour
 
         cam.transform.localRotation = camRotation;
         transform.localRotation = bodyRotation;
+    }
+
+    Vector3 CalculateHeadBobOffset(float t)
+    {
+        float horizontalOffset = 0f;
+        float verticalOffset = 0f;
+        Vector3 offset = Vector3.zero;
+
+        if (t > 0)
+        {
+            float bobAmount = t * bobFrequency;
+            if (shouldAlternativeSpeedApplied)
+            {
+                bobAmount *= alternativeSpeedScale;
+            }
+            horizontalOffset = Mathf.Cos(bobAmount) * bobHorizontalAmplitude;
+            verticalOffset = Mathf.Sin(2 * bobAmount) * bobVerticalAmplitude;
+
+            offset = headTransform.right * horizontalOffset + headTransform.up * verticalOffset;
+        }
+
+        return offset;
     }
 
     void CheckGrounded()
@@ -320,12 +376,12 @@ public class PlayerMovement : MonoBehaviour
 
     IEnumerator DecreaseHealth()
     {
-        while(true)
+        while (true)
         {
             yield return new WaitForSeconds(healthDecreasementFrequency);
 
             currentHealth -= healthDecreasementAmount;
-            if(currentHealth <= 0)
+            if (currentHealth <= 0)
             {
                 isDead = true;
                 break;
