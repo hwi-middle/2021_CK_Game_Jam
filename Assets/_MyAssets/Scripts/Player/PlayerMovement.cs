@@ -97,13 +97,17 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         Init();
+
+        sensitivityX = PlayerPrefs.GetFloat("XSensitivityValue", 2f);
+        sensitivityY = PlayerPrefs.GetFloat("YSensitivityValue", 2f);
+
         currentHealth = maxHealth;
         if (hasHealth)
         {
             StartCoroutine(DecreaseHealth());
         }
-
         currentStamina = maxStamina;
+
         controller = GetComponent<CharacterController>();
         groundMask = 1 << LayerMask.NameToLayer("Ground");
         audioSource = GetComponent<AudioSource>();

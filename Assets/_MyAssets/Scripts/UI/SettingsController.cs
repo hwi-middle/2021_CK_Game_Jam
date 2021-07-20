@@ -35,6 +35,11 @@ public class SettingsController : MonoBehaviour
     //조작 설정
     [SerializeField] private Slider xSensitivitySlider;
     [SerializeField] private Slider ySensitivitySlider;
+    [SerializeField] private Text xSensitivityText;
+    [SerializeField] private Text ySensitivityText;
+    [SerializeField] private Text sensitivityPreviewText;
+    [SerializeField] private Transform sensitivityPreviewCam;
+    [SerializeField] private Transform sensitivityPreviewBody;
 
     //일반 설정
     [SerializeField] private Toggle keyPanelToggle;
@@ -80,9 +85,12 @@ public class SettingsController : MonoBehaviour
         SaturationSlider.value = PlayerPrefs.GetFloat("SaturationValue", 0f);
         BlueLightFilterSlider.value = PlayerPrefs.GetFloat("BlueLightFilterValue", 0f);
 
-        ////조작 설정
-        //xSensitivitySlider.value = PlayerPrefs.GetFloat("XSensitivityValue", 2f);
-        //ySensitivitySlider.value = PlayerPrefs.GetFloat("YSensitivityValue", 2f);
+        //조작 설정
+        xSensitivitySlider.value = PlayerPrefs.GetFloat("XSensitivityValue", 2f);
+        ySensitivitySlider.value = PlayerPrefs.GetFloat("YSensitivityValue", 2f);
+        xSensitivityText.text = string.Format("{0:0.##}", xSensitivitySlider.value);
+        ySensitivityText.text = string.Format("{0:0.##}", ySensitivitySlider.value);
+        SetSensitivityPreviewText(false);
 
         ////일반 설정
         //if (PlayerPrefs.GetInt("DisableKeyPanel", 0) == 1)
@@ -112,10 +120,10 @@ public class SettingsController : MonoBehaviour
                 targetIdx = 1;
                 break;
             case "Input":
-                targetIdx = 3;
+                targetIdx = 2;
                 break;
             case "General":
-                targetIdx = 4;
+                targetIdx = 3;
                 break;
             default:
                 Debug.Assert(false);
@@ -165,6 +173,41 @@ public class SettingsController : MonoBehaviour
         {
             muteIcons[2].enabled = false;
         }
+    }
+
+    public void ApplySensitivityValue(string axis)
+    {
+        float val;
+        if (axis == "x")
+        {
+            val = xSensitivitySlider.value;
+            xSensitivityText.text = string.Format("{0:0.##}", val);
+            PlayerPrefs.SetFloat("XSensitivityValue", val);
+            return;
+        }
+        else if (axis == "y")
+        {
+            val = ySensitivitySlider.value;
+            ySensitivityText.text = string.Format("{0:0.##}", val);
+            PlayerPrefs.SetFloat("YSensitivityValue", val);
+            return;
+        }
+        else
+        {
+            return;
+        }
+    }
+
+    public void ResetSensitivityValues()
+    {
+        float val = 2f;
+        xSensitivitySlider.value = val;
+        PlayerPrefs.SetFloat("XSensitivityValue", val);
+        xSensitivityText.text = string.Format("{0:0.##}", val);
+
+        ySensitivitySlider.value = val;
+        PlayerPrefs.SetFloat("YSensitivityValue", val);
+        ySensitivityText.text = string.Format("{0:0.##}", val);
     }
 
     public void ApplyVFXValue()
@@ -218,5 +261,82 @@ public class SettingsController : MonoBehaviour
         BlueLightFilterSlider.value = 0;
         PlayerPrefs.SetFloat("BlueLightFilterValue", 0);
         whiteBalance.temperature.value = 0;
+    }
+
+    public void SensitivityTest()
+    {
+        StartCoroutine(DoSensitivityTest());
+    }
+
+    IEnumerator DoSensitivityTest()
+    {
+        float sensitivityX = PlayerPrefs.GetFloat("XSensitivityValue", 2f);
+        float sensitivityY = PlayerPrefs.GetFloat("YSensitivityValue", 2f);
+
+        Quaternion camRotation = sensitivityPreviewCam.rotation;
+        Quaternion bodyRotation = sensitivityPreviewBody.rotation;
+
+        Quaternion camOriginal = camRotation;
+        Quaternion bodyOriginal = bodyRotation;
+
+
+        Cursor.lockState = CursorLockMode.Locked;
+        SetSensitivityPreviewText(true);
+
+        yield return null; //정지 후 재개시 마우스 커서 좌표의 변화에 따라 카메라가 회전하므로 한 프레임 스킵
+
+        while (true)
+        {
+            if(Input.GetKey(KeyCode.Escape))
+            {
+                SetSensitivityPreviewText(false);
+                Cursor.lockState = CursorLockMode.None;
+
+                sensitivityPreviewCam.localRotation = camOriginal;
+                sensitivityPreviewBody.localRotation = bodyOriginal;
+
+                yield break;
+            }
+
+            float yRotation = Input.GetAxis("Mouse X") * sensitivityX;
+            float xRotation = Input.GetAxis("Mouse Y") * sensitivityY;
+
+            camRotation *= Quaternion.Euler(-xRotation, 0f, 0f);
+            camRotation = ClampRotationAroundXAxis(camRotation);
+            bodyRotation *= Quaternion.Euler(0f, yRotation, 0f);
+
+            sensitivityPreviewCam.localRotation = camRotation;
+            sensitivityPreviewBody.localRotation = bodyRotation;
+
+            yield return null;
+        }
+    }
+
+    Quaternion ClampRotationAroundXAxis(Quaternion q)
+    {
+        q.x /= q.w;
+        q.y /= q.w;
+        q.z /= q.w;
+        q.w = 1.0f;
+
+        float angleX = 2.0f * Mathf.Rad2Deg * Mathf.Atan(q.x);
+
+        angleX = Mathf.Clamp(angleX, -90f, 90f);
+
+        q.x = Mathf.Tan(0.5f * Mathf.Deg2Rad * angleX);
+
+        return q;
+    }
+
+    void SetSensitivityPreviewText(bool isActivated)
+    {
+        if(isActivated)
+        {
+            sensitivityPreviewText.text = "ESC키를 눌러 그만두기";
+        }
+        else
+        {
+            sensitivityPreviewText.text = "여기를 눌러 감도 체험하기";
+        }
     }
 }
