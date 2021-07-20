@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7580741862469903303}
   - component: {fileID: 5679254388982634253}
   - component: {fileID: 4571753814475953856}
+  - component: {fileID: 3050708579037819722}
   m_Layer: 0
   m_Name: bookshelf03
   m_TagString: Untagged
@@ -95,3 +96,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.5, y: 2.1, z: 0.59999996}
   m_Center: {x: 0, y: 1.05, z: 0}
+--- !u!208 &3050708579037819722
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6183512343235589848}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.75000006, y: 1.0500001, z: 0.3}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 1.0500001, z: 0}
+  m_TimeToStationary: 0.5

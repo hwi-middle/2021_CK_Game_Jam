@@ -20,16 +20,14 @@ public class PitchModifier : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (PlayerPrefs.GetInt("DisableVFX") == 1) return;
-
         if (player.currentHealth <= effectStartThreshold)
         {
-            Debug.Log("dd");
             //체력이 낮아질수록 pitch 낮추기
-            audioSource.pitch = Mathf.Lerp(1.0f, pitchMinValue, player.currentHealth / player.maxHealth);
+            audioSource.pitch = Mathf.Lerp(pitchMinValue, 1.0f, player.currentHealth / player.maxHealth);
         }
         else
         {
+            Debug.Log("here");
             //회복으로 인해 역치값보다 체력값이 커지면 효과 off
             audioSource.pitch = 1.0f;
         }
