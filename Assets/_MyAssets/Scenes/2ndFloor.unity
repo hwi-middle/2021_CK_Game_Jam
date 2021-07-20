@@ -4981,7 +4981,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSource: {fileID: 1921197345}
   effectStartThreshold: 80
-  pitchMinValue: 0.2
+  pitchMinValue: 0.5
 --- !u!1001 &618050599
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9476,7 +9476,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1037765796
 MonoBehaviour:
   m_ObjectHideFlags: 0

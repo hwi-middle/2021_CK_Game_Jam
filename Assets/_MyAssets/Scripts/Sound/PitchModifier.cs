@@ -27,7 +27,6 @@ public class PitchModifier : MonoBehaviour
         }
         else
         {
-            Debug.Log("here");
             //회복으로 인해 역치값보다 체력값이 커지면 효과 off
             audioSource.pitch = 1.0f;
         }

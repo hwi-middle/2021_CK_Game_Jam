@@ -287,7 +287,7 @@ public class SettingsController : MonoBehaviour
 
         while (true)
         {
-            if(Input.GetKey(KeyCode.Escape))
+            if(Input.GetMouseButtonDown(0))
             {
                 SetSensitivityPreviewText(false);
                 Cursor.lockState = CursorLockMode.None;
@@ -332,7 +332,7 @@ public class SettingsController : MonoBehaviour
     {
         if(isActivated)
         {
-            sensitivityPreviewText.text = "ESC키를 눌러 그만두기";
+            sensitivityPreviewText.text = "클릭하여 그만두기";
         }
         else
         {
