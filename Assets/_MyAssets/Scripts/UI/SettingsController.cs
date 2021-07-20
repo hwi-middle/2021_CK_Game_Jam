@@ -15,6 +15,13 @@ public class SettingsController : MonoBehaviour
      * 2: 조작
      */
 
+    //사운드 설정
+    [SerializeField] private Slider BGMSlider;
+    [SerializeField] private Slider SESlider;
+    [SerializeField] private Slider FootstepSoundSlider;
+    [SerializeField] private Image[] muteIcons; //각 섹션별 음소거 아이콘
+
+    //접근성 설정
     [SerializeField] private Toggle VFXToggle;
     [SerializeField] private Slider ContrastSlider;
     [SerializeField] private Slider SaturationSlider;
@@ -25,16 +32,42 @@ public class SettingsController : MonoBehaviour
     private ColorAdjustments colorAdjustments;
     private WhiteBalance whiteBalance;
 
+    //조작 설정
+    [SerializeField] private Slider xSensitivitySlider;
+    [SerializeField] private Slider ySensitivitySlider;
 
+    //일반 설정
+    [SerializeField] private Toggle keyPanelToggle;
 
     // Start is called before the first frame update
     void Start()
     {
+        //사운드 설정
+        BGMSlider.value = PlayerPrefs.GetFloat("BGMValue", 1f);
+        SESlider.value = PlayerPrefs.GetFloat("SEValue", 1f);
+        FootstepSoundSlider.value = PlayerPrefs.GetFloat("FootstepSoundValue", 1f);
+
+
+        List<Slider> soundSliders = new List<Slider> { BGMSlider, SESlider, FootstepSoundSlider };
+
+        for (int i = 0; i < 3; i++)
+        {
+            if (soundSliders[i].value <= 0)
+            {
+                muteIcons[i].enabled = true;
+            }
+            else
+            {
+                muteIcons[i].enabled = false;
+            }
+        }
+
+        //접근성 설정
         volume.profile.TryGet(out glitch);
         volume.profile.TryGet(out colorAdjustments);
         volume.profile.TryGet(out whiteBalance);
 
-        if (PlayerPrefs.GetInt("DisableVFX") == 1)
+        if (PlayerPrefs.GetInt("DisableVFX", 0) == 1)
         {
             VFXToggle.isOn = true;
         }
@@ -43,15 +76,23 @@ public class SettingsController : MonoBehaviour
             VFXToggle.isOn = false;
         }
 
-        ContrastSlider.value = PlayerPrefs.GetFloat("ContrastValue");
-        SaturationSlider.value = PlayerPrefs.GetFloat("SaturationValue");
-        BlueLightFilterSlider.value = PlayerPrefs.GetFloat("BlueLightFilterValue");
-    }
+        ContrastSlider.value = PlayerPrefs.GetFloat("ContrastValue", 0f);
+        SaturationSlider.value = PlayerPrefs.GetFloat("SaturationValue", 0f);
+        BlueLightFilterSlider.value = PlayerPrefs.GetFloat("BlueLightFilterValue", 0f);
 
-    // Update is called once per frame
-    void Update()
-    {
+        ////조작 설정
+        //xSensitivitySlider.value = PlayerPrefs.GetFloat("XSensitivityValue", 2f);
+        //ySensitivitySlider.value = PlayerPrefs.GetFloat("YSensitivityValue", 2f);
 
+        ////일반 설정
+        //if (PlayerPrefs.GetInt("DisableKeyPanel", 0) == 1)
+        //{
+        //    keyPanelToggle.isOn = true;
+        //}
+        //else
+        //{
+        //    keyPanelToggle.isOn = false;
+        //}
     }
 
     public void ChangeSection(string name)
@@ -82,6 +123,48 @@ public class SettingsController : MonoBehaviour
         }
 
         sections[targetIdx].SetActive(true);
+    }
+
+    public void ApplyBGMValue()
+    {
+        float val = BGMSlider.value;
+        PlayerPrefs.SetFloat("BGMValue", val);
+        if (val <= 0)
+        {
+            muteIcons[0].enabled = true;
+        }
+        else
+        {
+            muteIcons[0].enabled = false;
+        }
+    }
+
+    public void ApplySEValue()
+    {
+        float val = SESlider.value;
+        PlayerPrefs.SetFloat("SEValue", val);
+        if (val <= 0)
+        {
+            muteIcons[1].enabled = true;
+        }
+        else
+        {
+            muteIcons[1].enabled = false;
+        }
+    }
+
+    public void ApplyFootstepSoundValue()
+    {
+        float val = FootstepSoundSlider.value;
+        PlayerPrefs.SetFloat("FootstepSoundValue", val);
+        if (val <= 0)
+        {
+            muteIcons[2].enabled = true;
+        }
+        else
+        {
+            muteIcons[2].enabled = false;
+        }
     }
 
     public void ApplyVFXValue()

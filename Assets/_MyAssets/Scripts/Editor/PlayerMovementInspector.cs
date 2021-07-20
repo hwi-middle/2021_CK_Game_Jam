@@ -119,6 +119,20 @@ public class PlayerMovementInspector : Editor
                 _target.jumpHeight = EditorGUILayout.Slider(new GUIContent("Jump Height"), _target.jumpHeight, 0, 30);
                 EditorGUI.indentLevel--;
             }
+
+            _target.useHeadBob = EditorGUILayout.Toggle(new GUIContent("Use HeadBob"), _target.useHeadBob);
+            if(_target.useHeadBob)
+            {
+                EditorGUI.indentLevel++;
+                _target.headTransform = (Transform)EditorGUILayout.ObjectField("headTransform", _target.headTransform, typeof(Transform), true);
+                _target.bobFrequency = EditorGUILayout.Slider(new GUIContent("Bob Frequency"), _target.bobFrequency, 0, 30);
+                _target.bobHorizontalAmplitude = EditorGUILayout.Slider(new GUIContent("Bob Horizontal Amplitude"), _target.bobHorizontalAmplitude, 0, 30);
+                _target.bobVerticalAmplitude = EditorGUILayout.Slider(new GUIContent("Bob Vertical Amplitude"), _target.bobVerticalAmplitude, 0, 30);
+                _target.headBobSmoothing = EditorGUILayout.Slider(new GUIContent("HeadBob Smoothing"), _target.headBobSmoothing, 0, 30);
+
+                EditorGUI.indentLevel--;
+            }
+
             EditorGUI.indentLevel--;
         }
 
