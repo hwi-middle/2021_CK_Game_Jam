@@ -8,7 +8,7 @@ public class GlitchVolumeModifier : MonoBehaviour
 {
     [SerializeField] private Volume volume;
     [Range(0f, 100f)]
-    [SerializeField] private float effectStartThreshold = 90f;
+    [SerializeField] private float effectStartThreshold = 80f;
     [Range(0f, 80f)]
     [SerializeField] private float healthGlitchMaxValue = 20f;
     private LimitlessGlitch6 healthGlitch;
