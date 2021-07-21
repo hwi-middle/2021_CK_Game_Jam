@@ -54,7 +54,7 @@ public class Enemy : MonoBehaviour
                 {
                     currentTaskPriority = MAX_PRIORITY;
                     currentTask = EEnemyTask.Nothing;
-                    Debug.Log("格利瘤 档馒: " + currentTarget.name);
+                    //Debug.Log("格利瘤 档馒: " + currentTarget.name);
                 }
             }
         }

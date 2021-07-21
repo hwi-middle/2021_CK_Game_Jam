@@ -61,6 +61,9 @@ public class PlayerMovement : MonoBehaviour
     private float walkingTime = 0f;
     private Vector3 targetCameraPos;
 
+    //기절상태 처리
+    public bool isStunned = false;
+
 
     //발소리 재생 처리
     public List<AudioData> audioDatas = new List<AudioData>();
@@ -123,8 +126,8 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //사망시 조작 불가
-        if (isDead) return;
+        //사망 및 기절시 조작 불가
+        if (isDead || isStunned) return;
 
         //인스펙터에서 gravityScale이 변경될 수 있으므로 Update 메서드에서 처리
         gravity = GRAVITY_CONSTANT * gravityScale;

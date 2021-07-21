@@ -9466,17 +9466,18 @@ GameObject:
   - component: {fileID: 1037765802}
   - component: {fileID: 1037765801}
   - component: {fileID: 1037765800}
-  - component: {fileID: 1037765799}
   - component: {fileID: 1037765798}
   - component: {fileID: 1037765797}
   - component: {fileID: 1037765796}
+  - component: {fileID: 1037765803}
+  - component: {fileID: 1037765799}
   m_Layer: 0
   m_Name: MainEnemy
-  m_TagString: Untagged
+  m_TagString: Sub Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1037765796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9517,7 +9518,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_StoppingDistance: 2
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -9525,8 +9526,8 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!64 &1037765799
-MeshCollider:
+--- !u!65 &1037765799
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -9535,10 +9536,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+  serializedVersion: 2
+  m_Size: {x: 0.4, y: 1, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1037765800
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -9602,6 +9602,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &1037765803
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1037765795}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &1045089077
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15830,7 +15846,7 @@ MonoBehaviour:
   healthDecreasementAmount: 1
   healthDecreasementFrequency: 5
   isDead: 0
-  hasStamina: 0
+  hasStamina: 1
   maxStamina: 100
   currentStamina: 0
   staminaDecreasementAmount: 50
@@ -15846,6 +15862,7 @@ MonoBehaviour:
   bobHorizontalAmplitude: 0.1
   bobVerticalAmplitude: 0.1
   headBobSmoothing: 0.1
+  isStunned: 0
   audioDatas:
   - isActivated: 1
     clip: {fileID: 8300000, guid: 03776e733a413b84db45dcb8b66820ab, type: 3}
@@ -15952,6 +15969,7 @@ MonoBehaviour:
   healthDebugText: {fileID: 233076677}
   inGameCanvas: {fileID: 832341135}
   pauseCanvas: {fileID: 703210014}
+  bgm: {fileID: 1921197345}
 --- !u!114 &1750198445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18753,8 +18771,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1994900244}
   - component: {fileID: 1994900245}
+  - component: {fileID: 1994900246}
   m_Layer: 3
-  m_Name: GameOverDetector
+  m_Name: EnemyDetector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18785,8 +18804,22 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.2
+  m_Radius: 1.4
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1994900246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1994900243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70525a7c9635d22489818f318dd0b96e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stunTime: 2
+  stunCooldown: 2
 --- !u!1001 &2000374401
 PrefabInstance:
   m_ObjectHideFlags: 0

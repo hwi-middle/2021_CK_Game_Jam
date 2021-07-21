@@ -16,7 +16,7 @@ public class EnemyMovableArea : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Enemy")
+        if (other.tag == "Sub Enemy")
         {
             Debug.LogError("제한구역 이탈");
             target.StopAndReturnToOrigin();

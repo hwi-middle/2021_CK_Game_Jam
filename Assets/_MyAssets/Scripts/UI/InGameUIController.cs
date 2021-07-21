@@ -23,6 +23,8 @@ public class InGameUIController : MonoBehaviour
     [SerializeField] private Canvas inGameCanvas;
     [SerializeField] private Canvas pauseCanvas;
 
+    [SerializeField] private AudioSource bgm;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -49,6 +51,7 @@ public class InGameUIController : MonoBehaviour
         {
             if (isStopped)
             {
+                bgm.Play();
                 player.SetCursorLockState(CursorLockMode.Locked);
                 inGameCanvas.gameObject.SetActive(true);
                 pauseCanvas.gameObject.SetActive(false);
@@ -59,6 +62,7 @@ public class InGameUIController : MonoBehaviour
             }
             else
             {
+                bgm.Pause();
                 player.SetCursorLockState(CursorLockMode.None);
                 inGameCanvas.gameObject.SetActive(false);
                 pauseCanvas.gameObject.SetActive(true);

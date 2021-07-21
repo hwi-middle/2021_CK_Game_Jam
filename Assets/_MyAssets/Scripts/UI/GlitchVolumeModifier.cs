@@ -13,6 +13,7 @@ public class GlitchVolumeModifier : MonoBehaviour
     [SerializeField] private float healthGlitchMaxValue = 20f;
     private LimitlessGlitch6 healthGlitch;
     private LimitlessGlitch8 gameOverGlitch;
+    private LimitlessGlitch9 stunGlitch;
     private PlayerMovement player;
 
     // Start is called before the first frame update
@@ -21,6 +22,7 @@ public class GlitchVolumeModifier : MonoBehaviour
         player = PlayerMovement.Instance;
         volume.profile.TryGet(out healthGlitch);
         volume.profile.TryGet(out gameOverGlitch);
+        volume.profile.TryGet(out stunGlitch);
     }
 
     // Update is called once per frame
@@ -32,6 +34,7 @@ public class GlitchVolumeModifier : MonoBehaviour
         {
             healthGlitch.enable.value = false;
             gameOverGlitch.enable.value = true;
+            return;
         }
         else if (player.currentHealth <= effectStartThreshold)
         {
@@ -43,6 +46,15 @@ public class GlitchVolumeModifier : MonoBehaviour
         {
             //회복으로 인해 역치값보다 체력값이 커지면 효과 off
             healthGlitch.enable.value = false;
+        }
+
+        if (player.isStunned)
+        {
+            stunGlitch.enable.value = true;
+        }
+        else
+        {
+            stunGlitch.enable.value = false;
         }
     }
 }
