@@ -20,8 +20,10 @@ public class InGameUIController : MonoBehaviour
     private bool isMemoPanelOpened = false;
     private bool isStopped = false;
 
+    private ECanvasType currentCanvas = ECanvasType.None;
     [SerializeField] private Canvas inGameCanvas;
     [SerializeField] private Canvas pauseCanvas;
+    [SerializeField] private Canvas mapCanvas;
 
     [SerializeField] private AudioSource bgm;
 
@@ -49,8 +51,9 @@ public class InGameUIController : MonoBehaviour
         //키입력은 우선순위별로 1개만 받기
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (isStopped)
+            if (currentCanvas == ECanvasType.Pause)
             {
+                currentCanvas = ECanvasType.None;
                 bgm.Play();
                 player.SetCursorLockState(CursorLockMode.Locked);
                 inGameCanvas.gameObject.SetActive(true);
@@ -62,6 +65,7 @@ public class InGameUIController : MonoBehaviour
             }
             else
             {
+                currentCanvas = ECanvasType.Pause;
                 bgm.Pause();
                 player.SetCursorLockState(CursorLockMode.None);
                 inGameCanvas.gameObject.SetActive(false);
@@ -71,10 +75,6 @@ public class InGameUIController : MonoBehaviour
                 Debug.Log("게임 정지");
                 Time.timeScale = 0f;
             }
-        }
-        else if (Input.GetKeyDown(KeyCode.Z))
-        {
-            ControlMemoPanel();
         }
         else if (Input.GetKeyDown(KeyCode.Q) && !player.isDead)
         {
@@ -99,6 +99,19 @@ public class InGameUIController : MonoBehaviour
                         break;
                 }
                 player.Heal(healAmount);
+            }
+        }
+        else if(Input.GetKeyDown(KeyCode.Tab))
+        {
+            if (currentCanvas == ECanvasType.Map)
+            {
+                currentCanvas = ECanvasType.None;
+                mapCanvas.gameObject.SetActive(false);
+            }
+            else if (currentCanvas == ECanvasType.None)
+            {
+                currentCanvas = ECanvasType.Map;
+                mapCanvas.gameObject.SetActive(true);
             }
         }
     }
@@ -127,17 +140,5 @@ public class InGameUIController : MonoBehaviour
     void UpdateCoinAmount()
     {
         coinText.text = "x" + itemHolder.Coin.ToString();
-    }
-
-    void ControlMemoPanel()
-    {
-        if (isMemoPanelOpened)
-        {
-
-        }
-        else
-        {
-
-        }
     }
 }

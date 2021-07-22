@@ -20,11 +20,14 @@ public class Enemy : MonoBehaviour
     private int currentTaskPriority;
     private const int MAX_PRIORITY = 10000;
 
+    private GameObject indicator;
+
     void Start()
     {
         currentTaskPriority = MAX_PRIORITY;
         agent = GetComponent<NavMeshAgent>();
         player = PlayerMovement.Instance.transform;
+        indicator = transform.GetChild(0).gameObject;
 
         switch (type)
         {
@@ -57,6 +60,15 @@ public class Enemy : MonoBehaviour
                     //Debug.Log("목적지 도착: " + currentTarget.name);
                 }
             }
+        }
+
+        if(gameObject.layer == (int)EEnemyTypeOnMap.Detected)
+        {
+            indicator.SetActive(true);
+        }
+        else
+        {
+            indicator.SetActive(false);
         }
     }
 
