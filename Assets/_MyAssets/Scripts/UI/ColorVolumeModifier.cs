@@ -10,12 +10,14 @@ public class ColorVolumeModifier : MonoBehaviour
 
     private ColorAdjustments colorAdjustments;
     private WhiteBalance whiteBalance;
+    private LiftGammaGain liftGammaGain;
 
     // Start is called before the first frame update
     void Start()
     {
         volume.profile.TryGet(out colorAdjustments);
         volume.profile.TryGet(out whiteBalance);
+        volume.profile.TryGet(out liftGammaGain);
 
         UpdateValue();
     }
@@ -29,8 +31,9 @@ public class ColorVolumeModifier : MonoBehaviour
     //인게임 설정에서도 값을 변경할 수 있도록 함수화
     public void UpdateValue()
     {
-        colorAdjustments.contrast.value = PlayerPrefs.GetFloat("ContrastValue");
-        colorAdjustments.saturation.value = PlayerPrefs.GetFloat("SaturationValue");
-        whiteBalance.temperature.value = PlayerPrefs.GetFloat("BlueLightFilterValue");
+        colorAdjustments.contrast.value = PlayerPrefs.GetFloat("ContrastValue", 0f);
+        colorAdjustments.saturation.value = PlayerPrefs.GetFloat("SaturationValue", 0f);
+        whiteBalance.temperature.value = PlayerPrefs.GetFloat("BlueLightFilterValue", 0f);
+        liftGammaGain.gamma.value = new Vector4(0, 0, 0, PlayerPrefs.GetFloat("GammaValue", 0f) / 10f);
     }
 }

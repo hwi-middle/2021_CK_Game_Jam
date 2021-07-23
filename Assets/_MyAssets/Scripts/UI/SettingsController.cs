@@ -112,6 +112,7 @@ public class SettingsController : MonoBehaviour
         gammaAmountText.text = currentGamma.ToString("+#;-#;0");
 
         gammaVolume.profile.TryGet(out liftGammaGain);
+        liftGammaGain.gamma.value = new Vector4(0, 0, 0, currentGamma / 10f);
     }
 
     public void ChangeSection(string name)
