@@ -42,7 +42,13 @@ public class SettingsController : MonoBehaviour
     [SerializeField] private Transform sensitivityPreviewBody;
 
     //일반 설정
-    [SerializeField] private Toggle keyPanelToggle;
+    [SerializeField] private Toggle keyInfoPanelToggle;
+
+    //감마 설정
+    [SerializeField] private Volume gammaVolume;
+    private LiftGammaGain liftGammaGain;
+    [SerializeField] private Text gammaAmountText;
+    private float currentGamma;
 
     // Start is called before the first frame update
     void Start()
@@ -51,7 +57,6 @@ public class SettingsController : MonoBehaviour
         BGMSlider.value = PlayerPrefs.GetFloat("BGMValue", 1f);
         SESlider.value = PlayerPrefs.GetFloat("SEValue", 1f);
         FootstepSoundSlider.value = PlayerPrefs.GetFloat("FootstepSoundValue", 1f);
-
 
         List<Slider> soundSliders = new List<Slider> { BGMSlider, SESlider, FootstepSoundSlider };
 
@@ -93,14 +98,21 @@ public class SettingsController : MonoBehaviour
         SetSensitivityPreviewText(false);
 
         ////일반 설정
-        //if (PlayerPrefs.GetInt("DisableKeyPanel", 0) == 1)
-        //{
-        //    keyPanelToggle.isOn = true;
-        //}
-        //else
-        //{
-        //    keyPanelToggle.isOn = false;
-        //}
+        if (PlayerPrefs.GetInt("DisableKeyInfoPanel", 0) == 1)
+        {
+            keyInfoPanelToggle.isOn = true;
+        }
+        else
+        {
+            keyInfoPanelToggle.isOn = false;
+        }
+
+        //감마 설정
+        currentGamma = PlayerPrefs.GetFloat("GammaValue", 0f);
+        gammaAmountText.text = currentGamma.ToString("+#;-#;0");
+
+        gammaVolume.profile.TryGet(out liftGammaGain);
+        liftGammaGain.gamma.value = new Vector4(0, 0, 0, currentGamma / 10f);
     }
 
     public void ChangeSection(string name)
@@ -124,6 +136,9 @@ public class SettingsController : MonoBehaviour
                 break;
             case "General":
                 targetIdx = 3;
+                break;
+            case "Graphic":
+                targetIdx = 4;
                 break;
             default:
                 Debug.Assert(false);
@@ -224,6 +239,18 @@ public class SettingsController : MonoBehaviour
         }
     }
 
+    public void ApplyKeyInfoPanelValue()
+    {
+        if (keyInfoPanelToggle.isOn)
+        {
+            PlayerPrefs.SetInt("DisableKeyInfoPanel", 1);
+        }
+        else
+        {
+            PlayerPrefs.SetInt("DisableKeyInfoPanel", 0);
+        }
+    }
+
     public void ApplyContrastValue()
     {
         float val = ContrastSlider.value;
@@ -287,7 +314,7 @@ public class SettingsController : MonoBehaviour
 
         while (true)
         {
-            if(Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0))
             {
                 SetSensitivityPreviewText(false);
                 Cursor.lockState = CursorLockMode.None;
@@ -330,7 +357,7 @@ public class SettingsController : MonoBehaviour
 
     void SetSensitivityPreviewText(bool isActivated)
     {
-        if(isActivated)
+        if (isActivated)
         {
             sensitivityPreviewText.text = "클릭하여 그만두기";
         }
@@ -338,5 +365,23 @@ public class SettingsController : MonoBehaviour
         {
             sensitivityPreviewText.text = "여기를 눌러 감도 체험하기";
         }
+    }
+
+    public void IncreaseGamma()
+    {
+        if (currentGamma >= 10) return;
+
+        PlayerPrefs.SetFloat("GammaValue", ++currentGamma);
+        gammaAmountText.text = currentGamma.ToString("+#;-#;0");
+        liftGammaGain.gamma.value = new Vector4(0, 0, 0, currentGamma / 10f);
+    }
+
+    public void DecreaseGamma()
+    {
+        if (currentGamma <= -10) return;
+
+        PlayerPrefs.SetFloat("GammaValue", --currentGamma);
+        gammaAmountText.text = currentGamma.ToString("+#;-#;0");
+        liftGammaGain.gamma.value = new Vector4(0, 0, 0, currentGamma / 10f);
     }
 }
