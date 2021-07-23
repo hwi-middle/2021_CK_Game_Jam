@@ -42,7 +42,7 @@ public class SettingsController : MonoBehaviour
     [SerializeField] private Transform sensitivityPreviewBody;
 
     //일반 설정
-    [SerializeField] private Toggle keyPanelToggle;
+    [SerializeField] private Toggle keyInfoPanelToggle;
 
     //감마 설정
     [SerializeField] private Volume gammaVolume;
@@ -98,14 +98,14 @@ public class SettingsController : MonoBehaviour
         SetSensitivityPreviewText(false);
 
         ////일반 설정
-        //if (PlayerPrefs.GetInt("DisableKeyPanel", 0) == 1)
-        //{
-        //    keyPanelToggle.isOn = true;
-        //}
-        //else
-        //{
-        //    keyPanelToggle.isOn = false;
-        //}
+        if (PlayerPrefs.GetInt("DisableKeyInfoPanel", 0) == 1)
+        {
+            keyInfoPanelToggle.isOn = true;
+        }
+        else
+        {
+            keyInfoPanelToggle.isOn = false;
+        }
 
         //감마 설정
         currentGamma = PlayerPrefs.GetFloat("GammaValue", 0f);
@@ -136,6 +136,9 @@ public class SettingsController : MonoBehaviour
                 break;
             case "General":
                 targetIdx = 3;
+                break;
+            case "Graphic":
+                targetIdx = 4;
                 break;
             default:
                 Debug.Assert(false);
@@ -233,6 +236,18 @@ public class SettingsController : MonoBehaviour
         {
             PlayerPrefs.SetInt("DisableVFX", 0);
             glitch.enable.value = true;
+        }
+    }
+
+    public void ApplyKeyInfoPanelValue()
+    {
+        if (keyInfoPanelToggle.isOn)
+        {
+            PlayerPrefs.SetInt("DisableKeyInfoPanel", 1);
+        }
+        else
+        {
+            PlayerPrefs.SetInt("DisableKeyInfoPanel", 0);
         }
     }
 
