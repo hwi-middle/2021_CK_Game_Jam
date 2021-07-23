@@ -44,6 +44,12 @@ public class SettingsController : MonoBehaviour
     //일반 설정
     [SerializeField] private Toggle keyPanelToggle;
 
+    //감마 설정
+    [SerializeField] private Volume gammaVolume;
+    private LiftGammaGain liftGammaGain;
+    [SerializeField] private Text gammaAmountText;
+    private float currentGamma;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -51,7 +57,6 @@ public class SettingsController : MonoBehaviour
         BGMSlider.value = PlayerPrefs.GetFloat("BGMValue", 1f);
         SESlider.value = PlayerPrefs.GetFloat("SEValue", 1f);
         FootstepSoundSlider.value = PlayerPrefs.GetFloat("FootstepSoundValue", 1f);
-
 
         List<Slider> soundSliders = new List<Slider> { BGMSlider, SESlider, FootstepSoundSlider };
 
@@ -101,6 +106,12 @@ public class SettingsController : MonoBehaviour
         //{
         //    keyPanelToggle.isOn = false;
         //}
+
+        //감마 설정
+        currentGamma = PlayerPrefs.GetFloat("GammaValue", 0f);
+        gammaAmountText.text = currentGamma.ToString("+#;-#;0");
+
+        gammaVolume.profile.TryGet(out liftGammaGain);
     }
 
     public void ChangeSection(string name)
@@ -287,7 +298,7 @@ public class SettingsController : MonoBehaviour
 
         while (true)
         {
-            if(Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0))
             {
                 SetSensitivityPreviewText(false);
                 Cursor.lockState = CursorLockMode.None;
@@ -330,7 +341,7 @@ public class SettingsController : MonoBehaviour
 
     void SetSensitivityPreviewText(bool isActivated)
     {
-        if(isActivated)
+        if (isActivated)
         {
             sensitivityPreviewText.text = "클릭하여 그만두기";
         }
@@ -338,5 +349,23 @@ public class SettingsController : MonoBehaviour
         {
             sensitivityPreviewText.text = "여기를 눌러 감도 체험하기";
         }
+    }
+
+    public void IncreaseGamma()
+    {
+        if (currentGamma >= 10) return;
+
+        PlayerPrefs.SetFloat("GammaValue", ++currentGamma);
+        gammaAmountText.text = currentGamma.ToString("+#;-#;0");
+        liftGammaGain.gamma.value = new Vector4(0, 0, 0, currentGamma / 10f);
+    }
+
+    public void DecreaseGamma()
+    {
+        if (currentGamma <= -10) return;
+
+        PlayerPrefs.SetFloat("GammaValue", --currentGamma);
+        gammaAmountText.text = currentGamma.ToString("+#;-#;0");
+        liftGammaGain.gamma.value = new Vector4(0, 0, 0, currentGamma / 10f);
     }
 }
