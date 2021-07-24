@@ -11,6 +11,7 @@ public class GlitchVolumeModifier : MonoBehaviour
     [SerializeField] private float effectStartThreshold = 80f;
     [Range(0f, 80f)]
     [SerializeField] private float healthGlitchMaxValue = 20f;
+    [SerializeField] private Light directionalLight;
     private LimitlessGlitch6 healthGlitch;
     private LimitlessGlitch8 gameOverGlitch;
     private LimitlessGlitch9 stunGlitch;
@@ -50,10 +51,12 @@ public class GlitchVolumeModifier : MonoBehaviour
 
         if (player.isStunned)
         {
+            directionalLight.gameObject.SetActive(true);
             stunGlitch.enable.value = true;
         }
         else
         {
+            directionalLight.gameObject.SetActive(false);
             stunGlitch.enable.value = false;
         }
     }

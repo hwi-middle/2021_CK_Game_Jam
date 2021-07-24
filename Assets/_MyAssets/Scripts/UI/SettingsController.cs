@@ -2,11 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
 public class SettingsController : MonoBehaviour
 {
+    private string targetSceneName = "Lobby";
+    [SerializeField] private Image cover;
+
     [SerializeField] private GameObject[] sections;
     /* 
      * 각 카테고리별 요소들을 자식으로 갖는 오브젝트들
@@ -49,6 +53,15 @@ public class SettingsController : MonoBehaviour
     private LiftGammaGain liftGammaGain;
     [SerializeField] private Text gammaAmountText;
     private float currentGamma;
+
+    private void Awake()
+    {
+        if (PlayerPrefs.GetInt("IsFromIngame", 0) == 1)
+        {
+            targetSceneName = "2ndFloor";
+            cover.gameObject.SetActive(false);
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -383,5 +396,18 @@ public class SettingsController : MonoBehaviour
         PlayerPrefs.SetFloat("GammaValue", --currentGamma);
         gammaAmountText.text = currentGamma.ToString("+#;-#;0");
         liftGammaGain.gamma.value = new Vector4(0, 0, 0, currentGamma / 10f);
+    }
+
+    public void ReturnToTargetScene()
+    {
+        if (targetSceneName == "Lobby")
+        {
+            cover.GetComponent<UIElementFade>().LoadSceneAfterBlackout("1.0, Lobby");
+        }
+        else
+        {
+            PlayerPrefs.SetInt("IsFromIngame", 0);
+            SceneManager.LoadScene(targetSceneName);
+        }
     }
 }

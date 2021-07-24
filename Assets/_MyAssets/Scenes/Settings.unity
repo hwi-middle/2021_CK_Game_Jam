@@ -12158,6 +12158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fedd23878e3712b439aaa897c82b6fa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cover: {fileID: 1934034409}
   sections:
   - {fileID: 647783609}
   - {fileID: 140801628}
@@ -17058,10 +17059,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1934034408}
-        m_TargetAssemblyTypeName: UIElementFade, Assembly-CSharp
-        m_MethodName: LoadSceneAfterBlackout
-        m_Mode: 5
+      - m_Target: {fileID: 1516385749}
+        m_TargetAssemblyTypeName: SettingsController, Assembly-CSharp
+        m_MethodName: ReturnToTargetScene
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

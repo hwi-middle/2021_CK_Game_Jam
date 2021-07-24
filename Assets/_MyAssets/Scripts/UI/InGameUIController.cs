@@ -2,13 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class InGameUIController : MonoBehaviour
 {
     private PlayerMovement player;
     private ItemHolder itemHolder;
 
-    [SerializeField] private GameObject staminaPlane;
+    [SerializeField] private IngameObjectsManager ingameObjectsManager;
+
     [SerializeField] private Image staminaGuage;
     [SerializeField] private Image USBIcon;
     [SerializeField] private Sprite[] USBSprites;
@@ -16,9 +18,6 @@ public class InGameUIController : MonoBehaviour
     [SerializeField] private Image healthItemIcon;
     [SerializeField] private Sprite[] healthItemSprites;
     [SerializeField] private Text healthDebugText;
-
-    private bool isMemoPanelOpened = false;
-    private bool isStopped = false;
 
     private ECanvasType currentCanvas = ECanvasType.None;
     [SerializeField] private Canvas inGameCanvas;
@@ -53,27 +52,11 @@ public class InGameUIController : MonoBehaviour
         {
             if (currentCanvas == ECanvasType.Pause)
             {
-                currentCanvas = ECanvasType.None;
-                bgm.Play();
-                player.SetCursorLockState(CursorLockMode.Locked);
-                inGameCanvas.gameObject.SetActive(true);
-                pauseCanvas.gameObject.SetActive(false);
-                isStopped = false;
-                player.shouldCameraFreeze = false;
-                Debug.Log("게임 재개");
-                Time.timeScale = 1f;
+                Resume();
             }
             else
             {
-                currentCanvas = ECanvasType.Pause;
-                bgm.Pause();
-                player.SetCursorLockState(CursorLockMode.None);
-                inGameCanvas.gameObject.SetActive(false);
-                pauseCanvas.gameObject.SetActive(true);
-                isStopped = true;
-                player.shouldCameraFreeze = true;
-                Debug.Log("게임 정지");
-                Time.timeScale = 0f;
+                Pause();
             }
         }
         else if (Input.GetKeyDown(KeyCode.Q) && !player.isDead)
@@ -101,7 +84,7 @@ public class InGameUIController : MonoBehaviour
                 player.Heal(healAmount);
             }
         }
-        else if(Input.GetKeyDown(KeyCode.Tab))
+        else if (Input.GetKeyDown(KeyCode.Tab))
         {
             if (currentCanvas == ECanvasType.Map)
             {
@@ -140,5 +123,36 @@ public class InGameUIController : MonoBehaviour
     void UpdateCoinAmount()
     {
         coinText.text = "x" + itemHolder.Coin.ToString();
+    }
+
+    void Pause()
+    {
+        currentCanvas = ECanvasType.Pause;
+        bgm.Pause();
+        player.SetCursorLockState(CursorLockMode.None);
+        inGameCanvas.gameObject.SetActive(false);
+        pauseCanvas.gameObject.SetActive(true);
+        player.shouldCameraFreeze = true;
+        Debug.Log("게임 정지");
+        Time.timeScale = 0f;
+    }
+
+    public void Resume()
+    {
+        currentCanvas = ECanvasType.None;
+        bgm.Play();
+        player.SetCursorLockState(CursorLockMode.Locked);
+        inGameCanvas.gameObject.SetActive(true);
+        pauseCanvas.gameObject.SetActive(false);
+        player.shouldCameraFreeze = false;
+        Debug.Log("게임 재개");
+        Time.timeScale = 1f;
+    }
+
+    public void MoveToSettingsScene()
+    {
+        ingameObjectsManager.Deactivate();
+        PlayerPrefs.SetInt("IsFromIngame", 1);
+        SceneManager.LoadScene("Settings");
     }
 }

@@ -16,15 +16,15 @@ TagManager:
   - Water
   - UI
   - Ground
-  - Minimap
+  - DisplayOnBothMap
   - Obstacle
   - EffectPreview
   - LevelObject
   - NormalEnemy
   - DetectedEnemy
   - GammaPreview
-  - MapOverlay
-  - 
+  - DisplayOnWholeMap
+  - DisplayOnMinimap
   - 
   - 
   - 

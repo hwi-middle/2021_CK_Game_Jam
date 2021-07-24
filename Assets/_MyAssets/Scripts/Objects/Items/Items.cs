@@ -8,7 +8,7 @@ public class Items : MonoBehaviour
     public int itemIndex;
 
     ItemHolder itemHolder;
-    Text itemText;
+    [SerializeField] private Text itemText;
     bool isActivated = false;
 
     // Start is called before the first frame update
