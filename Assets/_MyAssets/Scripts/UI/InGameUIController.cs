@@ -10,6 +10,7 @@ public class InGameUIController : MonoBehaviour
     private ItemHolder itemHolder;
 
     [SerializeField] private IngameObjectsManager ingameObjectsManager;
+    [SerializeField] private SceneResetManager sceneResetManager;
 
     [SerializeField] private Image staminaGuage;
     [SerializeField] private Image USBIcon;
@@ -131,6 +132,7 @@ public class InGameUIController : MonoBehaviour
         bgm.Pause();
         player.SetCursorLockState(CursorLockMode.None);
         inGameCanvas.gameObject.SetActive(false);
+        mapCanvas.gameObject.SetActive(false);
         pauseCanvas.gameObject.SetActive(true);
         player.shouldCameraFreeze = true;
         Debug.Log("게임 정지");
@@ -154,5 +156,21 @@ public class InGameUIController : MonoBehaviour
         ingameObjectsManager.Deactivate();
         PlayerPrefs.SetInt("IsFromIngame", 1);
         SceneManager.LoadScene("Settings");
+    }
+
+    public void ReloadScene()
+    {
+        Debug.LogError("??");
+        sceneResetManager.ClearAllObjectsAndLoadScene("2ndFloor");
+    }
+
+    public void ReturnToLobbyScene()
+    {
+        sceneResetManager.ClearAllObjectsAndLoadScene("Lobby");
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }

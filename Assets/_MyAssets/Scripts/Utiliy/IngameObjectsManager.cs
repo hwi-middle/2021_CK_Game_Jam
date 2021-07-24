@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class IngameObjectsManager : MonoBehaviour
 {
-    static bool isLoaded = false;
     [SerializeField] private GameObject ingameObjects;
     [SerializeField] private ColorVolumeModifier colorVolumeModifier;
 
@@ -12,11 +11,13 @@ public class IngameObjectsManager : MonoBehaviour
     void Start()
     {
         //이 스크립트는 DestroyIfAlreadyLoaded의 기능을 이미 가지고 있음
-        if (isLoaded)
+        if (PlayerPrefs.GetInt("IsIngameObjectsManagerLoaded", 0) == 1)
         {
+            PlayerPrefs.SetInt("IsIngameObjectsManagerLoaded", 0);
             Destroy(gameObject);
         }
-        isLoaded = true;
+
+        PlayerPrefs.SetInt("IsIngameObjectsManagerLoaded", 1);
 
         DontDestroyOnLoad(gameObject);
         DontDestroyOnLoad(ingameObjects);

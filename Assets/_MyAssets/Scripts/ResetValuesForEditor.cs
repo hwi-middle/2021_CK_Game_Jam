@@ -2,13 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Init : MonoBehaviour
+public class ResetValuesForEditor : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
     {
-        PlayerPrefs.SetInt("IsFromIngame", 0);
-        PlayerPrefs.SetInt("ShouldReActivateIngameObjects", 0);
         PlayerPrefs.SetInt("IsIngameObjectsManagerLoaded", 0);
         PlayerPrefs.SetInt("IsIngameObjectsLoaded", 0);
     }

@@ -48,6 +48,57 @@ MonoBehaviour:
   mask:
     m_OverrideState: 0
     m_Value: {fileID: 0}
+--- !u!114 &-6320913172112793919
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe6a5f8367faa4cf0b002fa2c5d958b9, type: 3}
+  m_Name: LimitlessGlitch6
+  m_EditorClassIdentifier: 
+  active: 1
+  m_AdvancedMode: 0
+  enable:
+    m_OverrideState: 1
+    m_Value: 0
+  interval:
+    m_OverrideState: 1
+    m_Value: 0
+  minMax:
+    m_OverrideState: 1
+    m_Value: {x: 0.1, y: 2}
+    min: 0
+    max: 60
+  frequency:
+    m_OverrideState: 1
+    m_Value: 1
+    min: 0
+    max: 25
+  rate:
+    m_OverrideState: 1
+    m_Value: 1
+    min: 0
+    max: 1
+  amount:
+    m_OverrideState: 1
+    m_Value: 1
+    min: 0
+    max: 200
+  speed:
+    m_OverrideState: 1
+    m_Value: 1
+    min: 0
+    max: 15
+  unscaledTime:
+    m_OverrideState: 1
+    m_Value: 0
+  mask:
+    m_OverrideState: 1
+    m_Value: {fileID: 0}
 --- !u!114 &-5534215192869315470
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -140,6 +191,54 @@ MonoBehaviour:
   mask:
     m_OverrideState: 1
     m_Value: {fileID: 0}
+--- !u!114 &-2497907233666582252
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e3c70d62a7ad464887a68e38ecf6835, type: 3}
+  m_Name: LimitlessGlitch8
+  m_EditorClassIdentifier: 
+  active: 1
+  m_AdvancedMode: 0
+  enable:
+    m_OverrideState: 0
+    m_Value: 0
+  Amount:
+    m_OverrideState: 0
+    m_Value: 0.5
+    min: 0
+    max: 1
+  LinesWidth:
+    m_OverrideState: 0
+    m_Value: 1
+    min: 0.1
+    max: 20
+  Speed:
+    m_OverrideState: 0
+    m_Value: 1
+    min: 0
+    max: 1
+  Offset:
+    m_OverrideState: 0
+    m_Value: 1
+    min: 0
+    max: 13
+  alpha:
+    m_OverrideState: 0
+    m_Value: 1
+    min: 0
+    max: 1
+  unscaledTime:
+    m_OverrideState: 0
+    m_Value: 0
+  mask:
+    m_OverrideState: 0
+    m_Value: {fileID: 0}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,6 +252,47 @@ MonoBehaviour:
   m_Name: MainVolume
   m_EditorClassIdentifier: 
   components:
-  - {fileID: -5534215192869315470}
-  - {fileID: -8559866923167618842}
-  - {fileID: -4328285895188780107}
+  - {fileID: -6320913172112793919}
+  - {fileID: -2497907233666582252}
+  - {fileID: 3771339744688931847}
+--- !u!114 &3771339744688931847
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 473525764cfb24c478506d91f2d7dab8, type: 3}
+  m_Name: LimitlessGlitch9
+  m_EditorClassIdentifier: 
+  active: 1
+  m_AdvancedMode: 0
+  enable:
+    m_OverrideState: 0
+    m_Value: 0
+  fade:
+    m_OverrideState: 0
+    m_Value: 1
+    min: 0
+    max: 1
+  amount:
+    m_OverrideState: 0
+    m_Value: 0.2
+    min: 0
+    max: 1
+  randomActivateAmount:
+    m_OverrideState: 0
+    m_Value: 0.9
+    min: 0
+    max: 1
+  size:
+    m_OverrideState: 0
+    m_Value: {x: 1, y: 1}
+  light:
+    m_OverrideState: 0
+    m_Value: 0
+  mask:
+    m_OverrideState: 0
+    m_Value: {fileID: 0}
