@@ -12,6 +12,9 @@ public class InGameUIController : MonoBehaviour
     [SerializeField] private IngameObjectsManager ingameObjectsManager;
     [SerializeField] private SceneResetManager sceneResetManager;
 
+    [SerializeField] private GameObject KeyInfoPanel1;
+    [SerializeField] private GameObject KeyInfoPanel2;
+
     [SerializeField] private Image staminaGuage;
     [SerializeField] private Image USBIcon;
     [SerializeField] private Sprite[] USBSprites;
@@ -42,6 +45,7 @@ public class InGameUIController : MonoBehaviour
         UpdateHealthStatus();
         UpdateHealthItemStatus();
         UpdateCoinAmount();
+        UpdateKeyInfoPanel();
 
         float cutoff = 1 - (player.currentStamina / player.maxStamina);
         //staminaPlane.GetComponent<Renderer>().sharedMaterial.SetFloat("_Cutoff", cutoff);
@@ -129,6 +133,20 @@ public class InGameUIController : MonoBehaviour
     void UpdateCoinAmount()
     {
         coinText.text = "x" + itemHolder.Coin.ToString();
+    }
+
+    void UpdateKeyInfoPanel()
+    {
+        if (PlayerPrefs.GetInt("DisableKeyInfoPanel", 0) == 1)
+        {
+            KeyInfoPanel1.SetActive(false);
+            KeyInfoPanel2.SetActive(false);
+        }
+        else
+        {
+            KeyInfoPanel1.SetActive(true);
+            KeyInfoPanel2.SetActive(true);
+        }
     }
 
     void Pause()

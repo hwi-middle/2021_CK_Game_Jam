@@ -17283,7 +17283,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &703210012
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42523,6 +42523,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ingameObjectsManager: {fileID: 1674209713}
   sceneResetManager: {fileID: 137128880}
+  KeyInfoPanel1: {fileID: 979614552}
+  KeyInfoPanel2: {fileID: 1920333082}
   staminaGuage: {fileID: 962878609}
   USBIcon: {fileID: 66555866}
   USBSprites:
