@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class DestroyIfAlreadyLoaded : MonoBehaviour
 {
+    public static bool isLoaded = false;
+
     // Start is called before the first frame update
     void Start()
     {
-        if (PlayerPrefs.GetInt("IsIngameObjectsLoaded", 0) == 1)
+        if (isLoaded)
         {
-            PlayerPrefs.SetInt("IsIngameObjectsLoaded", 0);
             Destroy(gameObject);
         }
 
-        PlayerPrefs.SetInt("IsIngameObjectsLoaded", 1);
+        isLoaded = true;
     }
 
     // Update is called once per frame

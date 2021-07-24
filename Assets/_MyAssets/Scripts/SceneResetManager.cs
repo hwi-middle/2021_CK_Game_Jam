@@ -8,7 +8,7 @@ public class SceneResetManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        DontDestroyOnLoad(gameObject);
     }
 
     // Update is called once per frame
@@ -23,13 +23,12 @@ public class SceneResetManager : MonoBehaviour
 
         foreach (var o in objects)
         {
-
             Destroy(o);
         }
 
         Time.timeScale = 1f;
-        PlayerPrefs.SetInt("IsIngameObjectsManagerLoaded", 0);
-        PlayerPrefs.SetInt("IsIngameObjectsLoaded", 0);
+        IngameObjectsManager.isLoaded = false;
+        DestroyIfAlreadyLoaded.isLoaded = false;
 
         SceneManager.LoadScene(target);
     }

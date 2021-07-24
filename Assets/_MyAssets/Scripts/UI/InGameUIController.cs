@@ -48,6 +48,11 @@ public class InGameUIController : MonoBehaviour
 
         staminaGuage.fillAmount = player.currentStamina / player.maxStamina;
 
+        if (player.isStunned || player.isDead || player.isInvincible)
+        {
+            return;
+        }
+
         //키입력은 우선순위별로 1개만 받기
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -160,7 +165,6 @@ public class InGameUIController : MonoBehaviour
 
     public void ReloadScene()
     {
-        Debug.LogError("??");
         sceneResetManager.ClearAllObjectsAndLoadScene("2ndFloor");
     }
 

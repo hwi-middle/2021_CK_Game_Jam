@@ -4,20 +4,19 @@ using UnityEngine;
 
 public class IngameObjectsManager : MonoBehaviour
 {
+    public static bool isLoaded = false;
     [SerializeField] private GameObject ingameObjects;
     [SerializeField] private ColorVolumeModifier colorVolumeModifier;
 
     // Start is called before the first frame update
     void Start()
     {
-        //이 스크립트는 DestroyIfAlreadyLoaded의 기능을 이미 가지고 있음
-        if (PlayerPrefs.GetInt("IsIngameObjectsManagerLoaded", 0) == 1)
+        if (isLoaded)
         {
-            PlayerPrefs.SetInt("IsIngameObjectsManagerLoaded", 0);
             Destroy(gameObject);
         }
 
-        PlayerPrefs.SetInt("IsIngameObjectsManagerLoaded", 1);
+        isLoaded = true;
 
         DontDestroyOnLoad(gameObject);
         DontDestroyOnLoad(ingameObjects);

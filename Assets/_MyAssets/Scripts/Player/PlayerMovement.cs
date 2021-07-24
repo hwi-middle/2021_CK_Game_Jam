@@ -63,7 +63,7 @@ public class PlayerMovement : MonoBehaviour
 
     //扁例惑怕 贸府
     public bool isStunned = false;
-
+    public bool isInvincible = false;
 
     //惯家府 犁积 贸府
     public List<AudioData> audioDatas = new List<AudioData>();
@@ -238,6 +238,9 @@ public class PlayerMovement : MonoBehaviour
     void SetCamera()
     {
         if (shouldCameraFreeze) return;
+
+        sensitivityX = PlayerPrefs.GetFloat("XSensitivityValue", 2f);
+        sensitivityY = PlayerPrefs.GetFloat("YSensitivityValue", 2f);
 
         float yRotation = Input.GetAxis("Mouse X") * sensitivityX;
         float xRotation = Input.GetAxis("Mouse Y") * sensitivityY;
