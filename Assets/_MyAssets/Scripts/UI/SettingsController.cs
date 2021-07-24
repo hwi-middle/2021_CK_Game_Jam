@@ -60,6 +60,7 @@ public class SettingsController : MonoBehaviour
         {
             targetSceneName = "2ndFloor";
             cover.gameObject.SetActive(false);
+            Time.timeScale = 1f;
         }
     }
 
@@ -406,7 +407,9 @@ public class SettingsController : MonoBehaviour
         }
         else
         {
+            Time.timeScale = 0f;
             PlayerPrefs.SetInt("IsFromIngame", 0);
+            PlayerPrefs.SetInt("ShouldReActivateIngameObjects", 1);
             SceneManager.LoadScene(targetSceneName);
         }
     }
