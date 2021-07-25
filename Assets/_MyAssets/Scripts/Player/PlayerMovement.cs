@@ -78,6 +78,9 @@ public class PlayerMovement : MonoBehaviour
     public float groundDistance = 0.4f;
     private LayerMask groundMask;
 
+    //ªÃ±‚, ∆«µ∂¿« µø¿€ √≥∏Æ
+    public bool doingTask;
+
     //ΩÃ±€≈Ê √≥∏Æ
     static PlayerMovement instance;
     public static PlayerMovement Instance { get { Init(); return instance; } }

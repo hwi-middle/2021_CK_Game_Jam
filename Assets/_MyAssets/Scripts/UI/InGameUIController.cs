@@ -52,7 +52,7 @@ public class InGameUIController : MonoBehaviour
 
         staminaGuage.fillAmount = player.currentStamina / player.maxStamina;
 
-        if (player.isStunned || player.isDead || player.isInvincible)
+        if (player.isStunned || player.isDead || player.isInvincible || player.doingTask)
         {
             return;
         }
@@ -107,6 +107,11 @@ public class InGameUIController : MonoBehaviour
                 mapCanvas.gameObject.SetActive(true);
             }
         }
+    }
+
+    public void CloseAllCanvas()
+    {
+        mapCanvas.gameObject.SetActive(false);
     }
 
     void UpdateUSBItemStatus()
