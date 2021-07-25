@@ -18,6 +18,9 @@ EditorBuildSettings:
     path: Assets/_MyAssets/Scenes/Lobby.unity
     guid: 7255aa9bf7514704da6939ec87e6bddc
   - enabled: 1
+    path: Assets/_MyAssets/Scenes/Prologue.unity
+    guid: 65fc00c5ac231484bb6401fb629999ea
+  - enabled: 1
     path: Assets/_MyAssets/Scenes/2ndFloor.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
