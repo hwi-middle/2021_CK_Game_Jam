@@ -8,6 +8,7 @@ public class EnemyDetector : MonoBehaviour
     [SerializeField] float stunCooldown = 2.0f;
     [SerializeField] float curseTime = 5.0f;
     [SerializeField] float curseCooldown = 5.0f;
+    [SerializeField] AudioSource curseAudioSource;
     private PlayerMovement player;
 
     // Start is called before the first frame update
@@ -43,12 +44,15 @@ public class EnemyDetector : MonoBehaviour
         player.Damage(35);
         if (player.currentHealth <= 0)
         {
+            player.dieType = EDieType.Chased;
             yield break;
         }
+        curseAudioSource.Play();
         player.isCursed = true;
         player.isCurseInvincible = true;
         yield return new WaitForSeconds(curseTime);
         player.isCursed = false;
+        curseAudioSource.Pause();
         yield return new WaitForSeconds(curseCooldown);
         player.isCurseInvincible = false;
     }
@@ -58,6 +62,7 @@ public class EnemyDetector : MonoBehaviour
         player.Damage(10);
         if (player.currentHealth <= 0)
         {
+            player.dieType = EDieType.Stunned;
             yield break;
         }
         player.isStunned = true;

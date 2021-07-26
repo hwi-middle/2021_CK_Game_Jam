@@ -30,6 +30,8 @@ public class PlayerMovement : MonoBehaviour
     public float healthDecreasementAmount = 1f;
     public float healthDecreasementFrequency = 5f;
     public bool isDead = false;
+    public bool isDying = false;
+    public EDieType dieType = EDieType.None;
 
     //胶怕固呈 贸府
     public bool hasStamina = false;
@@ -68,7 +70,7 @@ public class PlayerMovement : MonoBehaviour
     //历林惑怕 贸府
     public bool isCursed = false;
     public bool isCurseInvincible = false;
-
+    
     //惯家府 犁积 贸府
     public List<AudioData> audioDatas = new List<AudioData>();
     private List<AudioData> activatedAudioDatas = new List<AudioData>();
@@ -408,6 +410,7 @@ public class PlayerMovement : MonoBehaviour
             if (currentHealth <= 0)
             {
                 isDead = true;
+                dieType = EDieType.TimeOver;
                 break;
             }
         }

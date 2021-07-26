@@ -29,6 +29,11 @@ public class InGameUIController : MonoBehaviour
     [SerializeField] private Canvas inGameCanvas;
     [SerializeField] private Canvas pauseCanvas;
     [SerializeField] private Canvas mapCanvas;
+    [SerializeField] private Canvas dieCanvas;
+
+    [SerializeField] private Image dieImage;
+    [SerializeField] private Sprite[] dieSprites;
+    [SerializeField] private Button dieButton;
 
     [SerializeField] private AudioSource bgm;
 
@@ -43,6 +48,13 @@ public class InGameUIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(player.isDead && !player.isDying)
+        {
+            player.isDying = true;
+            StartCoroutine(Die());
+            return;
+        }
+
         UpdateUSBItemStatus();
         UpdateHealthStatus();
         UpdateHealthItemStatus();
@@ -55,7 +67,7 @@ public class InGameUIController : MonoBehaviour
 
         staminaGuage.fillAmount = player.currentStamina / player.maxStamina;
 
-        if (player.isDead || player.doingTask)
+        if (player.doingTask)
         {
             return;
         }
@@ -63,7 +75,7 @@ public class InGameUIController : MonoBehaviour
         //키입력은 우선순위별로 1개만 받기
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (player.isStunned || player.isStunInvincible)
+            if (player.isStunned || player.isStunInvincible || player.isCursed || player.isCurseInvincible)
             {
                 return;
             }
@@ -115,6 +127,36 @@ public class InGameUIController : MonoBehaviour
                 mapCanvas.gameObject.SetActive(true);
             }
         }
+    }
+
+    IEnumerator Die()
+    {
+        dieCanvas.gameObject.SetActive(true);
+        //Time.timeScale = 0f;
+
+        switch (player.dieType)
+        {
+            case EDieType.Chased:
+                dieImage.sprite = dieSprites[0];
+                break;
+            case EDieType.Stunned:
+                dieImage.sprite = dieSprites[1];
+                break;
+            case EDieType.TimeOver:
+                dieImage.sprite = dieSprites[2];
+                break;
+            case EDieType.None:
+            default:
+                Debug.Assert(false);
+                break;
+        }
+
+        //효과음 플레이 해야함
+        player.SetCursorLockState(CursorLockMode.None);
+        yield return new WaitForSeconds(2.0f);
+        dieButton.gameObject.SetActive(true);
+
+        yield break;
     }
 
     public void CloseAllCanvas()
