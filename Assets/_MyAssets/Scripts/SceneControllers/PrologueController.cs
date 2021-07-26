@@ -19,7 +19,7 @@ public class PrologueController : MonoBehaviour
     void Start()
     {
         BGM.volume = PlayerPrefs.GetFloat("BGMValue", 1f);
-        foreach(var source in SE)
+        foreach (var source in SE)
         {
             source.volume = PlayerPrefs.GetFloat("SEValue", 1f);
         }
@@ -39,44 +39,57 @@ public class PrologueController : MonoBehaviour
         else if (prev == idx || idx > 16) return;
 
         //√©≈Õ ¿Ãµø
-        if (idx == 6)
+        if (idx == 8)
         {
             chapters[0].SetActive(false);
             chapters[1].SetActive(true);
         }
-        else if (idx == 12)
+        else if (idx == 14)
         {
             chapters[1].SetActive(false);
             chapters[2].SetActive(true);
         }
+        else if (idx == 20)
+        {
+            chapters[2].SetActive(false);
+            chapters[3].SetActive(true);
+        }
 
         //¿Ã∆Â∆Æ ¿˚øÎ
-        if (idx == 6)
+        if (idx == 2)
+        {
+            SE[0].Play();
+        }
+        else if (idx == 7)
         {
             fx[0].gameObject.SetActive(true);
         }
-        else if (idx == 11)
+        else if (idx == 14)
         {
             fx[1].gameObject.SetActive(true);
         }
-        else if (idx == 13)
-        {
-            BGM.pitch = 0.5f;
-            SE[0].Play();
-        }
-        else if (idx == 14)
+        else if (idx == 19)
         {
             fx[2].gameObject.SetActive(true);
+        }
+        else if (idx == 21)
+        {
+            BGM.pitch = 0.5f;
             SE[1].Play();
+        }
+        else if (idx == 22)
+        {
+            fx[3].gameObject.SetActive(true);
+            SE[2].Play();
         }
 
         //æ¿ ¿Ãµø
-        if (idx == 16)
+        if (idx == 24)
         {
-            chapters[2].SetActive(false);
-            SE[0].Pause();
+            chapters[3].SetActive(false);
             SE[1].Pause();
-            SE[2].Play();
+            SE[2].Pause();
+            SE[3].Play();
             prev = idx;
             StartCoroutine(WaitAndLoadScene());
             return;
@@ -88,7 +101,7 @@ public class PrologueController : MonoBehaviour
 
     IEnumerator WaitAndLoadScene()
     {
-        while(SE[2].isPlaying)
+        while (SE[3].isPlaying)
         {
             yield return null;
         }
