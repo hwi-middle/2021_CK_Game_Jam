@@ -60,6 +60,10 @@ public class PrologueController : MonoBehaviour
         {
             SE[0].Play();
         }
+        else if (idx == 5)
+        {
+            SE[1].Play();
+        }
         else if (idx == 7)
         {
             fx[0].gameObject.SetActive(true);
@@ -75,21 +79,21 @@ public class PrologueController : MonoBehaviour
         else if (idx == 21)
         {
             BGM.pitch = 0.5f;
-            SE[1].Play();
+            SE[2].Play();
         }
         else if (idx == 22)
         {
             fx[3].gameObject.SetActive(true);
-            SE[2].Play();
+            SE[3].Play();
         }
 
         //æ¿ ¿Ãµø
         if (idx == 24)
         {
             chapters[3].SetActive(false);
-            SE[1].Pause();
             SE[2].Pause();
-            SE[3].Play();
+            SE[3].Pause();
+            SE[4].Play();
             prev = idx;
             StartCoroutine(WaitAndLoadScene());
             return;
