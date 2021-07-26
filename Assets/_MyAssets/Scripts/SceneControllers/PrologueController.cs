@@ -105,7 +105,7 @@ public class PrologueController : MonoBehaviour
 
     IEnumerator WaitAndLoadScene()
     {
-        while (SE[3].isPlaying)
+        while (SE[4].isPlaying)
         {
             yield return null;
         }
