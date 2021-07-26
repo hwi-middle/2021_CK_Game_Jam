@@ -15,6 +15,7 @@ public class GlitchVolumeModifier : MonoBehaviour
     private LimitlessGlitch6 healthGlitch;
     private LimitlessGlitch8 gameOverGlitch;
     private LimitlessGlitch9 stunGlitch;
+    private LimitlessGlitch17 curseGlitch;
     private PlayerMovement player;
 
     // Start is called before the first frame update
@@ -24,6 +25,7 @@ public class GlitchVolumeModifier : MonoBehaviour
         volume.profile.TryGet(out healthGlitch);
         volume.profile.TryGet(out gameOverGlitch);
         volume.profile.TryGet(out stunGlitch);
+        volume.profile.TryGet(out curseGlitch);
     }
 
     // Update is called once per frame
@@ -33,6 +35,7 @@ public class GlitchVolumeModifier : MonoBehaviour
 
         if (player.isDead)
         {
+            directionalLight.gameObject.SetActive(true);
             healthGlitch.enable.value = false;
             gameOverGlitch.enable.value = true;
             return;
@@ -58,6 +61,15 @@ public class GlitchVolumeModifier : MonoBehaviour
         {
             directionalLight.gameObject.SetActive(false);
             stunGlitch.enable.value = false;
+        }
+
+        if(player.isCursed)
+        {
+            curseGlitch.enable.value = true;
+        }
+        else
+        {
+            curseGlitch.enable.value = false;
         }
     }
 }

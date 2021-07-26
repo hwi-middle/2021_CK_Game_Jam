@@ -63,7 +63,11 @@ public class PlayerMovement : MonoBehaviour
 
     //扁例惑怕 贸府
     public bool isStunned = false;
-    public bool isInvincible = false;
+    public bool isStunInvincible = false;
+
+    //历林惑怕 贸府
+    public bool isCursed = false;
+    public bool isCurseInvincible = false;
 
     //惯家府 犁积 贸府
     public List<AudioData> audioDatas = new List<AudioData>();
@@ -221,6 +225,13 @@ public class PlayerMovement : MonoBehaviour
         {
             x *= alternativeSpeedScale;
             z *= alternativeSpeedScale;
+        }
+
+        //历林惑怕老矫
+        if(isCursed)
+        {
+            x *= -1;
+            z *= -1;
         }
 
         //吝仿利侩

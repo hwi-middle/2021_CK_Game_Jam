@@ -51,7 +51,6 @@ public class Enemy : MonoBehaviour
                 if (!agent.hasPath || agent.velocity.sqrMagnitude == 0f)
                 {
                     currentTaskPriority = MAX_PRIORITY;
-                    //Debug.Log("목적지 도착: " + currentTarget.name);
                 }
             }
         }

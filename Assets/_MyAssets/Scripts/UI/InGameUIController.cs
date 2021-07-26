@@ -22,6 +22,8 @@ public class InGameUIController : MonoBehaviour
     [SerializeField] private Image healthItemIcon;
     [SerializeField] private Sprite[] healthItemSprites;
     [SerializeField] private Text healthDebugText;
+    [SerializeField] private Text stunText;
+    [SerializeField] private Text curseText;
 
     private ECanvasType currentCanvas = ECanvasType.None;
     [SerializeField] private Canvas inGameCanvas;
@@ -46,6 +48,7 @@ public class InGameUIController : MonoBehaviour
         UpdateHealthItemStatus();
         UpdateCoinAmount();
         UpdateKeyInfoPanel();
+        UpdateCurseAndStunText();
 
         float cutoff = 1 - (player.currentStamina / player.maxStamina);
         //staminaPlane.GetComponent<Renderer>().sharedMaterial.SetFloat("_Cutoff", cutoff);
@@ -60,7 +63,7 @@ public class InGameUIController : MonoBehaviour
         //키입력은 우선순위별로 1개만 받기
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (player.isStunned || player.isInvincible)
+            if (player.isStunned || player.isStunInvincible)
             {
                 return;
             }
@@ -156,6 +159,27 @@ public class InGameUIController : MonoBehaviour
         {
             KeyInfoPanel1.SetActive(true);
             KeyInfoPanel2.SetActive(true);
+        }
+    }
+
+    void UpdateCurseAndStunText()
+    {
+        if(player.isCursed)
+        {
+            curseText.gameObject.SetActive(true);
+        }
+        else
+        {
+            curseText.gameObject.SetActive(false);
+        }
+
+        if (player.isStunned)
+        {
+            stunText.gameObject.SetActive(true);
+        }
+        else
+        {
+            stunText.gameObject.SetActive(false);
         }
     }
 
