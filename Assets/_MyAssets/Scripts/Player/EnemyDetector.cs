@@ -28,6 +28,7 @@ public class EnemyDetector : MonoBehaviour
         }
         else if (other.tag == "Sub Enemy")
         {
+            Debug.Log("기절");
             if (player.isStunned || player.isInvincible) return;   //이미 기절상태거나 무적상태일 경우 return
             StartCoroutine(Stun());
         }
@@ -35,6 +36,11 @@ public class EnemyDetector : MonoBehaviour
 
     IEnumerator Stun()
     {
+        player.Damage(10);
+        if (player.currentHealth <= 0)
+        {
+            yield break;
+        }
         player.isStunned = true;
         player.isInvincible = true;
         yield return new WaitForSeconds(stunTime);

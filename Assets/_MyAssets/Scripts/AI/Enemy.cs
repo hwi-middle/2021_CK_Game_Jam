@@ -20,14 +20,12 @@ public class Enemy : MonoBehaviour
     private int currentTaskPriority;
     private const int MAX_PRIORITY = 10000;
 
-    private GameObject indicator;
 
     void Start()
     {
         currentTaskPriority = MAX_PRIORITY;
         agent = GetComponent<NavMeshAgent>();
         player = PlayerMovement.Instance.transform;
-        indicator = transform.GetChild(0).gameObject;
 
         switch (type)
         {
@@ -62,14 +60,6 @@ public class Enemy : MonoBehaviour
             }
         }
 
-        if (gameObject.layer == (int)EEnemyTypeOnMap.Detected)
-        {
-            indicator.SetActive(true);
-        }
-        else
-        {
-            indicator.SetActive(false);
-        }
     }
 
     //Sub Enemy일 경우 외부 Trigger에서 호출

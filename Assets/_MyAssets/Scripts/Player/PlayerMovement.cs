@@ -402,6 +402,15 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public void Damage(int amount)
+    {
+        currentHealth -= amount;
+        if (currentHealth <= 0)
+        {
+            isDead = true;
+        }
+    }
+
     public void Heal(int amount)
     {
         currentHealth += amount;
