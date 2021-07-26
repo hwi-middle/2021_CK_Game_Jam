@@ -12,13 +12,12 @@ GameObject:
   - component: {fileID: 8470190096428119189}
   - component: {fileID: 5938240535003250783}
   - component: {fileID: 7463356982120221299}
-  - component: {fileID: 4819172191928324614}
   m_Layer: 0
   m_Name: game_shelf02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &4765919536407788336
 Transform:
@@ -96,19 +95,3 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.6000004, y: 2.5755572, z: 0.659511}
   m_Center: {x: 0, y: 1.2877786, z: 0.013115573}
---- !u!208 &4819172191928324614
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5289515411377643914}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.8, y: 1.2880001, z: 0.33}
-  m_MoveThreshold: 0.1
-  m_Carve: 1
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 1.2880001, z: 0.013}
-  m_TimeToStationary: 0.5

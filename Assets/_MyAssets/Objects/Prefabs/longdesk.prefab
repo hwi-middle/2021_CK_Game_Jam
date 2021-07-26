@@ -13,22 +13,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.6, y: 0.75, z: 1.190206}
   m_Center: {x: 0, y: 0.375, z: 0}
---- !u!208 &4603330535841505939
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 216788494232803837}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.3, y: 0.37500003, z: 0.595}
-  m_MoveThreshold: 0.1
-  m_Carve: 1
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0.37500003, z: 0}
-  m_TimeToStationary: 0.5
 --- !u!65 &4447254572594607877
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -42,22 +26,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.2, y: 0.7503218, z: 0.7}
   m_Center: {x: 0, y: 0.3751609, z: 0}
---- !u!208 &5638157489288277738
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 216788495151507608}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.6, y: 0.37500003, z: 0.35000002}
-  m_MoveThreshold: 0.1
-  m_Carve: 1
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0.37500003, z: 0}
-  m_TimeToStationary: 0.5
 --- !u!65 &78195546761105533
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -71,22 +39,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.2, y: 0.7503218, z: 0.7}
   m_Center: {x: 0, y: 0.3751609, z: 0}
---- !u!208 &3166528848870659634
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 216788495371462327}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.6, y: 0.37500003, z: 0.35000002}
-  m_MoveThreshold: 0.1
-  m_Carve: 1
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0.37500003, z: 0}
-  m_TimeToStationary: 0.5
 --- !u!1 &2686105432232570393
 GameObject:
   m_ObjectHideFlags: 0
@@ -179,6 +131,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: shortdesk
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d915d2830f2e2e642bf8fa652eb47ce9, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d915d2830f2e2e642bf8fa652eb47ce9, type: 3}
 --- !u!1 &216788495371462327 stripped
@@ -250,6 +206,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: shortdesk (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d915d2830f2e2e642bf8fa652eb47ce9, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d915d2830f2e2e642bf8fa652eb47ce9, type: 3}
 --- !u!1 &216788495151507608 stripped
@@ -320,6 +280,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: fadc59c37d543904abbb93ba996a5e6e, type: 3}
       propertyPath: m_Name
       value: longdesk01
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: fadc59c37d543904abbb93ba996a5e6e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fadc59c37d543904abbb93ba996a5e6e, type: 3}
