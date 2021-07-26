@@ -62,7 +62,7 @@ public class Enemy : MonoBehaviour
             }
         }
 
-        if(gameObject.layer == (int)EEnemyTypeOnMap.Detected)
+        if (gameObject.layer == (int)EEnemyTypeOnMap.Detected)
         {
             indicator.SetActive(true);
         }
@@ -91,31 +91,19 @@ public class Enemy : MonoBehaviour
         currentTarget = origin;
     }
 
-    public void StartChasing(bool force)
+    public void StartChasing()
     {
         int newPriority;
 
-        if (force)
+        newPriority = GetTaskPriority(EEnemyTask.ChaseNormal);
+        //우선순위가 더 높은 작업이 진행 중일 경우 스킵
+        if (currentTaskPriority < newPriority)
         {
-            Debug.LogError("강제 추격");
-            newPriority = GetTaskPriority(EEnemyTask.ChaseForce);
-            currentTask = EEnemyTask.ChaseForce;
+            return;
         }
-        else
-        {
 
-            Debug.LogError("일반 추격");
-
-            newPriority = GetTaskPriority(EEnemyTask.ChaseNormal);
-            //우선순위가 더 높은 작업이 진행 중일 경우 스킵
-            if (currentTaskPriority < newPriority)
-            {
-                return;
-            }
-
-            currentTask = EEnemyTask.ChaseNormal;
-            currentTaskPriority = newPriority;
-        }
+        currentTask = EEnemyTask.ChaseNormal;
+        currentTaskPriority = newPriority;
 
         currentTarget = player;
     }
@@ -128,7 +116,6 @@ public class Enemy : MonoBehaviour
                 return 1;
             case EEnemyTask.ChaseForce:
                 return 2;
-
             case EEnemyTask.ChaseNormal:
                 return 3;
             case EEnemyTask.Nothing:
@@ -139,19 +126,11 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "Player" && currentTask == EEnemyTask.Return)
-        {
-            StartChasing(true);
-        }
-    }
-
     private void OnTriggerStay(Collider other)
     {
-        if (other.tag == "Player" && currentTask != EEnemyTask.ChaseForce)
+        if (other.tag == "Player")
         {
-            StartChasing(false);
+            StartChasing();
         }
     }
 }
