@@ -13,7 +13,6 @@ public class Enemy : MonoBehaviour
 
     private Transform player;
     private Transform currentTarget;
-    private EEnemyTask currentTask;
 
     //우선순위는 숫자가 작을수록 높음
     //우선순위 충돌시 새로운 작업 우선
@@ -30,11 +29,9 @@ public class Enemy : MonoBehaviour
         switch (type)
         {
             case EEnemyType.Main:
-                currentTask = EEnemyTask.ChaseNormal;
                 currentTarget = player;
                 break;
             case EEnemyType.Sub:
-                currentTask = EEnemyTask.Return;
                 currentTarget = origin;
                 break;
             default:
@@ -54,7 +51,6 @@ public class Enemy : MonoBehaviour
                 if (!agent.hasPath || agent.velocity.sqrMagnitude == 0f)
                 {
                     currentTaskPriority = MAX_PRIORITY;
-                    currentTask = EEnemyTask.Nothing;
                     //Debug.Log("목적지 도착: " + currentTarget.name);
                 }
             }
@@ -76,7 +72,6 @@ public class Enemy : MonoBehaviour
             return;
         }
 
-        currentTask = EEnemyTask.Return;
         currentTaskPriority = newPriority;
         currentTarget = origin;
     }
@@ -92,7 +87,6 @@ public class Enemy : MonoBehaviour
             return;
         }
 
-        currentTask = EEnemyTask.ChaseNormal;
         currentTaskPriority = newPriority;
 
         currentTarget = player;

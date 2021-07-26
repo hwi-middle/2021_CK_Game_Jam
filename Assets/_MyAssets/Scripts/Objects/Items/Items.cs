@@ -7,8 +7,9 @@ public class Items : MonoBehaviour
 {
     public int itemIndex;
 
+    [SerializeField] private EFieldItemType type;
     ItemHolder itemHolder;
-    [SerializeField] private Text itemText;
+    private Text itemText;
     bool isActivated = false;
 
     // Start is called before the first frame update
@@ -23,17 +24,32 @@ public class Items : MonoBehaviour
     {
         if(isActivated && Input.GetKeyDown(KeyCode.F))
         {
-            if (itemHolder.HasUSBItem)
+            switch(type)
             {
-                Debug.Log("¿ÃπÃ USB º“¿Ø«‘");
+                case EFieldItemType.USB:
+                    if (itemHolder.HasUSBItem)
+                    {
+                        Debug.Log("¿ÃπÃ USB º“¿Ø«‘");
+                    }
+                    else
+                    {
+                        itemHolder.GetUSBItem(itemIndex);
+                        Destroy(gameObject);
+                        itemText.text = "";
+                        Debug.Log("USB »πµÊ");
+                    }
+                    break;
+                case EFieldItemType.Coin:
+                    itemHolder.IncreaseCoin();
+                    Destroy(gameObject);
+                    itemText.text = "";
+                    Debug.Log("ƒ⁄¿Œ »πµÊ");
+                    break;
+                default:
+                    Debug.Assert(false);
+                    break;
             }
-            else
-            {
-                itemHolder.GetUSBItem(itemIndex);
-                Destroy(gameObject);
-                itemText.text = "";
-                Debug.Log("USB »πµÊ");
-            }
+
         }
     }
 
