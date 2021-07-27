@@ -132,8 +132,7 @@ public class InGameUIController : MonoBehaviour
 
     IEnumerator Die()
     {
-        dieCanvas.gameObject.SetActive(true);
-        //Time.timeScale = 0f;
+        Time.timeScale = 0f;
 
         switch (player.dieType)
         {
@@ -153,8 +152,10 @@ public class InGameUIController : MonoBehaviour
         }
 
         //효과음 플레이 해야함
+        CloseAllCanvas();
         player.SetCursorLockState(CursorLockMode.None);
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSecondsRealtime(3.0f);
+        dieCanvas.gameObject.SetActive(true);
         dieButton.gameObject.SetActive(true);
 
         yield break;
