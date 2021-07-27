@@ -27,13 +27,12 @@ public class EnemyDetector : MonoBehaviour
     {
         if (other.tag == "Main Enemy")
         {
-            Debug.Log("저주");
+            
             if (player.isCursed || player.isCurseInvincible) return;   //이미 저주상태일 경우 return
             StartCoroutine(Curse());
         }
         else if (other.tag == "Sub Enemy")
         {
-            Debug.Log("기절");
             if (player.isStunned || player.isStunInvincible) return;   //이미 기절상태거나 무적상태일 경우 return
             StartCoroutine(Stun());
         }
@@ -50,7 +49,11 @@ public class EnemyDetector : MonoBehaviour
         curseAudioSource.Play();
         player.isCursed = true;
         player.isCurseInvincible = true;
+        float t1 = Time.time;
+        Debug.Log(Time.timeScale);
+
         yield return new WaitForSeconds(curseTime);
+        Debug.Log(Time.time - t1);
         player.isCursed = false;
         curseAudioSource.Pause();
         yield return new WaitForSeconds(curseCooldown);
@@ -59,6 +62,7 @@ public class EnemyDetector : MonoBehaviour
 
     IEnumerator Stun()
     {
+        Debug.Log("기절");
         player.Damage(10);
         if (player.currentHealth <= 0)
         {

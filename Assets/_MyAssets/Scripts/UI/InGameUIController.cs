@@ -36,6 +36,7 @@ public class InGameUIController : MonoBehaviour
     [SerializeField] private Button dieButton;
 
     [SerializeField] private AudioSource bgm;
+    [SerializeField] private AudioSource beerCanSound;
 
     // Start is called before the first frame update
     void Start()
@@ -94,7 +95,7 @@ public class InGameUIController : MonoBehaviour
             if (itemHolder.HasHealthItem)
             {
                 itemHolder.HasHealthItem = false;
-
+                beerCanSound.Play();
                 int healAmount = 0;
                 switch (itemHolder.HealthItemType)
                 {
