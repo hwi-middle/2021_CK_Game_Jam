@@ -59,7 +59,7 @@ public class VendingMachine : MonoBehaviour
         int prev = -1;
         for (int i = 0; i < 10; i++)
         {
-            int rand = Random.Range(0, 3);
+            int rand;
             do
             {
                 rand = Random.Range(0, 3);
