@@ -111,6 +111,6 @@ public class PrologueController : MonoBehaviour
         }
 
         yield return new WaitForSeconds(0.5f);
-        SceneManager.LoadScene("2ndFloor");
+        SceneManager.LoadScene("Tutorial");
     }
 }

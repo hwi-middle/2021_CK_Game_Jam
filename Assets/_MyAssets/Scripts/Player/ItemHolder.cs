@@ -13,7 +13,7 @@ public class ItemHolder : MonoBehaviour
     private int USBIndex = 0;
     public int USBItemIndex { get { return USBIndex; } }
 
-    private int coin = 2;
+    private int coin = 0;
     public int Coin { get { return coin; } }
 
     private bool hasHealthItem = false;

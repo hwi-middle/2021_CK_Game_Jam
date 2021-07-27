@@ -393,7 +393,8 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "\uCF54\uC778\uC744 \uD68D\uB4DD\uD574\uC11C \uCCB4\uB825\uC744 \uD68C\uBCF5\uD558\uB294
-    \uC544\uC774\uD15C\uC744 \uAD6C\uB9E4\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
+    \uC544\uC774\uD15C\uC744 \uAD6C\uB9E4\uD569\uB2C8\uB2E4. \uB9F5 \uD558\uB2E8\uC758
+    \uC790\uD310\uAE30\uC5D0\uC11C \uC0AC\uC6A9\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
 --- !u!222 &207505575
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -414,8 +415,6 @@ GameObject:
   - component: {fileID: 231159335}
   - component: {fileID: 231159337}
   - component: {fileID: 231159339}
-  - component: {fileID: 231159338}
-  - component: {fileID: 231159334}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -423,19 +422,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &231159334
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 231159333}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eba1715461dd10046b3bec574010e8a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 0
 --- !u!20 &231159335
 Camera:
   m_ObjectHideFlags: 0
@@ -525,102 +511,6 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
---- !u!82 &231159338
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 231159333}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: -8766169271350147637, guid: ba327c6aebfc4144e9ce04148c793602, type: 2}
-  m_audioClip: {fileID: 8300000, guid: 31ed1efb6c082447b8c7a125191f2c43, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 1
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!81 &231159339
 AudioListener:
   m_ObjectHideFlags: 0
@@ -1335,7 +1225,8 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "\uB9F5 \uACF3\uACF3\uC5D0 \uC788\uB294 USB\uB97C \uD68D\uB4DD\uD574\uC11C
-    \uD0C8\uCD9C\uC744 \uC704\uD55C \uBE44\uBC00\uBC88\uD638\uB97C \uC54C\uC544\uB0B4\uC57C\uD569\uB2C8\uB2E4."
+    \uD0C8\uCD9C\uC744 \uC704\uD55C \uBE44\uBC00\uBC88\uD638\uB97C \uC54C\uC544\uB0B4\uC57C\uD569\uB2C8\uB2E4.
+    \uB9F5 \uC911\uC559\uC758 \uCEF4\uD4E8\uD130\uB97C \uC774\uC6A9\uD574\uC57C\uD558\uC8E0."
 --- !u!222 &1055800278
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1737,9 +1628,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC5B4\uB5A4 \uAD50\uC218\uB2D8\uC740 \uB2F9\uC2E0\uC744 \uAE30\uC808\uC2DC\uD0A4\uAE30\uB3C4
-    \uD569\uB2C8\uB2E4. \uAE30\uC808 \uD6C4 \uC7A0\uC2DC\uB3D9\uC548\uC740 \uAE30\uC808\uD558\uC9C0
-    \uC54A\uC8E0."
+  m_Text: "\uC5B4\uB5A4 \uAD50\uC218\uB2D8\uC740 \uACF5\uACA9\uB825\uC774 \uB0AE\uC740
+    \uB300\uC2E0, \uB2F9\uC2E0\uC744 \uAE30\uC808\uC2DC\uD0A4\uAE30\uB3C4 \uD569\uB2C8\uB2E4."
 --- !u!222 &1530328676
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1987,8 +1877,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uAD50\uC218\uB2D8\uC744 \uD53C\uD558\uC138\uC694! \uAD50\uC218\uB2D8\uC5D0\uAC8C
-    \uBD99\uC7A1\uD788\uBA74 \uB05D\uC7A5\uC785\uB2C8\uB2E4."
+  m_Text: "\uAD50\uC218\uB2D8\uC744 \uD53C\uD558\uC138\uC694! \uAD50\uC218\uB2D8\uC740
+    \uB2F9\uC2E0\uC744 \uCAD3\uC544\uB2E4\uB2C8\uBA70 \uAC15\uB825\uD55C \uACF5\uACA9\uC744
+    \uAC00\uD558\uACE0 \uC800\uC8FC\uB97C \uAC81\uB2C8\uB2E4."
 --- !u!222 &1986082274
 CanvasRenderer:
   m_ObjectHideFlags: 0
