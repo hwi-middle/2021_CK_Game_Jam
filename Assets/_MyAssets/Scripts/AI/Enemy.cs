@@ -48,7 +48,7 @@ public class Enemy : MonoBehaviour
         {
             if (agent.remainingDistance >= 60)
             {
-                agent.speed = 6;
+                agent.speed = 5;
             }
             else
             {

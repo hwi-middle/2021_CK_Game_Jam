@@ -35,7 +35,7 @@ public class CodeSlidesUp2 : MonoBehaviour
             }
             //audioSource.Play();
 
-            yield return new WaitForSeconds(0.01f);
+            yield return new WaitForSeconds(0.04f);
         }
     }
 }

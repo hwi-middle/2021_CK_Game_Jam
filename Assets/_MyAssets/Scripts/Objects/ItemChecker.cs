@@ -132,6 +132,7 @@ public class ItemChecker : MonoBehaviour
         {
             rand = Random.Range(0, 30);
         } while (hints[rand]);
+        Debug.Log("ÈùÆ®»Ì±â: " + rand.ToString());
         hints[rand] = true;
 
         Debug.Assert(rand >= 0 && rand < 30);
@@ -260,15 +261,20 @@ public class ItemChecker : MonoBehaviour
 
     public void SelectHints()
     {
+        mainSection.SetActive(false);
+        reviewSection.SetActive(true);
         for (int i = 0; i < 10; i++)
         {
+            Debug.Log("ÈùÆ®Ã¼Å©: " + i.ToString() + " - " + hints[i].ToString());
             if (!hints[i])
             {
                 reviewHintIndexTexts[i].text = "?";
             }
+            else
+            {
+                reviewHintIndexTexts[i].text = "#" + (i + 1).ToString();
+            }
         }
-        mainSection.SetActive(false);
-        reviewSection.SetActive(true);
     }
 
     public void ReviewHints(int idx)

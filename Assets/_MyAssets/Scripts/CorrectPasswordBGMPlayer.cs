@@ -28,7 +28,8 @@ public class CorrectPasswordBGMPlayer : MonoBehaviour
         while(audioSource.isPlaying)
         {
             yield return null;
-        } 
+        }
+        audioSource.Play();
         while (audioSource.isPlaying)
         {
             yield return null;

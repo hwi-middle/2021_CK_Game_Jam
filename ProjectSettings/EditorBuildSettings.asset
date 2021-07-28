@@ -35,4 +35,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_MyAssets/Scenes/CorrectPassword.unity
     guid: 376dfdb0587561648b0a22e88bde7ecc
+  - enabled: 1
+    path: Assets/_MyAssets/Scenes/Epilogue.unity
+    guid: 43cb6afcf8068cb40a3b6f530ec6f4b1
   m_configObjects: {}
