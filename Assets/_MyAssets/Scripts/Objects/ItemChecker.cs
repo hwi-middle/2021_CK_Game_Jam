@@ -19,6 +19,7 @@ public class ItemChecker : MonoBehaviour
     [SerializeField] private GameObject hintSection;
     [SerializeField] private GameObject bombSection;
     [SerializeField] private GameObject reviewSection;
+    [SerializeField] private GameObject tutorialSection;
 
     //힌트 확인처리
     private bool[] hints = new bool[30];    //힌트를 열람한 적이 있는지 기록
@@ -35,16 +36,23 @@ public class ItemChecker : MonoBehaviour
     [SerializeField] private Text hintTitle;
     [SerializeField] private Text hintText;
     [SerializeField] private Text hintHeader;
-    [SerializeField] private GameObject returnToMainButtons;
+    [SerializeField] private GameObject returnToMainButtons1;
     [SerializeField] private GameObject returnToReviewButtons;
+    [SerializeField] private GameObject returnToHintTutorialButtons;
 
     //꽝 화면
     [SerializeField] private Sprite[] bombSprites;
     [SerializeField] private Image bombImage;
     [SerializeField] private Text bombHeader;
+    [SerializeField] private GameObject returnToMainButtons2;
+    [SerializeField] private GameObject returnToBombTutorialButtons;
 
     //힌트 다시보기 화면
     [SerializeField] private Text[] reviewHintIndexTexts;
+
+    //튜토리얼 화면
+    [SerializeField] private Text tutorialTitle;
+    [SerializeField] private Text tutorialDescription;
 
     // Start is called before the first frame update
     void Start()
@@ -180,19 +188,38 @@ public class ItemChecker : MonoBehaviour
             hintTitle.text += " 번째 자리는 ...";
             hintHeader.text = "힌트_" + (idx + 1).ToString() + "번.exe";
 
-            if (shouldBackToMain)
+            if (isFirstHint)
             {
-                returnToMainButtons.SetActive(true);
+                returnToHintTutorialButtons.SetActive(true);
+                returnToMainButtons1.SetActive(false);
+                returnToReviewButtons.SetActive(false);
+            }
+            else if (shouldBackToMain)
+            {
+                returnToHintTutorialButtons.SetActive(false);
+                returnToMainButtons1.SetActive(true);
                 returnToReviewButtons.SetActive(false);
             }
             else
             {
-                returnToMainButtons.SetActive(false);
+                returnToHintTutorialButtons.SetActive(false);
+                returnToMainButtons1.SetActive(false);
                 returnToReviewButtons.SetActive(true);
             }
         }
         else
         {
+            if (isFirstBomb)
+            {
+                returnToBombTutorialButtons.SetActive(true);
+                returnToMainButtons2.SetActive(false);
+            }
+            else
+            {
+                returnToBombTutorialButtons.SetActive(false);
+                returnToMainButtons2.SetActive(true);
+            }
+
             bombSection.SetActive(true);
             bombImage.sprite = bombSprites[idx - 10];
             bombHeader.text = "꽝_" + (idx + 1 - 10).ToString() + "번.exe";
@@ -204,6 +231,7 @@ public class ItemChecker : MonoBehaviour
         hintSection.SetActive(false);
         bombSection.SetActive(false);
         reviewSection.SetActive(false);
+        tutorialSection.SetActive(false);
         mainSection.SetActive(true);
     }
 
@@ -212,13 +240,22 @@ public class ItemChecker : MonoBehaviour
         hintSection.SetActive(false);
         bombSection.SetActive(false);
         reviewSection.SetActive(true);
+
+    }
+
+    public void ReturnToTutorial(bool b)
+    {
+        hintSection.SetActive(false);
+        bombSection.SetActive(false);
+        tutorialSection.SetActive(true);
+        Tutorial(b);
     }
 
     public void SelectHints()
     {
-        for(int i = 0; i < 10; i++)
+        for (int i = 0; i < 10; i++)
         {
-            if(!hints[i])
+            if (!hints[i])
             {
                 reviewHintIndexTexts[i].text = "?";
             }
@@ -240,6 +277,29 @@ public class ItemChecker : MonoBehaviour
 
     public void InputPassword()
     {
+
+    }
+
+    public void Tutorial(bool isBomb)
+    {
+        tutorialSection.SetActive(true);
+
+        if (isBomb)
+        {
+            tutorialTitle.text = "이런!";
+            tutorialDescription.text = "전혀 도움이 되지 않는 USB였습니다." +
+                " 앞으로도 이런 USB가 여러개 섞여있을 것입니다." +
+                " 또 얼마나 짜증나는 이미지가 들어있을까요?";
+            isFirstBomb = false;
+        }
+        else
+        {
+            tutorialTitle.text = "축하합니다!";
+            tutorialDescription.text = "도움이 될 만한 힌트를 얻었습니다." +
+                " 이러한 힌트들을 잘 읽고 비밀번호를 입력합시다." +
+                " 그러면 디버깅용 코드가 실행되고 버그가 만연한 이 곳에서 탈출할 수 있습니다!";
+            isFirstHint = false;
+        }
 
     }
 

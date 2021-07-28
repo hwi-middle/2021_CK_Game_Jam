@@ -46,13 +46,13 @@ public class Enemy : MonoBehaviour
 
         if(type == EEnemyType.Main)
         {
-            if (agent.remainingDistance >= 50)
+            if (agent.remainingDistance >= 60)
             {
                 agent.speed = 6;
             }
             else
             {
-                agent.speed = 4;
+                agent.speed = 3;
             }
         }
 

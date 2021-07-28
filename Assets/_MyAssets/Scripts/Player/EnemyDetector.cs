@@ -76,6 +76,7 @@ public class EnemyDetector : MonoBehaviour
         player.isStunInvincible = true;
         yield return new WaitForSeconds(stunTime);
         player.isStunned = false;
+        stunAudioSource.Pause();
         yield return new WaitForSeconds(stunCooldown);
         player.isStunInvincible = false;
     }
