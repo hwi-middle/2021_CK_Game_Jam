@@ -58,6 +58,7 @@ public class ItemChecker : MonoBehaviour
     //암호입력 화면
     [SerializeField] private InputField passwordInputField;
     [SerializeField] private Text passwordErrorText;
+    [SerializeField] private SceneResetManager sceneResetManager;
 
     // Start is called before the first frame update
     void Start()
@@ -292,7 +293,7 @@ public class ItemChecker : MonoBehaviour
     {
         if(passwordInputField.text == "76051")
         {
-            Debug.Log("맞춤");
+            sceneResetManager.ClearAllObjectsAndLoadScene("CorrectPassword");
         }
         else
         {
