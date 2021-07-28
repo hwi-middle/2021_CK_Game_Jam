@@ -16,9 +16,10 @@ public class ItemChecker : MonoBehaviour
     //창 이동 처리
     [SerializeField] private GameObject mainSection;
     [SerializeField] private GameObject checkSection;
+    [SerializeField] private GameObject hintSection;
+    [SerializeField] private GameObject bombSection;
 
     //힌트 확인처리
-    [SerializeField] private Sprite[] hintSprites;
     private bool[] hints = new bool[30];    //힌트를 열람한 적이 있는지 기록
 
     [SerializeField] private Image progessBarFill;
@@ -27,6 +28,16 @@ public class ItemChecker : MonoBehaviour
 
     private bool isFirstHint = true;
     private bool isFirstBomb = true;
+
+    //진짜 힌트 화면
+    [SerializeField] private Text hintTitle;
+    [SerializeField] private Text hintText;
+    [SerializeField] private Text hintHeader;
+
+    //꽝 화면
+    [SerializeField] private Sprite[] bombSprites;
+    [SerializeField] private Image bombImage;
+    [SerializeField] private Text bombHeader;
 
     // Start is called before the first frame update
     void Start()
@@ -76,16 +87,13 @@ public class ItemChecker : MonoBehaviour
 
     IEnumerator ShowChecking()
     {
-        int rand;
-        do
-        {
-            rand = Random.Range(0, 30);
-        } while (hints[rand]);
-
         mainSection.SetActive(false);
         checkSection.SetActive(true);
 
         float fillAmount = 0f;
+        progessBarFill.fillAmount = 0f;
+        continueButton.gameObject.SetActive(false);
+
         while (progessBarFill.fillAmount != 1)
         {
             fillAmount += 0.5f * Time.deltaTime;
@@ -95,26 +103,90 @@ public class ItemChecker : MonoBehaviour
         }
         yield return new WaitForSecondsRealtime(0.5f);
 
-        chekingText.text = "파일 읽기 완료";
-        Debug.Log("힌트 뽑기 결과: " + rand.ToString());
+        chekingText.text = "USB 읽기 완료";
         continueButton.gameObject.SetActive(true);
     }
 
-    public void CompleteChecking(int idx)
+    public void CompleteChecking()
     {
-        Debug.Assert(idx >= 0 && idx < 30);
-        if(idx < 5)
+        int rand;
+        do
         {
+            rand = Random.Range(0, 30);
+            Debug.Log(hints[rand]);
+        } while (hints[rand]);
+        hints[rand] = true;
 
-        }
-        else if (idx < 10)
+        Debug.Assert(rand >= 0 && rand < 30);
+        checkSection.SetActive(false);
+
+        //힌트 획득
+        if (rand < 10)
         {
-
+            hintSection.SetActive(true);
+            switch (rand)
+            {
+                case 0:
+                    hintTitle.text = "첫";
+                    hintText.text = "7";
+                    break;
+                case 1:
+                    hintTitle.text = "두";
+                    hintText.text = "6";
+                    break;
+                case 2:
+                    hintTitle.text = "세";
+                    hintText.text = "0";
+                    break;
+                case 3:
+                    hintTitle.text = "네";
+                    hintText.text = "5";
+                    break;
+                case 4:
+                    hintTitle.text = "다섯";
+                    hintText.text = "1";
+                    break;
+                case 5:
+                    hintTitle.text = "첫";
+                    hintText.text = "행운의 숫자";
+                    break;
+                case 6:
+                    hintTitle.text = "두";
+                    hintText.text = "악마의 숫자";
+                    break;
+                case 7:
+                    hintTitle.text = "세";
+                    hintText.text = "공허의 숫자";
+                    break;
+                case 8:
+                    hintTitle.text = "네";
+                    hintText.text = "완성의 숫자";
+                    break;
+                case 9:
+                    hintTitle.text = "다섯";
+                    hintText.text = "태초의 시작";
+                    break;
+                default:
+                    Debug.Assert(false);
+                    break;
+            }
+            hintTitle.text += " 번째 자리는 ...";
+            hintHeader.text = "힌트_" + rand.ToString() + ".exe";
         }
         else
         {
-
+            bombSection.SetActive(true);
+            bombImage.sprite = bombSprites[rand - 10];
+            bombHeader.text = "꽝_" + (rand - 10).ToString() + ".exe";
         }
+
+    }
+
+    public void FinishChecking()
+    {
+        hintSection.SetActive(false);
+        bombSection.SetActive(false);
+        mainSection.SetActive(true);
     }
 
     public void ReviewHints()
