@@ -76,7 +76,7 @@ public class InGameUIController : MonoBehaviour
         //키입력은 우선순위별로 1개만 받기
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (player.isStunned || player.isStunInvincible || player.isCursed || player.isCurseInvincible)
+            if (player.isDead || player.isStunned || player.isStunInvincible || player.isCursed || player.isCurseInvincible)
             {
                 return;
             }

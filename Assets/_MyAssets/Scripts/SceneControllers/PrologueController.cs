@@ -28,6 +28,7 @@ public class PrologueController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(idx > 24) return;
 
         if (Input.GetMouseButtonDown(0)
             || Input.GetKeyDown(KeyCode.Space)
@@ -36,7 +37,7 @@ public class PrologueController : MonoBehaviour
         {
             idx++;
         }
-        else if (prev == idx || idx > 16) return;
+        else if (prev == idx) return;
 
         //√©≈Õ ¿Ãµø
         if (idx == 8)

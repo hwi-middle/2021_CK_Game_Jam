@@ -17,7 +17,7 @@ public class SceneResetManager : MonoBehaviour
 
     }
 
-    public void ClearAllObjectsAndLoadScene(string target)
+    public void ClaerAllObjects()
     {
         GameObject[] objects = GameObject.FindGameObjectsWithTag("GameController");
 
@@ -29,6 +29,11 @@ public class SceneResetManager : MonoBehaviour
         Time.timeScale = 1f;
         IngameObjectsManager.isLoaded = false;
         DestroyIfAlreadyLoaded.isLoaded = false;
+    }
+
+    public void ClearAllObjectsAndLoadScene(string target)
+    {
+        ClaerAllObjects();
 
         SceneManager.LoadScene(target);
     }
