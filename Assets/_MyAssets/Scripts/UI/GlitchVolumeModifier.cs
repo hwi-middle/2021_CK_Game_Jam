@@ -36,7 +36,7 @@ public class GlitchVolumeModifier : MonoBehaviour
         if (player.isDead)
         {
             directionalLight.gameObject.SetActive(true);
-            healthGlitch.enable.value = false;
+            healthGlitch.enable.value = true;
             gameOverGlitch.enable.value = true;
             return;
         }

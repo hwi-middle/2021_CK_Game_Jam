@@ -37,6 +37,9 @@ public class InGameUIController : MonoBehaviour
 
     [SerializeField] private AudioSource bgm;
     [SerializeField] private AudioSource beerCanSound;
+    [SerializeField] private AudioSource outOfHealthSound;
+    [SerializeField] private AudioSource dieSound;
+    [SerializeField] private EnemyDetector enemyDetector;
 
     // Start is called before the first frame update
     void Start()
@@ -49,7 +52,7 @@ public class InGameUIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(player.isDead && !player.isDying)
+        if (player.isDead && !player.isDying)
         {
             player.isDying = true;
             StartCoroutine(Die());
@@ -151,10 +154,13 @@ public class InGameUIController : MonoBehaviour
                 break;
         }
 
-        //효과음 플레이 해야함
         CloseAllCanvas();
         player.SetCursorLockState(CursorLockMode.None);
-        yield return new WaitForSecondsRealtime(3.0f);
+        outOfHealthSound.Play();
+        yield return new WaitForSecondsRealtime(4.0f);
+        outOfHealthSound.Stop();
+        enemyDetector.StopSE();
+        dieSound.Play();
         dieCanvas.gameObject.SetActive(true);
         dieButton.gameObject.SetActive(true);
 
@@ -208,7 +214,7 @@ public class InGameUIController : MonoBehaviour
 
     void UpdateCurseAndStunText()
     {
-        if(player.isCursed)
+        if (player.isCursed)
         {
             curseText.gameObject.SetActive(true);
         }

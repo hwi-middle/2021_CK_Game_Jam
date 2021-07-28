@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class EnemyDetector : MonoBehaviour
 {
-    [SerializeField] float stunTime = 2.0f;
-    [SerializeField] float stunCooldown = 2.0f;
-    [SerializeField] float curseTime = 5.0f;
-    [SerializeField] float curseCooldown = 5.0f;
-    [SerializeField] AudioSource curseAudioSource;
+    [SerializeField] private float stunTime = 2.0f;
+    [SerializeField] private float stunCooldown = 2.0f;
+    [SerializeField] private float curseTime = 5.0f;
+    [SerializeField] private float curseCooldown = 5.0f;
+
+    [SerializeField] private AudioSource curseAudioSource;
+    [SerializeField] private AudioSource stunAudioSource;
+
     private PlayerMovement player;
 
     // Start is called before the first frame update
@@ -68,11 +71,18 @@ public class EnemyDetector : MonoBehaviour
             player.dieType = EDieType.Stunned;
             yield break;
         }
+        stunAudioSource.Play();
         player.isStunned = true;
         player.isStunInvincible = true;
         yield return new WaitForSeconds(stunTime);
         player.isStunned = false;
         yield return new WaitForSeconds(stunCooldown);
         player.isStunInvincible = false;
+    }
+
+    public void StopSE()
+    {
+        curseAudioSource.Stop();
+        stunAudioSource.Stop();
     }
 }
