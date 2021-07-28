@@ -27,7 +27,6 @@ public class EnemyDetector : MonoBehaviour
     {
         if (other.tag == "Main Enemy")
         {
-            
             if (player.isCursed || player.isCurseInvincible) return;   //이미 저주상태일 경우 return
             StartCoroutine(Curse());
         }

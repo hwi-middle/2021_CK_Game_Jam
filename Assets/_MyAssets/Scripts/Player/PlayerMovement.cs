@@ -70,7 +70,11 @@ public class PlayerMovement : MonoBehaviour
     //历林惑怕 贸府
     public bool isCursed = false;
     public bool isCurseInvincible = false;
-    
+
+    //Freeze 惑怕 贸府
+    public bool shouldMoveFreeze = false;
+    public bool shouldDamageFreeze = false;
+
     //惯家府 犁积 贸府
     public List<AudioData> audioDatas = new List<AudioData>();
     private List<AudioData> activatedAudioDatas = new List<AudioData>();
@@ -324,6 +328,14 @@ public class PlayerMovement : MonoBehaviour
 
     void GetInputAxis(out float x, out float z, out bool isMoving)
     {
+        if (shouldMoveFreeze)
+        {
+            x = 0f;
+            z = 0f;
+            isMoving = false;
+            return;
+        }
+
         x = Input.GetAxis("Horizontal");
         z = Input.GetAxis("Vertical");
 
@@ -405,6 +417,8 @@ public class PlayerMovement : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(healthDecreasementFrequency);
+
+            if (shouldDamageFreeze) break;
 
             currentHealth -= healthDecreasementAmount;
             if (currentHealth <= 0)

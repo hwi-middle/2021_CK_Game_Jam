@@ -18,10 +18,12 @@ public class ItemChecker : MonoBehaviour
     [SerializeField] private GameObject checkSection;
     [SerializeField] private GameObject hintSection;
     [SerializeField] private GameObject bombSection;
+    [SerializeField] private GameObject reviewSection;
 
     //ÈùÆ® È®ÀÎÃ³¸®
     private bool[] hints = new bool[30];    //ÈùÆ®¸¦ ¿­¶÷ÇÑ ÀûÀÌ ÀÖ´ÂÁö ±â·Ï
 
+    [SerializeField] private Text startButtonText;
     [SerializeField] private Image progessBarFill;
     [SerializeField] private Text chekingText;
     [SerializeField] private Button continueButton;
@@ -58,11 +60,14 @@ public class ItemChecker : MonoBehaviour
         {
             player.SetCursorLockState(CursorLockMode.None);
             //Time.timeScale = 0f;
+            player.shouldMoveFreeze = true;
             player.shouldCameraFreeze = true;
+            player.shouldDamageFreeze = true;
             inGameUIController.CloseAllCanvas();
             USBCheckCanvas.gameObject.SetActive(true);
             player.doingTask = true;
             itemText.text = "";
+            startButtonText.text = "¼ÒÁöÁßÀÎ USB È®ÀÎÇÏ±â";
         }
 
         //if (isActivated && Input.GetKeyDown(KeyCode.F))
@@ -82,6 +87,12 @@ public class ItemChecker : MonoBehaviour
 
     public void CheckUSB()
     {
+        if(!itemHolder.HasUSBItem)
+        {
+            startButtonText.text = "USB ¾øÀ½";
+            return;
+        }
+        itemHolder.UseUSBItem();
         StartCoroutine(ShowChecking());
     }
 
@@ -91,6 +102,7 @@ public class ItemChecker : MonoBehaviour
         checkSection.SetActive(true);
 
         float fillAmount = 0f;
+        chekingText.text = "USB ÀĞ´Â Áß...";
         progessBarFill.fillAmount = 0f;
         continueButton.gameObject.SetActive(false);
 
@@ -113,18 +125,21 @@ public class ItemChecker : MonoBehaviour
         do
         {
             rand = Random.Range(0, 30);
-            Debug.Log(hints[rand]);
         } while (hints[rand]);
         hints[rand] = true;
 
         Debug.Assert(rand >= 0 && rand < 30);
+    }
+
+    public void ShowHint(int idx)
+    {
         checkSection.SetActive(false);
 
         //ÈùÆ® È¹µæ
-        if (rand < 10)
+        if (idx < 10)
         {
             hintSection.SetActive(true);
-            switch (rand)
+            switch (idx)
             {
                 case 0:
                     hintTitle.text = "Ã¹";
@@ -171,15 +186,14 @@ public class ItemChecker : MonoBehaviour
                     break;
             }
             hintTitle.text += " ¹øÂ° ÀÚ¸®´Â ...";
-            hintHeader.text = "ÈùÆ®_" + rand.ToString() + ".exe";
+            hintHeader.text = "ÈùÆ®_" + idx.ToString() + ".exe";
         }
         else
         {
             bombSection.SetActive(true);
-            bombImage.sprite = bombSprites[rand - 10];
-            bombHeader.text = "²Î_" + (rand - 10).ToString() + ".exe";
+            bombImage.sprite = bombSprites[idx - 10];
+            bombHeader.text = "²Î_" + (idx - 10).ToString() + ".exe";
         }
-
     }
 
     public void FinishChecking()
@@ -189,7 +203,13 @@ public class ItemChecker : MonoBehaviour
         mainSection.SetActive(true);
     }
 
-    public void ReviewHints()
+    public void SelectHints()
+    {
+        mainSection.SetActive(false);
+        reviewSection.SetActive(true);
+    }
+
+    public void ReviewHints(int idx)
     {
 
     }
@@ -202,10 +222,13 @@ public class ItemChecker : MonoBehaviour
     public void Exit()
     {
         Time.timeScale = 1f;
+        player.shouldMoveFreeze = false;
         player.shouldCameraFreeze = false;
+        player.shouldDamageFreeze = false;
         USBCheckCanvas.gameObject.SetActive(false);
         player.doingTask = false;
         player.SetCursorLockState(CursorLockMode.Locked);
+        itemText.text = "FÅ°¸¦ ´­·¯ ÄÄÇ»ÅÍ »ç¿ë";
     }
 
     private void OnTriggerEnter(Collider other)
