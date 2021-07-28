@@ -35,6 +35,8 @@ public class ItemChecker : MonoBehaviour
     [SerializeField] private Text hintTitle;
     [SerializeField] private Text hintText;
     [SerializeField] private Text hintHeader;
+    [SerializeField] private GameObject returnToMainButtons;
+    [SerializeField] private GameObject returnToReviewButtons;
 
     //²Î È­¸é
     [SerializeField] private Sprite[] bombSprites;
@@ -73,7 +75,7 @@ public class ItemChecker : MonoBehaviour
 
     public void CheckUSB()
     {
-        if(!itemHolder.HasUSBItem)
+        if (!itemHolder.HasUSBItem)
         {
             startButtonText.text = "USB ¾øÀ½";
             return;
@@ -115,10 +117,10 @@ public class ItemChecker : MonoBehaviour
         hints[rand] = true;
 
         Debug.Assert(rand >= 0 && rand < 30);
-        ShowHint(rand);
+        ShowHint(rand, true);
     }
 
-    public void ShowHint(int idx)
+    public void ShowHint(int idx, bool shouldBackToMain)
     {
         checkSection.SetActive(false);
 
@@ -173,21 +175,39 @@ public class ItemChecker : MonoBehaviour
                     break;
             }
             hintTitle.text += " ¹øÂ° ÀÚ¸®´Â ...";
-            hintHeader.text = "ÈùÆ®_" + idx.ToString() + ".exe";
+            hintHeader.text = "ÈùÆ®_" + (idx + 1).ToString() + ".exe";
+
+            if (shouldBackToMain)
+            {
+                returnToMainButtons.SetActive(true);
+                returnToReviewButtons.SetActive(false);
+            }
+            else
+            {
+                returnToMainButtons.SetActive(true);
+                returnToReviewButtons.SetActive(false);
+            }
         }
         else
         {
             bombSection.SetActive(true);
             bombImage.sprite = bombSprites[idx - 10];
-            bombHeader.text = "²Î_" + (idx - 10).ToString() + ".exe";
+            bombHeader.text = "²Î_" + (idx + 1 - 10).ToString() + ".exe";
         }
     }
 
-    public void FinishChecking()
+    public void FinishCheckingAndReturnToMain()
     {
         hintSection.SetActive(false);
         bombSection.SetActive(false);
         mainSection.SetActive(true);
+    }
+
+    public void FinishCheckingAndReturnToReview()
+    {
+        hintSection.SetActive(false);
+        bombSection.SetActive(false);
+        reviewSection.SetActive(true);
     }
 
     public void SelectHints()
@@ -198,7 +218,9 @@ public class ItemChecker : MonoBehaviour
 
     public void ReviewHints(int idx)
     {
-
+        reviewSection.SetActive(false);
+        checkSection.SetActive(true);
+        ShowHint(idx, false);
     }
 
     public void InputPassword()
