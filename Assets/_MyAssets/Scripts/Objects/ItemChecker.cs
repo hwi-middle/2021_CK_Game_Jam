@@ -20,6 +20,7 @@ public class ItemChecker : MonoBehaviour
     [SerializeField] private GameObject bombSection;
     [SerializeField] private GameObject reviewSection;
     [SerializeField] private GameObject tutorialSection;
+    [SerializeField] private GameObject passwordSection;
 
     //힌트 확인처리
     private bool[] hints = new bool[30];    //힌트를 열람한 적이 있는지 기록
@@ -54,9 +55,14 @@ public class ItemChecker : MonoBehaviour
     [SerializeField] private Text tutorialTitle;
     [SerializeField] private Text tutorialDescription;
 
+    //암호입력 화면
+    [SerializeField] private InputField passwordInputField;
+    [SerializeField] private Text passwordErrorText;
+
     // Start is called before the first frame update
     void Start()
     {
+        passwordInputField.onValueChanged.AddListener(delegate { ClearPasswordError(); });
         for (int i = 0; i < 30; i++)
         {
             hints[i] = false;
@@ -232,6 +238,7 @@ public class ItemChecker : MonoBehaviour
         bombSection.SetActive(false);
         reviewSection.SetActive(false);
         tutorialSection.SetActive(false);
+        passwordSection.SetActive(false);
         mainSection.SetActive(true);
     }
 
@@ -240,7 +247,6 @@ public class ItemChecker : MonoBehaviour
         hintSection.SetActive(false);
         bombSection.SetActive(false);
         reviewSection.SetActive(true);
-
     }
 
     public void ReturnToTutorial(bool b)
@@ -277,7 +283,30 @@ public class ItemChecker : MonoBehaviour
 
     public void InputPassword()
     {
+        passwordSection.SetActive(true);
+        passwordErrorText.gameObject.SetActive(false);
+        passwordInputField.text = "";
+    }
 
+    public void ConfirmPassword()
+    {
+        if(passwordInputField.text == "76051")
+        {
+            Debug.Log("맞춤");
+        }
+        else
+        {
+            passwordInputField.text = "";
+            passwordErrorText.gameObject.SetActive(true);
+
+        }
+    }
+
+    void ClearPasswordError()
+    {
+        Debug.Log("삭제");
+
+        passwordErrorText.gameObject.SetActive(false);
     }
 
     public void Tutorial(bool isBomb)

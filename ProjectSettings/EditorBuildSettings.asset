@@ -32,4 +32,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_MyAssets/Scenes/Tutorial.unity
     guid: a26a76c2343ae4e4b8e534859de0848d
+  - enabled: 1
+    path: Assets/_MyAssets/Scenes/CorrectPassword.unity
+    guid: 376dfdb0587561648b0a22e88bde7ecc
   m_configObjects: {}
