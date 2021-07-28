@@ -43,6 +43,9 @@ public class ItemChecker : MonoBehaviour
     [SerializeField] private Image bombImage;
     [SerializeField] private Text bombHeader;
 
+    //ÈùÆ® ´Ù½Ãº¸±â È­¸é
+    [SerializeField] private Text[] reviewHintIndexTexts;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -175,7 +178,7 @@ public class ItemChecker : MonoBehaviour
                     break;
             }
             hintTitle.text += " ¹øÂ° ÀÚ¸®´Â ...";
-            hintHeader.text = "ÈùÆ®_" + (idx + 1).ToString() + ".exe";
+            hintHeader.text = "ÈùÆ®_" + (idx + 1).ToString() + "¹ø.exe";
 
             if (shouldBackToMain)
             {
@@ -184,15 +187,15 @@ public class ItemChecker : MonoBehaviour
             }
             else
             {
-                returnToMainButtons.SetActive(true);
-                returnToReviewButtons.SetActive(false);
+                returnToMainButtons.SetActive(false);
+                returnToReviewButtons.SetActive(true);
             }
         }
         else
         {
             bombSection.SetActive(true);
             bombImage.sprite = bombSprites[idx - 10];
-            bombHeader.text = "²Î_" + (idx + 1 - 10).ToString() + ".exe";
+            bombHeader.text = "²Î_" + (idx + 1 - 10).ToString() + "¹ø.exe";
         }
     }
 
@@ -200,6 +203,7 @@ public class ItemChecker : MonoBehaviour
     {
         hintSection.SetActive(false);
         bombSection.SetActive(false);
+        reviewSection.SetActive(false);
         mainSection.SetActive(true);
     }
 
@@ -212,12 +216,23 @@ public class ItemChecker : MonoBehaviour
 
     public void SelectHints()
     {
+        for(int i = 0; i < 10; i++)
+        {
+            if(!hints[i])
+            {
+                reviewHintIndexTexts[i].text = "?";
+            }
+        }
         mainSection.SetActive(false);
         reviewSection.SetActive(true);
     }
 
     public void ReviewHints(int idx)
     {
+        if (!hints[idx])
+        {
+            return;
+        }
         reviewSection.SetActive(false);
         checkSection.SetActive(true);
         ShowHint(idx, false);
