@@ -69,20 +69,6 @@ public class ItemChecker : MonoBehaviour
             itemText.text = "";
             startButtonText.text = "소지중인 USB 확인하기";
         }
-
-        //if (isActivated && Input.GetKeyDown(KeyCode.F))
-        //{
-        //    if (itemHolder.HasUSBItem)
-        //    {
-        //        itemText.text = "USB 판독 완료(구현 필요)";
-        //        Debug.Log("USB 판독을 진행했음");
-        //        itemHolder.UseUSBItem();
-        //    }
-        //    else
-        //    {
-        //        Debug.Log("판독할 USB가 없음");
-        //    }
-        //}
     }
 
     public void CheckUSB()
@@ -129,6 +115,7 @@ public class ItemChecker : MonoBehaviour
         hints[rand] = true;
 
         Debug.Assert(rand >= 0 && rand < 30);
+        ShowHint(rand);
     }
 
     public void ShowHint(int idx)

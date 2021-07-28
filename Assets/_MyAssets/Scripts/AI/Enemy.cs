@@ -44,6 +44,18 @@ public class Enemy : MonoBehaviour
     {
         agent.SetDestination(currentTarget.position);
 
+        if(type == EEnemyType.Main)
+        {
+            if (agent.remainingDistance >= 50)
+            {
+                agent.speed = 6;
+            }
+            else
+            {
+                agent.speed = 4;
+            }
+        }
+
         if (!agent.pathPending)
         {
             if (agent.remainingDistance <= agent.stoppingDistance)
