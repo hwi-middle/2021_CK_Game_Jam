@@ -1,5 +1,24 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!243 &-8808994350287516985
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Epilogue
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: 046aa80050037354da0206f12069c9da
+  m_Children: []
+  m_Volume: 655d883e32631a5459eeeb202bd0b2ba
+  m_Pitch: 22421d5b5307909438394a212eb47bfc
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: 2083616815530722354}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
 --- !u!243 &-8766169271350147637
 AudioMixerGroupController:
   m_ObjectHideFlags: 0
@@ -13,6 +32,7 @@ AudioMixerGroupController:
   - {fileID: 4192882081185369349}
   - {fileID: -7104494696915439506}
   - {fileID: -8213090444845141520}
+  - {fileID: -8808994350287516985}
   m_Volume: 3f81186d107c29e40bb4aa2e599e79b6
   m_Pitch: cdf2cc78b61a21f4ab3000d6c54eb67b
   m_Send: 00000000000000000000000000000000
@@ -132,6 +152,7 @@ AudioMixerController:
     - 387862423038702418b47dfb62e722b3
     - 48f887ac571c9fa488bd367b70206660
     - 8dfb866059473f34f937ad66fb6ad8e7
+    - 046aa80050037354da0206f12069c9da
     name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500006}
@@ -187,7 +208,22 @@ AudioMixerSnapshotController:
     27b4609a810e2814db5b10899f03ad65: -2.8722944
     689541dc6dba989418161274fbe5e052: 0
     3f81186d107c29e40bb4aa2e599e79b6: 0.13552584
+    655d883e32631a5459eeeb202bd0b2ba: -6.133707
   m_TransitionOverrides: {}
+--- !u!244 &2083616815530722354
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: 7952c5edbe6dc854ea6f2783653d50ef
+  m_EffectName: Attenuation
+  m_MixLevel: 5fe1b4ed8573d684bbc6d6aa4310ecb1
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!243 &4192882081185369349
 AudioMixerGroupController:
   m_ObjectHideFlags: 0

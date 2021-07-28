@@ -111,6 +111,15 @@ public class PrologueController : MonoBehaviour
             yield return null;
         }
 
+        float volume = 1f;
+        while (BGM.volume > 0)
+        {
+            volume -= 1f * Time.deltaTime;
+            if (volume < 0) volume = 0;
+            BGM.volume = volume;
+            yield return null;
+        }
+
         yield return new WaitForSeconds(0.5f);
         SceneManager.LoadScene("Tutorial");
     }
