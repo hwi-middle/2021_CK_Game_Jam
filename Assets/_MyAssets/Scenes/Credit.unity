@@ -87595,7 +87595,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e3435b640bbe3842a8ea0e719e519a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  autoPlay: 0
+  autoPlay: 1
   fadeType: 1
   startDelay: 0
   duration1: 1
