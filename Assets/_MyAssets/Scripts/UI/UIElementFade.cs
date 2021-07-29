@@ -17,7 +17,7 @@ public class UIElementFade : MonoBehaviour
     private bool isPlaying = false;
 
 
-    void Start()
+    void Awake()
     {
         gameObject.SetActive(true);
 
@@ -51,6 +51,7 @@ public class UIElementFade : MonoBehaviour
 
     private IEnumerator FadeIn(float t)
     {
+        imgSrc.enabled = true;
         if (isPlaying) yield break;
         isPlaying = true;
         Color color = imgSrc.color;
@@ -65,6 +66,7 @@ public class UIElementFade : MonoBehaviour
 
     private IEnumerator FadeOut(float t)
     {
+        imgSrc.enabled = true;
         if (isPlaying) yield break;
         isPlaying = true;
         Color color = imgSrc.color;
@@ -74,11 +76,13 @@ public class UIElementFade : MonoBehaviour
             imgSrc.color = color;
             yield return null;
         }
+        imgSrc.enabled = false;
         isPlaying = false;
     }
 
     private IEnumerator FadeOutAndFadeIn(float t1, float t2, float delay)
     {
+        imgSrc.enabled = true;
         if (isPlaying) yield break;
         isPlaying = true;
         Color color = imgSrc.color;
@@ -97,11 +101,13 @@ public class UIElementFade : MonoBehaviour
             imgSrc.color = color;
             yield return null;
         }
+        imgSrc.enabled = true;
         isPlaying = false;
     }
 
     private IEnumerator FadeInAndFadeOut(float t1, float t2, float delay)
     {
+        imgSrc.enabled = true;
         if (isPlaying) yield break;
         isPlaying = true;
         Color color = imgSrc.color;
@@ -120,11 +126,13 @@ public class UIElementFade : MonoBehaviour
             imgSrc.color = color;
             yield return null;
         }
+        imgSrc.enabled = false;
         isPlaying = false;
     }
 
     private IEnumerator FadeInAndLoadScene(float t, string name)
     {
+        imgSrc.enabled = true;
         if (isPlaying) yield break;
         isPlaying = true;
         Color color = imgSrc.color;
@@ -141,6 +149,7 @@ public class UIElementFade : MonoBehaviour
 
     public void LoadSceneAfterBlackout(string str)
     {
+        imgSrc.enabled = true;
         string[] res = str.Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
         foreach (var i in res)
