@@ -30,6 +30,7 @@ public class InGameUIController : MonoBehaviour
     [SerializeField] private Canvas pauseCanvas;
     [SerializeField] private Canvas mapCanvas;
     [SerializeField] private Canvas dieCanvas;
+    [SerializeField] private Canvas tutorialCanvas;
 
     [SerializeField] private Image dieImage;
     [SerializeField] private Sprite[] dieSprites;
@@ -131,6 +132,19 @@ public class InGameUIController : MonoBehaviour
                 mapCanvas.gameObject.SetActive(true);
             }
         }
+        else if (Input.GetKeyDown(KeyCode.Z))
+        {
+            if (currentCanvas == ECanvasType.Tutorial)
+            {
+                currentCanvas = ECanvasType.None;
+                tutorialCanvas.gameObject.SetActive(false);
+            }
+            else if (currentCanvas == ECanvasType.None)
+            {
+                currentCanvas = ECanvasType.Tutorial;
+                tutorialCanvas.gameObject.SetActive(true);
+            }
+        }
     }
 
     IEnumerator Die()
@@ -170,6 +184,7 @@ public class InGameUIController : MonoBehaviour
     public void CloseAllCanvas()
     {
         mapCanvas.gameObject.SetActive(false);
+        tutorialCanvas.gameObject.SetActive(false);
     }
 
     void UpdateUSBItemStatus()
