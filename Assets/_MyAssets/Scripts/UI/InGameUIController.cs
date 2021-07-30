@@ -21,7 +21,7 @@ public class InGameUIController : MonoBehaviour
     [SerializeField] private Text coinText;
     [SerializeField] private Image healthItemIcon;
     [SerializeField] private Sprite[] healthItemSprites;
-    [SerializeField] private Text healthDebugText;
+    //[SerializeField] private Text healthDebugText;
     [SerializeField] private Text stunText;
     [SerializeField] private Text curseText;
 
@@ -61,7 +61,7 @@ public class InGameUIController : MonoBehaviour
         }
 
         UpdateUSBItemStatus();
-        UpdateHealthStatus();
+        //UpdateHealthStatus();
         UpdateHealthItemStatus();
         UpdateCoinAmount();
         UpdateKeyInfoPanel();
@@ -203,10 +203,10 @@ public class InGameUIController : MonoBehaviour
         healthItemIcon.sprite = healthItemSprites[(int)itemHolder.HealthItemType + 1];
     }
 
-    void UpdateHealthStatus()
-    {
-        healthDebugText.text = player.currentHealth.ToString() + "%";
-    }
+    //void UpdateHealthStatus()
+    //{
+    //    healthDebugText.text = player.currentHealth.ToString() + "%";
+    //}
 
     void UpdateCoinAmount()
     {
