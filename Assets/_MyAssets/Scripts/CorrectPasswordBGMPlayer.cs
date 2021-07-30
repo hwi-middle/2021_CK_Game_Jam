@@ -52,6 +52,7 @@ public class CorrectPasswordBGMPlayer : MonoBehaviour
 
     IEnumerator ControlMusicAndScene()
     {
+        player.shouldCameraFreeze = true;
         player.shouldMoveFreeze = true;
         audioSource.clip = beep;
         audioSource.Play();
@@ -163,6 +164,7 @@ public class CorrectPasswordBGMPlayer : MonoBehaviour
 
         passwordCanvas.gameObject.SetActive(false);
         codeCanvas.gameObject.SetActive(true);
+        player.shouldCameraFreeze = false;
         player.shouldMoveFreeze = false;
         audioSource.clip = bgm;
         audioSource.volume = PlayerPrefs.GetFloat("BGMValue", 1f);
