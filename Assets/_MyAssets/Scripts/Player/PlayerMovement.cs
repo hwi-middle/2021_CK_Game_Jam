@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
@@ -8,7 +9,8 @@ public class PlayerMovement : MonoBehaviour
     //이동 처리
     public FixedJoystick joystick;
     public TouchField touchField;
-    public CheckButtonPressed runButton;
+    public Text runToggleText;
+    private bool isRunToggleOn = false; //기본상태는 걷기
 
     private const float GRAVITY_CONSTANT = -9.81f;
     public float gravityScale = 1.0f;
@@ -23,7 +25,6 @@ public class PlayerMovement : MonoBehaviour
     private bool shouldAlternativeSpeedApplied = false;
 
     //체력 처리
-    public bool hasHealth = false;
     public float maxHealth = 100f;
     public float currentHealth;
     public float healthDecreasementAmount = 1f;
@@ -33,7 +34,6 @@ public class PlayerMovement : MonoBehaviour
     public EDieType dieType = EDieType.None;
 
     //스태미너 처리
-    public bool hasStamina = false;
     public float maxStamina = 100f;
     public float currentStamina;
     public float staminaDecreasementAmount = 20f;
@@ -88,7 +88,7 @@ public class PlayerMovement : MonoBehaviour
 
     //뽑기, 판독의 동작 처리
     public bool doingTask;
-
+    
     //싱글톤 처리
     static PlayerMovement instance;
 
@@ -124,10 +124,9 @@ public class PlayerMovement : MonoBehaviour
         sensitivityY = PlayerPrefs.GetFloat("YSensitivityValue", 2f);
 
         currentHealth = maxHealth;
-        if (hasHealth)
-        {
-            StartCoroutine(DecreaseHealth());
-        }
+
+        StartCoroutine(DecreaseHealth());
+
 
         currentStamina = maxStamina;
 
@@ -163,12 +162,17 @@ public class PlayerMovement : MonoBehaviour
 
         //Left Shift키가 눌렸는지 확인
         bool isRunKeyDown = false;
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            isRunKeyDown = true;
 
-            //필요 시 스태미너 시스템 적용
-            if (hasStamina && isMoving)
+#if UNITY_STANDALONE_WIN
+        isRunKeyDown = Input.GetKey(KeyCode.LeftShift);
+#elif UNITY_ANDROID || UNITY_IOS
+        isRunKeyDown = isRunToggleOn;
+#endif
+
+        if (isRunKeyDown)
+        {
+            //스태미너 시스템 적용
+            if (isMoving)
             {
                 currentStamina -= staminaDecreasementAmount * Time.deltaTime;
                 if (currentStamina < 0)
@@ -242,6 +246,20 @@ public class PlayerMovement : MonoBehaviour
         //velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
         PlayFootstepSound(isRunKeyDown, velocity);
+    }
+
+    public void RunToggle()
+    {
+        if (isRunToggleOn)
+        {
+            isRunToggleOn = false;
+            runToggleText.text = "WALK";
+        }
+        else
+        {
+            isRunToggleOn = true;
+            runToggleText.text = "RUN";
+        }
     }
 
     public void SetCursorLockState(CursorLockMode mode)

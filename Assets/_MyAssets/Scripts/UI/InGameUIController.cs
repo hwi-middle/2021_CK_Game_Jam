@@ -16,18 +16,23 @@ public class InGameUIController : MonoBehaviour
     [SerializeField] private GameObject KeyInfoPanel2;
 
     [SerializeField] private Image staminaGuage;
+    [SerializeField] private Image staminaGuageMobile;
+
     [SerializeField] private Image USBIcon;
+    [SerializeField] private Image USBIconMobile;
     [SerializeField] private Sprite[] USBSprites;
     [SerializeField] private Text coinText;
     [SerializeField] private Image healthItemIcon;
+
     [SerializeField] private Sprite[] healthItemSprites;
+
     //[SerializeField] private Text healthDebugText;
     [SerializeField] private Text stunText;
     [SerializeField] private Text curseText;
-    
+
     [SerializeField] private Text stunTextMobile;
     [SerializeField] private Text curseTextMobile;
-    
+
     private ECanvasType currentCanvas = ECanvasType.None;
     [SerializeField] private Canvas inGameCanvas;
     [SerializeField] private Canvas inGameCanvasMobile;
@@ -73,8 +78,11 @@ public class InGameUIController : MonoBehaviour
 
         float cutoff = 1 - (player.currentStamina / player.maxStamina);
         //staminaPlane.GetComponent<Renderer>().sharedMaterial.SetFloat("_Cutoff", cutoff);
-
+#if UNITY_STANDALONE_WIN
         staminaGuage.fillAmount = player.currentStamina / player.maxStamina;
+#elif UNITY_ANDROID || UNITY_IOS
+        staminaGuageMobile.fillAmount = player.currentStamina / player.maxStamina;
+#endif
 
         if (player.doingTask)
         {
@@ -149,6 +157,7 @@ public class InGameUIController : MonoBehaviour
                     Debug.Assert(false);
                     break;
             }
+
             player.Heal(healAmount);
         }
     }
@@ -220,7 +229,7 @@ public class InGameUIController : MonoBehaviour
             return;
         }
 
-        healthItemIcon.sprite = healthItemSprites[(int)itemHolder.HealthItemType + 1];
+        healthItemIcon.sprite = healthItemSprites[(int) itemHolder.HealthItemType + 1];
     }
 
     //void UpdateHealthStatus()
@@ -249,6 +258,7 @@ public class InGameUIController : MonoBehaviour
 
     void UpdateCurseAndStunText()
     {
+#if UNITY_STANDALONE_WIN
         if (player.isCursed)
         {
             curseText.gameObject.SetActive(true);
@@ -266,6 +276,26 @@ public class InGameUIController : MonoBehaviour
         {
             stunText.gameObject.SetActive(false);
         }
+#elif UNITY_ANDROID || UNITY_IOS
+        if (player.isCursed)
+        {
+            curseTextMobile.gameObject.SetActive(true);
+        }
+        else
+        {
+            curseTextMobile.gameObject.SetActive(false);
+        }
+        
+        if (player.isStunned)
+        {
+            stunTextMobile.gameObject.SetActive(true);
+        }
+        else
+        {
+            stunTextMobile.gameObject.SetActive(false);
+        }
+#endif
+
     }
 
     void Pause()
@@ -273,7 +303,11 @@ public class InGameUIController : MonoBehaviour
         currentCanvas = ECanvasType.Pause;
         bgm.Pause();
         player.SetCursorLockState(CursorLockMode.None);
+#if UNITY_STANDALONE_WIN
         inGameCanvas.gameObject.SetActive(false);
+#elif UNITY_ANDROID || UNITY_IOS
+        inGameCanvasMobile.gameObject.SetActive(false);
+#endif
         mapCanvas.gameObject.SetActive(false);
         pauseCanvas.gameObject.SetActive(true);
         player.shouldCameraFreeze = true;
@@ -286,7 +320,11 @@ public class InGameUIController : MonoBehaviour
         currentCanvas = ECanvasType.None;
         bgm.Play();
         player.SetCursorLockState(CursorLockMode.Locked);
+#if UNITY_STANDALONE_WIN
         inGameCanvas.gameObject.SetActive(true);
+#elif UNITY_ANDROID || UNITY_IOS
+        inGameCanvasMobile.gameObject.SetActive(true);
+#endif
         pauseCanvas.gameObject.SetActive(false);
         player.shouldCameraFreeze = false;
         Debug.Log("게임 재개");

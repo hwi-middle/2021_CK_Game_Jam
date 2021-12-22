@@ -8,7 +8,9 @@ public class Items : MonoBehaviour
     public int itemIndex;
 
     [SerializeField] private EFieldItemType type;
-    ItemHolder itemHolder;
+    private InGameUIController inGameUIController;
+    private ItemHolder itemHolder;
+    public GameObject interactButton;
     private Text itemText;
     bool isActivated = false;
 
@@ -17,6 +19,7 @@ public class Items : MonoBehaviour
     {
         itemHolder = ItemHolder.Instance;
         itemText = GameObject.FindWithTag("ItemText").GetComponent<Text>();
+        inGameUIController = PlayerMovement.Instance.GetComponent<InGameUIController>();
     }
 
     // Update is called once per frame
@@ -29,21 +32,21 @@ public class Items : MonoBehaviour
                 case EFieldItemType.USB:
                     if (itemHolder.HasUSBItem)
                     {
-                        Debug.Log("¿ÃπÃ USB º“¿Ø«‘");
+                        Debug.Log("Ïù¥ÎØ∏ USB ÏÜåÏú†Ìï®");
                     }
                     else
                     {
                         itemHolder.GetUSBItem(itemIndex);
                         Destroy(gameObject);
                         itemText.text = "";
-                        Debug.Log("USB »πµÊ");
+                        Debug.Log("USB ÌöçÎìù");
                     }
                     break;
                 case EFieldItemType.Coin:
                     itemHolder.IncreaseCoin();
                     Destroy(gameObject);
                     itemText.text = "";
-                    Debug.Log("ƒ⁄¿Œ »πµÊ");
+                    Debug.Log("ÏΩîÏù∏ ÌöçÎìù");
                     break;
                 default:
                     Debug.Assert(false);
@@ -58,7 +61,11 @@ public class Items : MonoBehaviour
         if (other.tag == "Player")
         {
             isActivated = true;
-            itemText.text = "F≈∞∏¶ ¥≠∑Ø æ∆¿Ã≈€ »πµÊ";
+#if UNITY_STANDALONE_WIN
+            itemText.text = "FÌÇ§Î•º ÎàåÎü¨ ÏïÑÏù¥ÌÖú ÌöçÎìù";
+#elif UNITY_ANDROID || UNITY_IOS
+            interactButton.SetActive(true);
+#endif
         }
     }
 
@@ -67,7 +74,11 @@ public class Items : MonoBehaviour
         if (other.tag == "Player")
         {
             isActivated = false;
+#if UNITY_STANDALONE_WIN
             itemText.text = "";
+#elif UNITY_ANDROID || UNITY_IOS
+            interactButton.SetActive(false);
+#endif
         }
     }
 }
