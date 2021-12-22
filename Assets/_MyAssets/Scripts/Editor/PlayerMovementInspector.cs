@@ -21,21 +21,21 @@ public class PlayerMovementInspector : Editor
     {
         _target = target as PlayerMovement;
 
-        //Audio Data °ü·Ã Reorderable List ¼³Á¤
+        //Audio Data ê´€ë ¨ Reorderable List ì„¤ì •
 
-        //ÃÊ±âÈ­
+        //ì´ˆê¸°í™”
         list = new ReorderableList(serializedObject,
          serializedObject.FindProperty("audioDatas"),
          true, true, true, true);
 
-        //ÀÎ½ºÆåÅÍ¿¡ ±×¸®±â
+        //ì¸ìŠ¤íŽ™í„°ì— ê·¸ë¦¬ê¸°
         list.drawElementCallback =
             (Rect rect, int index, bool isActive, bool isFocused) =>
             {
                 SerializedProperty element = list.serializedProperty.GetArrayElementAtIndex(index);
-                rect.y += 2;    //º¸±âÁÁ°Ô »ó´Ü¿¡ Padding
+                rect.y += 2;    //ë³´ê¸°ì¢‹ê²Œ ìƒë‹¨ì— Padding
                 var origin = EditorGUIUtility.labelWidth;
-                EditorGUIUtility.labelWidth = 45;   //·¹ÀÌºí Æø ÁÙÀÌ±â
+                EditorGUIUtility.labelWidth = 45;   //ë ˆì´ë¸” í­ ì¤„ì´ê¸°
                 EditorGUI.PropertyField(
                     new Rect(rect.x + 5, rect.y, 10, EditorGUIUtility.singleLineHeight),
                     element.FindPropertyRelative("isActivated"), new GUIContent("Clip " + index.ToString()));
@@ -47,13 +47,13 @@ public class PlayerMovementInspector : Editor
                 EditorGUIUtility.labelWidth = origin;
             };
 
-        //Çì´õ
+        //í—¤ë”
         list.drawHeaderCallback = rect =>
         {
             EditorGUI.LabelField(rect, "Audio Clips", EditorStyles.boldLabel);
         };
 
-        //¿ä¼Ò »èÁ¦ ½Ã °æ°íÃ¢ Ãâ·Â
+        //ìš”ì†Œ ì‚­ì œ ì‹œ ê²½ê³ ì°½ ì¶œë ¥
         list.onRemoveCallback = (ReorderableList l) =>
         {
             string warningText = "Are you sure you want to remove this clip?\n" +
@@ -76,6 +76,9 @@ public class PlayerMovementInspector : Editor
         if (showPlayerMovement)
         {
             EditorGUI.indentLevel++;
+            _target.joystick = (FixedJoystick)EditorGUILayout.ObjectField("Joystick", _target.joystick, typeof(FixedJoystick), true);
+            _target.touchField = (TouchField)EditorGUILayout.ObjectField("Touch Field", _target.touchField, typeof(TouchField), true);
+
             _target.gravityScale = EditorGUILayout.FloatField("Gravity Scale", _target.gravityScale);
             _target.speed = EditorGUILayout.FloatField("Speed", _target.speed);
             _target.hasAlternativeSpeed = EditorGUILayout.Toggle(new GUIContent("Has Alternative Speed"), _target.hasAlternativeSpeed);

@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
-
 public class PlayerMovement : MonoBehaviour
 {
-    //ÀÌµ¿ Ã³¸®
+    //ì´ë™ ì²˜ë¦¬
+    public FixedJoystick joystick;
+    public TouchField touchField;
+
     private const float GRAVITY_CONSTANT = -9.81f;
     public float gravityScale = 1.0f;
     private float gravity;
     public float speed = 12f;
     public bool hasAlternativeSpeed = false;
-    public float alternativeSpeedScale = 1f; // ¿ŞÂÊ Shift Å°°¡ ´­·ÈÀ» ¶§ÀÇ ¼Óµµ(ÀÏ¹İ ¼Óµµº¸´Ù ´À¸®°Å³ª ºü¸£°Ô ÁöÁ¤)
+    public float alternativeSpeedScale = 1f; // ì™¼ìª½ Shift í‚¤ê°€ ëˆŒë ¸ì„ ë•Œì˜ ì†ë„(ì¼ë°˜ ì†ë„ë³´ë‹¤ ëŠë¦¬ê±°ë‚˜ ë¹ ë¥´ê²Œ ì§€ì •)
     public bool canJump = false;
     public float jumpHeight = 3f;
 
@@ -22,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isMoving = false;
     private bool shouldAlternativeSpeedApplied = false;
 
-    //Ã¼·Â Ã³¸®
+    //ì²´ë ¥ ì²˜ë¦¬
     public bool hasHealth = false;
     public bool automaticallyDecreaseHealth = false;
     public float maxHealth = 100f;
@@ -33,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
     public bool isDying = false;
     public EDieType dieType = EDieType.None;
 
-    //½ºÅÂ¹Ì³Ê Ã³¸®
+    //ìŠ¤íƒœë¯¸ë„ˆ ì²˜ë¦¬
     public bool hasStamina = false;
     public float maxStamina = 100f;
     public float currentStamina;
@@ -42,7 +44,7 @@ public class PlayerMovement : MonoBehaviour
     public float staminaIncresementDelay = 2f;
     private float idleTime = 0f;
 
-    //¸¶¿ì½º ¿òÁ÷ÀÓ Ã³¸®
+    //ë§ˆìš°ìŠ¤ ì›€ì§ì„ ì²˜ë¦¬
     public bool shouldCameraFreeze = false;
     public float sensitivityX = 2f;
     public float sensitivityY = 2f;
@@ -50,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
     Quaternion camRotation;
     Quaternion bodyRotation;
 
-    //Ä«¸Ş¶ó Èçµé¸²(Head Bobbing) Ã³¸®
+    //ì¹´ë©”ë¼ í”ë“¤ë¦¼(Head Bobbing) ì²˜ë¦¬
     public bool useHeadBob;
     public Transform headTransform;
     public Transform camTransform;
@@ -63,19 +65,19 @@ public class PlayerMovement : MonoBehaviour
     private float walkingTime = 0f;
     private Vector3 targetCameraPos;
 
-    //±âÀı»óÅÂ Ã³¸®
+    //ê¸°ì ˆìƒíƒœ ì²˜ë¦¬
     public bool isStunned = false;
     public bool isStunInvincible = false;
 
-    //ÀúÁÖ»óÅÂ Ã³¸®
+    //ì €ì£¼ìƒíƒœ ì²˜ë¦¬
     public bool isCursed = false;
     public bool isCurseInvincible = false;
 
-    //Freeze »óÅÂ Ã³¸®
+    //Freeze ìƒíƒœ ì²˜ë¦¬
     public bool shouldMoveFreeze = false;
     public bool shouldDamageFreeze = false;
 
-    //¹ß¼Ò¸® Àç»ı Ã³¸®
+    //ë°œì†Œë¦¬ ì¬ìƒ ì²˜ë¦¬
     public List<AudioData> audioDatas = new List<AudioData>();
     private List<AudioData> activatedAudioDatas = new List<AudioData>();
     private int prevClipIndex = -1;
@@ -83,17 +85,25 @@ public class PlayerMovement : MonoBehaviour
     public float frequency;
     private float time = 0f;
 
-    //¹Ù´Ú¿¡ ´ê¾Ò´ÂÁö Ã¼Å© Ã³¸®
+    //ë°”ë‹¥ì— ë‹¿ì•˜ëŠ”ì§€ ì²´í¬ ì²˜ë¦¬
     public Transform groundCheck;
     public float groundDistance = 0.4f;
     private LayerMask groundMask;
 
-    //»Ì±â, ÆÇµ¶ÀÇ µ¿ÀÛ Ã³¸®
+    //ë½‘ê¸°, íŒë…ì˜ ë™ì‘ ì²˜ë¦¬
     public bool doingTask;
 
-    //½Ì±ÛÅæ Ã³¸®
+    //ì‹±ê¸€í†¤ ì²˜ë¦¬
     static PlayerMovement instance;
-    public static PlayerMovement Instance { get { Init(); return instance; } }
+
+    public static PlayerMovement Instance
+    {
+        get
+        {
+            Init();
+            return instance;
+        }
+    }
 
     static void Init()
     {
@@ -122,6 +132,7 @@ public class PlayerMovement : MonoBehaviour
         {
             StartCoroutine(DecreaseHealth());
         }
+
         currentStamina = maxStamina;
 
         controller = GetComponent<CharacterController>();
@@ -139,28 +150,28 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //»ç¸Á ¹× ±âÀı½Ã Á¶ÀÛ ºÒ°¡
+        //ì‚¬ë§ ë° ê¸°ì ˆì‹œ ì¡°ì‘ ë¶ˆê°€
         if (isDead || isStunned) return;
 
-        //ÀÎ½ºÆåÅÍ¿¡¼­ gravityScaleÀÌ º¯°æµÉ ¼ö ÀÖÀ¸¹Ç·Î Update ¸Ş¼­µå¿¡¼­ Ã³¸®
+        //ì¸ìŠ¤í™í„°ì—ì„œ gravityScaleì´ ë³€ê²½ë  ìˆ˜ ìˆìœ¼ë¯€ë¡œ Update ë©”ì„œë“œì—ì„œ ì²˜ë¦¬
         gravity = GRAVITY_CONSTANT * gravityScale;
 
-        SetCamera(); //¸¶¿ì½º Ã³¸®
-        CheckGrounded(); //ÂøÁö »óÅÂ Ã¼Å©
+        SetCamera(); //ë§ˆìš°ìŠ¤ ì²˜ë¦¬
+        CheckGrounded(); //ì°©ì§€ ìƒíƒœ ì²´í¬
 
-        //ÀÌµ¿ °ü·Ã Å° ÀÔ·Â ¹Ş¾Æ¿À±â
+        //ì´ë™ ê´€ë ¨ í‚¤ ì…ë ¥ ë°›ì•„ì˜¤ê¸°
         float x;
         float y = velocity.y;
         float z;
         GetInputAxis(out x, out z, out isMoving);
 
-        //Left ShiftÅ°°¡ ´­·È´ÂÁö È®ÀÎ
+        //Left Shiftí‚¤ê°€ ëˆŒë ¸ëŠ”ì§€ í™•ì¸
         bool isLeftShiftKeyDown = false;
         if (hasAlternativeSpeed && Input.GetKey(KeyCode.LeftShift))
         {
             isLeftShiftKeyDown = true;
 
-            //ÇÊ¿ä ½Ã ½ºÅÂ¹Ì³Ê ½Ã½ºÅÛ Àû¿ë
+            //í•„ìš” ì‹œ ìŠ¤íƒœë¯¸ë„ˆ ì‹œìŠ¤í…œ ì ìš©
             if (hasStamina && isMoving)
             {
                 currentStamina -= staminaDecreasementAmount * Time.deltaTime;
@@ -176,20 +187,20 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        //Á¡ÇÁÅ°¸¦ ´­·¶´ÂÁö È®ÀÎ
+        //ì í”„í‚¤ë¥¼ ëˆŒë €ëŠ”ì§€ í™•ì¸
         if (canJump && Input.GetButtonDown("Jump") && isGrounded)
         {
-            //¼³Á¤µÈ ³ôÀÌ¿¡ ¸Â°Ô Á¡ÇÁ
+            //ì„¤ì •ëœ ë†’ì´ì— ë§ê²Œ ì í”„
             y = Mathf.Sqrt(jumpHeight * -2f * gravity);
 
-            //Á¡ÇÁÅ°¸¦ ´©¸£´Â ÇÁ·¹ÀÓ¿¡¼­ LeftShiftÅ°µµ ´©¸£°í ÀÖ¾ú´ÂÁö È®ÀÎ
+            //ì í”„í‚¤ë¥¼ ëˆ„ë¥´ëŠ” í”„ë ˆì„ì—ì„œ LeftShiftí‚¤ë„ ëˆ„ë¥´ê³  ìˆì—ˆëŠ”ì§€ í™•ì¸
             if (!isLeftShiftKeyDown)
             {
-                shouldAlternativeSpeedApplied = false;  //´©¸£°íÀÖÁö ¾Ê¾Ò´Ù¸é Á¡ÇÁÁß¿¡ Alternative Speed¸¦ Àû¿ëÇÏÁö ¾ÊÀ½
+                shouldAlternativeSpeedApplied = false; //ëˆ„ë¥´ê³ ìˆì§€ ì•Šì•˜ë‹¤ë©´ ì í”„ì¤‘ì— Alternative Speedë¥¼ ì ìš©í•˜ì§€ ì•ŠìŒ
             }
         }
 
-        //´ë±â ½Ã°£¿¡ µû¶ó ½ºÅÂ¹Ì³Ê È¸º¹
+        //ëŒ€ê¸° ì‹œê°„ì— ë”°ë¼ ìŠ¤íƒœë¯¸ë„ˆ íšŒë³µ
         if (isMoving)
         {
             walkingTime += Time.deltaTime;
@@ -217,7 +228,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        //HeadBob Àû¿ë
+        //HeadBob ì ìš©
         targetCameraPos = headTransform.position + CalculateHeadBobOffset(walkingTime);
         camTransform.position = Vector3.Lerp(camTransform.position, targetCameraPos, headBobSmoothing);
 
@@ -226,24 +237,24 @@ public class PlayerMovement : MonoBehaviour
             camTransform.position = targetCameraPos;
         }
 
-        //Alternative Speed¸¦ Àû¿ëÇØ¾ßÇÏ´ÂÁö È®ÀÎ ÈÄ Àû¿ë
+        //Alternative Speedë¥¼ ì ìš©í•´ì•¼í•˜ëŠ”ì§€ í™•ì¸ í›„ ì ìš©
         if (shouldAlternativeSpeedApplied)
         {
             x *= alternativeSpeedScale;
             z *= alternativeSpeedScale;
         }
 
-        //ÀúÁÖ»óÅÂÀÏ½Ã
-        if(isCursed)
+        //ì €ì£¼ìƒíƒœì¼ì‹œ
+        if (isCursed)
         {
             x *= -1;
             z *= -1;
         }
 
-        //Áß·ÂÀû¿ë
+        //ì¤‘ë ¥ì ìš©
         y += gravity * Time.deltaTime;
 
-        //ÇÃ·¹ÀÌ¾î ÀÌµ¿
+        //í”Œë ˆì´ì–´ ì´ë™
         velocity = (transform.right * x * speed) + (transform.forward * z * speed) + (transform.up * y);
         //velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
@@ -252,7 +263,9 @@ public class PlayerMovement : MonoBehaviour
 
     public void SetCursorLockState(CursorLockMode mode)
     {
+#if UNITY_STANDALONE_WIN
         Cursor.lockState = mode;
+#endif
     }
 
     void SetCamera()
@@ -262,9 +275,13 @@ public class PlayerMovement : MonoBehaviour
         sensitivityX = PlayerPrefs.GetFloat("XSensitivityValue", 2f);
         sensitivityY = PlayerPrefs.GetFloat("YSensitivityValue", 2f);
 
+#if UNITY_STANDALONE_WIN
         float yRotation = Input.GetAxis("Mouse X") * sensitivityX;
         float xRotation = Input.GetAxis("Mouse Y") * sensitivityY;
-
+#elif UNITY_ANDROID || UNITY_IOS
+        float yRotation = touchField.dragDiffPerFrame.x * sensitivityX * 0.5f;
+        float xRotation = touchField.dragDiffPerFrame.y * sensitivityY * 0.5f;
+#endif
         camRotation *= Quaternion.Euler(-xRotation, 0f, 0f);
         camRotation = ClampRotationAroundXAxis(camRotation);
         bodyRotation *= Quaternion.Euler(0f, yRotation, 0f);
@@ -286,6 +303,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 bobAmount *= alternativeSpeedScale;
             }
+
             horizontalOffset = Mathf.Cos(bobAmount) * bobHorizontalAmplitude;
             verticalOffset = Mathf.Sin(2 * bobAmount) * bobVerticalAmplitude;
 
@@ -302,7 +320,7 @@ public class PlayerMovement : MonoBehaviour
         {
             shouldAlternativeSpeedApplied = false;
 
-            //Áß·ÂÀÌ ÁßÃ¸Àû¿ëµÇ´Â °ÍÀ» ¹æÁö
+            //ì¤‘ë ¥ì´ ì¤‘ì²©ì ìš©ë˜ëŠ” ê²ƒì„ ë°©ì§€
             if (velocity.y < 0)
             {
                 velocity.y = 0f;
@@ -335,43 +353,47 @@ public class PlayerMovement : MonoBehaviour
             isMoving = false;
             return;
         }
-
+#if UNITY_STANDALONE_WIN
         x = Input.GetAxis("Horizontal");
         z = Input.GetAxis("Vertical");
+#elif UNITY_ANDROID || UNITY_IOS
+        x = joystick.Horizontal;
+        z = joystick.Vertical;
+#endif
 
-        //¿òÁ÷ÀÌ°í ÀÖ´ÂÁö È®ÀÎ
+        //ì›€ì§ì´ê³  ìˆëŠ”ì§€ í™•ì¸
         if (x != 0 || z != 0) isMoving = true;
         else isMoving = false;
     }
 
     void PlayFootstepSound(bool isLeftShiftKeyDown, Vector3 v)
     {
-        //¹ß°ÉÀ½ ¼Ò¸® Ãâ·ÂÀÌ ÇÊ¿äÇÑÁö È®ÀÎ
+        //ë°œê±¸ìŒ ì†Œë¦¬ ì¶œë ¥ì´ í•„ìš”í•œì§€ í™•ì¸
         time += Time.deltaTime;
         bool isFootstepSoundRequired;
 
-        //Å¬¸³ °³¼ö È®ÀÎ
+        //í´ë¦½ ê°œìˆ˜ í™•ì¸
         CountActivatedAudioClips();
         int activatedAudioClipsNum = activatedAudioDatas.Count;
 
-        //È°¼ºÈ­µÈ Å¬¸³ÀÌ ¾øÀ¸¸é Ãâ·ÂÇÏÁö ¾ÊÀ½
+        //í™œì„±í™”ëœ í´ë¦½ì´ ì—†ìœ¼ë©´ ì¶œë ¥í•˜ì§€ ì•ŠìŒ
         if (activatedAudioClipsNum == 0)
         {
             isFootstepSoundRequired = false;
         }
 
-        //Left ShiftÅ°°¡ ´­·ÈÀ» ¶§¿¡´Â alternativeSpeedScale°ª¿¡ µû¶ó frequency°¡ Á¶Àı
+        //Left Shiftí‚¤ê°€ ëˆŒë ¸ì„ ë•Œì—ëŠ” alternativeSpeedScaleê°’ì— ë”°ë¼ frequencyê°€ ì¡°ì ˆ
         else if (isLeftShiftKeyDown)
         {
             isFootstepSoundRequired = time * alternativeSpeedScale > frequency;
         }
-        //Æò»ó½Ã¿¡´Â frequency¸¸Å­ ½Ã°£ÀÌ Áö³µ´ÂÁö È®ÀÎ
+        //í‰ìƒì‹œì—ëŠ” frequencyë§Œí¼ ì‹œê°„ì´ ì§€ë‚¬ëŠ”ì§€ í™•ì¸
         else
         {
             isFootstepSoundRequired = time > frequency;
         }
 
-        //¹ß°ÉÀ½ ¼Ò¸® Ãâ·Â
+        //ë°œê±¸ìŒ ì†Œë¦¬ ì¶œë ¥
         if (isFootstepSoundRequired && isMoving && isGrounded)
         {
             time = 0f;

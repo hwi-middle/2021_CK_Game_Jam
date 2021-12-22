@@ -11653,7 +11653,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC870\uC791\uD0A4 \uC815\uBCF4 \uB044\uAE30"
+  m_Text: "\uC870\uC791\uD0A4 \uC815\uBCF4 \uB044\uAE30 (PC\uBC84\uC804\uC6A9)"
 --- !u!222 &1443723059
 CanvasRenderer:
   m_ObjectHideFlags: 0

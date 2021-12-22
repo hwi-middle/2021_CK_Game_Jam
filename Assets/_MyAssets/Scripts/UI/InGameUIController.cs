@@ -24,9 +24,13 @@ public class InGameUIController : MonoBehaviour
     //[SerializeField] private Text healthDebugText;
     [SerializeField] private Text stunText;
     [SerializeField] private Text curseText;
-
+    
+    [SerializeField] private Text stunTextMobile;
+    [SerializeField] private Text curseTextMobile;
+    
     private ECanvasType currentCanvas = ECanvasType.None;
     [SerializeField] private Canvas inGameCanvas;
+    [SerializeField] private Canvas inGameCanvasMobile;
     [SerializeField] private Canvas pauseCanvas;
     [SerializeField] private Canvas mapCanvas;
     [SerializeField] private Canvas dieCanvas;
@@ -77,7 +81,7 @@ public class InGameUIController : MonoBehaviour
             return;
         }
 
-        //Å°ÀÔ·ÂÀº ¿ì¼±¼øÀ§º°·Î 1°³¸¸ ¹Ş±â
+        //í‚¤ì…ë ¥ì€ ìš°ì„ ìˆœìœ„ë³„ë¡œ 1ê°œë§Œ ë°›ê¸°
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (player.isDead || player.isStunned || player.isStunInvincible || player.isCursed || player.isCurseInvincible)
@@ -196,7 +200,7 @@ public class InGameUIController : MonoBehaviour
     {
         if (!itemHolder.HasHealthItem)
         {
-            healthItemIcon.sprite = healthItemSprites[0]; //0¹øÂ° ¿ä¼Ò´Â ±âº» ÀÌ¹ÌÁö
+            healthItemIcon.sprite = healthItemSprites[0]; //0ë²ˆì§¸ ìš”ì†ŒëŠ” ê¸°ë³¸ ì´ë¯¸ì§€
             return;
         }
 
@@ -257,7 +261,7 @@ public class InGameUIController : MonoBehaviour
         mapCanvas.gameObject.SetActive(false);
         pauseCanvas.gameObject.SetActive(true);
         player.shouldCameraFreeze = true;
-        Debug.Log("°ÔÀÓ Á¤Áö");
+        Debug.Log("ê²Œì„ ì •ì§€");
         Time.timeScale = 0f;
     }
 
@@ -269,7 +273,7 @@ public class InGameUIController : MonoBehaviour
         inGameCanvas.gameObject.SetActive(true);
         pauseCanvas.gameObject.SetActive(false);
         player.shouldCameraFreeze = false;
-        Debug.Log("°ÔÀÓ Àç°³");
+        Debug.Log("ê²Œì„ ì¬ê°œ");
         Time.timeScale = 1f;
     }
 
