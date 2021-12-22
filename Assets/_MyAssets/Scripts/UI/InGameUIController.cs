@@ -84,57 +84,15 @@ public class InGameUIController : MonoBehaviour
         //키입력은 우선순위별로 1개만 받기
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (player.isDead || player.isStunned || player.isStunInvincible || player.isCursed || player.isCurseInvincible)
-            {
-                return;
-            }
-
-            if (currentCanvas == ECanvasType.Pause)
-            {
-                Resume();
-            }
-            else
-            {
-                Pause();
-            }
+            PauseOrResume();
         }
-        else if (Input.GetKeyDown(KeyCode.Q) && !player.isDead)
+        else if (Input.GetKeyDown(KeyCode.Q))
         {
-            if (itemHolder.HasHealthItem)
-            {
-                itemHolder.HasHealthItem = false;
-                beerCanSound.Play();
-                int healAmount = 0;
-                switch (itemHolder.HealthItemType)
-                {
-                    case EItemType.MonsterEnergy:
-                        healAmount = 50;
-                        break;
-                    case EItemType.TomatoJuice:
-                        healAmount = 25;
-                        break;
-                    case EItemType.CucumberJuice:
-                        healAmount = 15;
-                        break;
-                    default:
-                        Debug.Assert(false);
-                        break;
-                }
-                player.Heal(healAmount);
-            }
+            UseItem();
         }
         else if (Input.GetKeyDown(KeyCode.Tab))
         {
-            if (currentCanvas == ECanvasType.Map)
-            {
-                currentCanvas = ECanvasType.None;
-                mapCanvas.gameObject.SetActive(false);
-            }
-            else if (currentCanvas == ECanvasType.None)
-            {
-                currentCanvas = ECanvasType.Map;
-                mapCanvas.gameObject.SetActive(true);
-            }
+            OpenOrCloseMap();
         }
         else if (Input.GetKeyDown(KeyCode.Z))
         {
@@ -148,6 +106,64 @@ public class InGameUIController : MonoBehaviour
                 currentCanvas = ECanvasType.Tutorial;
                 tutorialCanvas.gameObject.SetActive(true);
             }
+        }
+    }
+
+    public void PauseOrResume()
+    {
+        if (player.isDead || player.isStunned || player.isStunInvincible || player.isCursed || player.isCurseInvincible)
+        {
+            return;
+        }
+
+        if (currentCanvas == ECanvasType.Pause)
+        {
+            Resume();
+        }
+        else
+        {
+            Pause();
+        }
+    }
+
+    public void UseItem()
+    {
+        if (player.isDead) return;
+        if (itemHolder.HasHealthItem)
+        {
+            itemHolder.HasHealthItem = false;
+            beerCanSound.Play();
+            int healAmount = 0;
+            switch (itemHolder.HealthItemType)
+            {
+                case EItemType.MonsterEnergy:
+                    healAmount = 50;
+                    break;
+                case EItemType.TomatoJuice:
+                    healAmount = 25;
+                    break;
+                case EItemType.CucumberJuice:
+                    healAmount = 15;
+                    break;
+                default:
+                    Debug.Assert(false);
+                    break;
+            }
+            player.Heal(healAmount);
+        }
+    }
+
+    public void OpenOrCloseMap()
+    {
+        if (currentCanvas == ECanvasType.Map)
+        {
+            currentCanvas = ECanvasType.None;
+            mapCanvas.gameObject.SetActive(false);
+        }
+        else if (currentCanvas == ECanvasType.None)
+        {
+            currentCanvas = ECanvasType.Map;
+            mapCanvas.gameObject.SetActive(true);
         }
     }
 

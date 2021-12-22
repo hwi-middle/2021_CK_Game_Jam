@@ -8,15 +8,13 @@ public class PlayerMovement : MonoBehaviour
     //이동 처리
     public FixedJoystick joystick;
     public TouchField touchField;
+    public CheckButtonPressed runButton;
 
     private const float GRAVITY_CONSTANT = -9.81f;
     public float gravityScale = 1.0f;
     private float gravity;
     public float speed = 12f;
-    public bool hasAlternativeSpeed = false;
     public float alternativeSpeedScale = 1f; // 왼쪽 Shift 키가 눌렸을 때의 속도(일반 속도보다 느리거나 빠르게 지정)
-    public bool canJump = false;
-    public float jumpHeight = 3f;
 
     private CharacterController controller;
     private Vector3 velocity;
@@ -26,7 +24,6 @@ public class PlayerMovement : MonoBehaviour
 
     //체력 처리
     public bool hasHealth = false;
-    public bool automaticallyDecreaseHealth = false;
     public float maxHealth = 100f;
     public float currentHealth;
     public float healthDecreasementAmount = 1f;
@@ -53,7 +50,6 @@ public class PlayerMovement : MonoBehaviour
     Quaternion bodyRotation;
 
     //카메라 흔들림(Head Bobbing) 처리
-    public bool useHeadBob;
     public Transform headTransform;
     public Transform camTransform;
 
@@ -166,10 +162,10 @@ public class PlayerMovement : MonoBehaviour
         GetInputAxis(out x, out z, out isMoving);
 
         //Left Shift키가 눌렸는지 확인
-        bool isLeftShiftKeyDown = false;
-        if (hasAlternativeSpeed && Input.GetKey(KeyCode.LeftShift))
+        bool isRunKeyDown = false;
+        if (Input.GetKey(KeyCode.LeftShift))
         {
-            isLeftShiftKeyDown = true;
+            isRunKeyDown = true;
 
             //필요 시 스태미너 시스템 적용
             if (hasStamina && isMoving)
@@ -187,24 +183,11 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        //점프키를 눌렀는지 확인
-        if (canJump && Input.GetButtonDown("Jump") && isGrounded)
-        {
-            //설정된 높이에 맞게 점프
-            y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-
-            //점프키를 누르는 프레임에서 LeftShift키도 누르고 있었는지 확인
-            if (!isLeftShiftKeyDown)
-            {
-                shouldAlternativeSpeedApplied = false; //누르고있지 않았다면 점프중에 Alternative Speed를 적용하지 않음
-            }
-        }
-
         //대기 시간에 따라 스태미너 회복
         if (isMoving)
         {
             walkingTime += Time.deltaTime;
-            if (isLeftShiftKeyDown)
+            if (isRunKeyDown)
             {
                 idleTime = 0f;
             }
@@ -258,7 +241,7 @@ public class PlayerMovement : MonoBehaviour
         velocity = (transform.right * x * speed) + (transform.forward * z * speed) + (transform.up * y);
         //velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
-        PlayFootstepSound(isLeftShiftKeyDown, velocity);
+        PlayFootstepSound(isRunKeyDown, velocity);
     }
 
     public void SetCursorLockState(CursorLockMode mode)
