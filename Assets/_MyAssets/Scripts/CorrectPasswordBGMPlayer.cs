@@ -29,6 +29,8 @@ public class CorrectPasswordBGMPlayer : MonoBehaviour
     [SerializeField] private AudioClip endHitClip;
     [SerializeField] private Image cover;
 
+    [SerializeField] private Canvas mobileCanvas;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -56,14 +58,14 @@ public class CorrectPasswordBGMPlayer : MonoBehaviour
         player.shouldMoveFreeze = true;
         audioSource.clip = beep;
         audioSource.Play();
-        title.text = "¾ÏÈ£ ÀÏÄ¡";
+        title.text = "ï¿½ï¿½È£ ï¿½ï¿½Ä¡";
         yield return new WaitForSeconds(0.5f);
 
         for (int i = 0; i < 3; i++)
         {
             title.text = "";
             yield return new WaitForSeconds(0.5f);
-            title.text = "¾ÏÈ£ ÀÏÄ¡";
+            title.text = "ï¿½ï¿½È£ ï¿½ï¿½Ä¡";
             audioSource.Play();
             yield return new WaitForSeconds(0.5f);
         }
@@ -166,6 +168,9 @@ public class CorrectPasswordBGMPlayer : MonoBehaviour
         codeCanvas.gameObject.SetActive(true);
         player.shouldCameraFreeze = false;
         player.shouldMoveFreeze = false;
+#if UNITY_ANDROID || UNITY_IOS
+        mobileCanvas.gameObject.SetActive(true);
+#endif
         audioSource.clip = bgm;
         audioSource.volume = PlayerPrefs.GetFloat("BGMValue", 1f);
         audioSource.Play();

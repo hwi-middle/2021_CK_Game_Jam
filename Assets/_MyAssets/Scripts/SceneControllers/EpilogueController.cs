@@ -38,7 +38,7 @@ public class EpilogueController : MonoBehaviour
         }
         else if (prev == idx) return;
 
-        //È¿°úÀ½ Àû¿ë
+        //íš¨ê³¼ìŒ ì ìš©
         if (idx == 2)
         {
             SE[0].Play();
@@ -48,7 +48,7 @@ public class EpilogueController : MonoBehaviour
             SE[1].Play();
         }
 
-        //¾À ÀÌµ¿
+        //ì”¬ ì´ë™
         if (idx == 6)
         {
             cartoon.SetActive(false);
