@@ -8,12 +8,13 @@ public class ItemChecker : MonoBehaviour
     private PlayerMovement player;
     private ItemHolder itemHolder;
     private Text itemText;
+    [SerializeField] private CheckButtonPressed interactButton;
     private bool isActivated = false;
 
     [SerializeField] private InGameUIController inGameUIController;
     [SerializeField] private Canvas USBCheckCanvas;
 
-    //Ã¢ ÀÌµ¿ Ã³¸®
+    //ì°½ ì´ë™ ì²˜ë¦¬
     [SerializeField] private GameObject mainSection;
     [SerializeField] private GameObject checkSection;
     [SerializeField] private GameObject hintSection;
@@ -22,8 +23,8 @@ public class ItemChecker : MonoBehaviour
     [SerializeField] private GameObject tutorialSection;
     [SerializeField] private GameObject passwordSection;
 
-    //ÈùÆ® È®ÀÎÃ³¸®
-    private bool[] hints = new bool[30];    //ÈùÆ®¸¦ ¿­¶÷ÇÑ ÀûÀÌ ÀÖ´ÂÁö ±â·Ï
+    //íŒíŠ¸ í™•ì¸ì²˜ë¦¬
+    private bool[] hints = new bool[30];    //íŒíŠ¸ë¥¼ ì—´ëŒí•œ ì ì´ ìˆëŠ”ì§€ ê¸°ë¡
 
     [SerializeField] private Text startButtonText;
     [SerializeField] private Image progessBarFill;
@@ -33,7 +34,7 @@ public class ItemChecker : MonoBehaviour
     private bool isFirstHint = true;
     private bool isFirstBomb = true;
 
-    //ÁøÂ¥ ÈùÆ® È­¸é
+    //ì§„ì§œ íŒíŠ¸ í™”ë©´
     [SerializeField] private Text hintTitle;
     [SerializeField] private Text hintText;
     [SerializeField] private Text hintHeader;
@@ -41,21 +42,21 @@ public class ItemChecker : MonoBehaviour
     [SerializeField] private GameObject returnToReviewButtons;
     [SerializeField] private GameObject returnToHintTutorialButtons;
 
-    //²Î È­¸é
+    //ê½ í™”ë©´
     [SerializeField] private Sprite[] bombSprites;
     [SerializeField] private Image bombImage;
     [SerializeField] private Text bombHeader;
     [SerializeField] private GameObject returnToMainButtons2;
     [SerializeField] private GameObject returnToBombTutorialButtons;
 
-    //ÈùÆ® ´Ù½Ãº¸±â È­¸é
+    //íŒíŠ¸ ë‹¤ì‹œë³´ê¸° í™”ë©´
     [SerializeField] private Text[] reviewHintIndexTexts;
 
-    //Æ©Åä¸®¾ó È­¸é
+    //íŠœí† ë¦¬ì–¼ í™”ë©´
     [SerializeField] private Text tutorialTitle;
     [SerializeField] private Text tutorialDescription;
 
-    //¾ÏÈ£ÀÔ·Â È­¸é
+    //ì•”í˜¸ì…ë ¥ í™”ë©´
     [SerializeField] private InputField passwordInputField;
     [SerializeField] private Text passwordErrorText;
     [SerializeField] private SceneResetManager sceneResetManager;
@@ -76,8 +77,17 @@ public class ItemChecker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isActivated && !player.isStunned && !player.isDead && !player.doingTask && Input.GetKeyDown(KeyCode.F))
+#if UNITY_STANDALONE_WIN
+        bool keyDown = Input.GetKeyDown(KeyCode.F);
+#elif UNITY_ANDROID || UNITY_IOS
+        bool keyDown = interactButton.pressed;
+#endif
+        if (isActivated && !player.isStunned && !player.isDead && !player.doingTask && keyDown)
         {
+#if UNITY_ANDROID || UNITY_IOS
+            interactButton.pressed = false;
+            interactButton.gameObject.SetActive(false);
+#endif
             player.SetCursorLockState(CursorLockMode.None);
             //Time.timeScale = 0f;
             player.shouldMoveFreeze = true;
@@ -87,7 +97,7 @@ public class ItemChecker : MonoBehaviour
             USBCheckCanvas.gameObject.SetActive(true);
             player.doingTask = true;
             itemText.text = "";
-            startButtonText.text = "¼ÒÁöÁßÀÎ USB È®ÀÎÇÏ±â";
+            startButtonText.text = "ì†Œì§€ì¤‘ì¸ USB í™•ì¸í•˜ê¸°";
         }
     }
 
@@ -95,7 +105,7 @@ public class ItemChecker : MonoBehaviour
     {
         if (!itemHolder.HasUSBItem)
         {
-            startButtonText.text = "USB ¾øÀ½";
+            startButtonText.text = "USB ì—†ìŒ";
             return;
         }
         itemHolder.UseUSBItem();
@@ -108,7 +118,7 @@ public class ItemChecker : MonoBehaviour
         checkSection.SetActive(true);
 
         float fillAmount = 0f;
-        chekingText.text = "USB ÀĞ´Â Áß...";
+        chekingText.text = "USB ì½ëŠ” ì¤‘...";
         progessBarFill.fillAmount = 0f;
         continueButton.gameObject.SetActive(false);
 
@@ -121,7 +131,7 @@ public class ItemChecker : MonoBehaviour
         }
         yield return new WaitForSecondsRealtime(0.5f);
 
-        chekingText.text = "USB ÀĞ±â ¿Ï·á";
+        chekingText.text = "USB ì½ê¸° ì™„ë£Œ";
         continueButton.gameObject.SetActive(true);
     }
 
@@ -132,7 +142,7 @@ public class ItemChecker : MonoBehaviour
         {
             rand = Random.Range(0, 30);
         } while (hints[rand]);
-        Debug.Log("ÈùÆ®»Ì±â: " + rand.ToString());
+        Debug.Log("íŒíŠ¸ë½‘ê¸°: " + rand.ToString());
         hints[rand] = true;
 
         Debug.Assert(rand >= 0 && rand < 30);
@@ -143,58 +153,58 @@ public class ItemChecker : MonoBehaviour
     {
         checkSection.SetActive(false);
 
-        //ÈùÆ® È¹µæ
+        //íŒíŠ¸ íšë“
         if (idx < 10)
         {
             hintSection.SetActive(true);
             switch (idx)
             {
                 case 0:
-                    hintTitle.text = "Ã¹";
+                    hintTitle.text = "ì²«";
                     hintText.text = "7";
                     break;
                 case 1:
-                    hintTitle.text = "µÎ";
+                    hintTitle.text = "ë‘";
                     hintText.text = "6";
                     break;
                 case 2:
-                    hintTitle.text = "¼¼";
+                    hintTitle.text = "ì„¸";
                     hintText.text = "0";
                     break;
                 case 3:
-                    hintTitle.text = "³×";
+                    hintTitle.text = "ë„¤";
                     hintText.text = "5";
                     break;
                 case 4:
-                    hintTitle.text = "´Ù¼¸";
+                    hintTitle.text = "ë‹¤ì„¯";
                     hintText.text = "1";
                     break;
                 case 5:
-                    hintTitle.text = "Ã¹";
-                    hintText.text = "Çà¿îÀÇ ¼ıÀÚ";
+                    hintTitle.text = "ì²«";
+                    hintText.text = "í–‰ìš´ì˜ ìˆ«ì";
                     break;
                 case 6:
-                    hintTitle.text = "µÎ";
-                    hintText.text = "¾Ç¸¶ÀÇ ¼ıÀÚ";
+                    hintTitle.text = "ë‘";
+                    hintText.text = "ì•…ë§ˆì˜ ìˆ«ì";
                     break;
                 case 7:
-                    hintTitle.text = "¼¼";
-                    hintText.text = "°øÇãÀÇ ¼ıÀÚ";
+                    hintTitle.text = "ì„¸";
+                    hintText.text = "ê³µí—ˆì˜ ìˆ«ì";
                     break;
                 case 8:
-                    hintTitle.text = "³×";
-                    hintText.text = "¿Ï¼ºÀÇ ¼ıÀÚ";
+                    hintTitle.text = "ë„¤";
+                    hintText.text = "ì™„ì„±ì˜ ìˆ«ì";
                     break;
                 case 9:
-                    hintTitle.text = "´Ù¼¸";
-                    hintText.text = "ÅÂÃÊÀÇ ½ÃÀÛ";
+                    hintTitle.text = "ë‹¤ì„¯";
+                    hintText.text = "íƒœì´ˆì˜ ì‹œì‘";
                     break;
                 default:
                     Debug.Assert(false);
                     break;
             }
-            hintTitle.text += " ¹øÂ° ÀÚ¸®´Â ...";
-            hintHeader.text = "ÈùÆ®_" + (idx + 1).ToString() + "¹ø.exe";
+            hintTitle.text += " ë²ˆì§¸ ìë¦¬ëŠ” ...";
+            hintHeader.text = "íŒíŠ¸_" + (idx + 1).ToString() + "ë²ˆ.exe";
 
             if (isFirstHint)
             {
@@ -230,7 +240,7 @@ public class ItemChecker : MonoBehaviour
 
             bombSection.SetActive(true);
             bombImage.sprite = bombSprites[idx - 10];
-            bombHeader.text = "²Î_" + (idx + 1 - 10).ToString() + "¹ø.exe";
+            bombHeader.text = "ê½_" + (idx + 1 - 10).ToString() + "ë²ˆ.exe";
         }
     }
 
@@ -265,7 +275,7 @@ public class ItemChecker : MonoBehaviour
         reviewSection.SetActive(true);
         for (int i = 0; i < 10; i++)
         {
-            Debug.Log("ÈùÆ®Ã¼Å©: " + i.ToString() + " - " + hints[i].ToString());
+            Debug.Log("íŒíŠ¸ì²´í¬: " + i.ToString() + " - " + hints[i].ToString());
             if (!hints[i])
             {
                 reviewHintIndexTexts[i].text = "?";
@@ -311,7 +321,7 @@ public class ItemChecker : MonoBehaviour
 
     void ClearPasswordError()
     {
-        Debug.Log("»èÁ¦");
+        Debug.Log("ì‚­ì œ");
 
         passwordErrorText.gameObject.SetActive(false);
     }
@@ -322,18 +332,18 @@ public class ItemChecker : MonoBehaviour
 
         if (isBomb)
         {
-            tutorialTitle.text = "ÀÌ·±!";
-            tutorialDescription.text = "ÀüÇô µµ¿òÀÌ µÇÁö ¾Ê´Â USB¿´½À´Ï´Ù." +
-                " ¾ÕÀ¸·Îµµ ÀÌ·± USB°¡ ¿©·¯°³ ¼¯¿©ÀÖÀ» °ÍÀÔ´Ï´Ù." +
-                " ¶Ç ¾ó¸¶³ª Â¥Áõ³ª´Â ÀÌ¹ÌÁö°¡ µé¾îÀÖÀ»±î¿ä?";
+            tutorialTitle.text = "ì´ëŸ°!";
+            tutorialDescription.text = "ì „í˜€ ë„ì›€ì´ ë˜ì§€ ì•ŠëŠ” USBì˜€ìŠµë‹ˆë‹¤." +
+                " ì•ìœ¼ë¡œë„ ì´ëŸ° USBê°€ ì—¬ëŸ¬ê°œ ì„ì—¬ìˆì„ ê²ƒì…ë‹ˆë‹¤." +
+                " ë˜ ì–¼ë§ˆë‚˜ ì§œì¦ë‚˜ëŠ” ì´ë¯¸ì§€ê°€ ë“¤ì–´ìˆì„ê¹Œìš”?";
             isFirstBomb = false;
         }
         else
         {
-            tutorialTitle.text = "ÃàÇÏÇÕ´Ï´Ù!";
-            tutorialDescription.text = "µµ¿òÀÌ µÉ ¸¸ÇÑ ÈùÆ®¸¦ ¾ò¾ú½À´Ï´Ù." +
-                " ÀÌ·¯ÇÑ ÈùÆ®µéÀ» Àß ÀĞ°í ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇÕ½Ã´Ù." +
-                " ±×·¯¸é µğ¹ö±ë¿ë ÄÚµå°¡ ½ÇÇàµÇ°í ¹ö±×°¡ ¸¸¿¬ÇÑ ÀÌ °÷¿¡¼­ Å»ÃâÇÒ ¼ö ÀÖ½À´Ï´Ù!";
+            tutorialTitle.text = "ì¶•í•˜í•©ë‹ˆë‹¤!";
+            tutorialDescription.text = "ë„ì›€ì´ ë  ë§Œí•œ íŒíŠ¸ë¥¼ ì–»ì—ˆìŠµë‹ˆë‹¤." +
+                " ì´ëŸ¬í•œ íŒíŠ¸ë“¤ì„ ì˜ ì½ê³  ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•©ì‹œë‹¤." +
+                " ê·¸ëŸ¬ë©´ ë””ë²„ê¹…ìš© ì½”ë“œê°€ ì‹¤í–‰ë˜ê³  ë²„ê·¸ê°€ ë§Œì—°í•œ ì´ ê³³ì—ì„œ íƒˆì¶œí•  ìˆ˜ ìˆìŠµë‹ˆë‹¤!";
             isFirstHint = false;
         }
 
@@ -348,7 +358,7 @@ public class ItemChecker : MonoBehaviour
         USBCheckCanvas.gameObject.SetActive(false);
         player.doingTask = false;
         player.SetCursorLockState(CursorLockMode.Locked);
-        itemText.text = "FÅ°¸¦ ´­·¯ ÄÄÇ»ÅÍ »ç¿ë";
+        itemText.text = "Fí‚¤ë¥¼ ëˆŒëŸ¬ ì»´í“¨í„° ì‚¬ìš©";
     }
 
     private void OnTriggerEnter(Collider other)
@@ -356,7 +366,11 @@ public class ItemChecker : MonoBehaviour
         if (other.tag == "Player")
         {
             isActivated = true;
-            itemText.text = "FÅ°¸¦ ´­·¯ ÄÄÇ»ÅÍ »ç¿ë";
+#if UNITY_STANDALONE_WIN
+            itemText.text = "Fí‚¤ë¥¼ ëˆŒëŸ¬ ì»´í“¨í„° ì‚¬ìš©";
+#elif UNITY_ANDROID || UNITY_IOS
+            interactButton.gameObject.SetActive(true);
+#endif
         }
     }
 

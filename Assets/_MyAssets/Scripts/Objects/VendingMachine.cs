@@ -17,6 +17,7 @@ public class VendingMachine : MonoBehaviour
     [SerializeField] private Text itemName;
     [SerializeField] private Text itemEffect;
     [SerializeField] private Text itemDescription;
+    [SerializeField] private CheckButtonPressed interactButton;
     [SerializeField] private Button RetryButton;
     [SerializeField] private Button ExitButton;
     [SerializeField] private AudioSource audioSource;
@@ -32,8 +33,18 @@ public class VendingMachine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isActivated && !player.isStunned && !player.isDead && !player.doingTask && Input.GetKeyDown(KeyCode.F))
+#if UNITY_STANDALONE_WIN
+        bool keyDown = Input.GetKeyDown(KeyCode.F);
+#elif UNITY_ANDROID || UNITY_IOS
+        bool keyDown = interactButton.pressed;
+#endif
+        
+        if (isActivated && !player.isStunned && !player.isDead && !player.doingTask && keyDown)
         {
+#if UNITY_ANDROID || UNITY_IOS
+            interactButton.pressed = false;
+            interactButton.gameObject.SetActive(false);
+#endif
             if (itemHolder.Coin > 0)
             {
                 player.SetCursorLockState(CursorLockMode.None);
@@ -49,7 +60,7 @@ public class VendingMachine : MonoBehaviour
             }
             else
             {
-                itemText.text = "ÄÚÀÎÀÌ ºÎÁ·ÇÕ´Ï´Ù.";
+                itemText.text = "ì½”ì¸ì´ ë¶€ì¡±í•©ë‹ˆë‹¤.";
             }
         }
     }
@@ -75,20 +86,20 @@ public class VendingMachine : MonoBehaviour
             case EItemType.MonsterEnergy:
                 itemImage.sprite = itemSprites[0];
                 itemName.text = "MONSTER";
-                itemEffect.text = "Ã¼·Â +50%";
-                itemDescription.text = "Á¤½Å Â÷¸®¼¼¿ä! ¿¡³ÊÁö¸¦ ¿Ã·ÁÁÖ´Â °³¹ßÀÚ ÇÊ¼ö ¾ÆÀÌÅÛÀÔ´Ï´Ù.";
+                itemEffect.text = "ì²´ë ¥ +50%";
+                itemDescription.text = "ì •ì‹  ì°¨ë¦¬ì„¸ìš”! ì—ë„ˆì§€ë¥¼ ì˜¬ë ¤ì£¼ëŠ” ê°œë°œì í•„ìˆ˜ ì•„ì´í…œì…ë‹ˆë‹¤.";
                 break;
             case EItemType.TomatoJuice:
                 itemImage.sprite = itemSprites[1];
-                itemName.text = "Åä¸¶ÅäÁó";
-                itemEffect.text = "Ã¼·Â +25%";
-                itemDescription.text = "´ŞÄŞÇÑ Åä¸¶Åä ÁóÀÔ´Ï´Ù. ÁÖ½ºº¸´Ù´Â Á».. ´ú ´ŞÁö¸¸¿ä.";
+                itemName.text = "í† ë§ˆí† ì¦™";
+                itemEffect.text = "ì²´ë ¥ +25%";
+                itemDescription.text = "ë‹¬ì½¤í•œ í† ë§ˆí†  ì¦™ì…ë‹ˆë‹¤. ì£¼ìŠ¤ë³´ë‹¤ëŠ” ì¢€.. ëœ ë‹¬ì§€ë§Œìš”.";
                 break;
             case EItemType.CucumberJuice:
                 itemImage.sprite = itemSprites[2];
-                itemName.text = "¿ÀÀÌÁÖ½º";
-                itemEffect.text = "Ã¼·Â +15%";
-                itemDescription.text = "À¸À¹, ÀÌ°Ç ¹«½¼ ¸ÀÀÌÁÒ? ¸ö¿¡´Â ÁÁÀº °Í °°ÀºÁö¸¸ ¸ÀÀº ²ûÂïÇÏ±º¿ä.";
+                itemName.text = "ì˜¤ì´ì£¼ìŠ¤";
+                itemEffect.text = "ì²´ë ¥ +15%";
+                itemDescription.text = "ìœ¼ìœ½, ì´ê±´ ë¬´ìŠ¨ ë§›ì´ì£ ? ëª¸ì—ëŠ” ì¢‹ì€ ê²ƒ ê°™ì€ì§€ë§Œ ë§›ì€ ë”ì°í•˜êµ°ìš”.";
                 break;
         }
         audioSource.Play();
@@ -100,7 +111,7 @@ public class VendingMachine : MonoBehaviour
     {
         if(itemHolder.Coin <= 0)
         {
-            RetryButton.transform.GetChild(0).GetComponent<Text>().text = "ÄÚÀÎºÎÁ·";
+            RetryButton.transform.GetChild(0).GetComponent<Text>().text = "ì½”ì¸ë¶€ì¡±";
         }
         else
         {
@@ -129,11 +140,15 @@ public class VendingMachine : MonoBehaviour
             isActivated = true;
             if (itemHolder.Coin > 0)
             {
-                itemText.text = "FÅ°¸¦ ´­·¯ ¾ÆÀÌÅÛ »Ì±â";
+#if UNITY_STANDALONE_WIN
+                itemText.text = "Fí‚¤ë¥¼ ëˆŒëŸ¬ ì•„ì´í…œ ë½‘ê¸°";
+#elif UNITY_ANDROID || UNITY_IOS
+                interactButton.gameObject.SetActive(true);
+#endif
             }
             else
             {
-                itemText.text = "ÄÚÀÎ È¹µæ ÇÊ¿ä";
+                itemText.text = "ì½”ì¸ íšë“ í•„ìš”";
             }
         }
     }

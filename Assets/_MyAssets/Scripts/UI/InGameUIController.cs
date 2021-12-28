@@ -22,6 +22,7 @@ public class InGameUIController : MonoBehaviour
     [SerializeField] private Image USBIconMobile;
     [SerializeField] private Sprite[] USBSprites;
     [SerializeField] private Text coinText;
+    [SerializeField] private Text coinTextMobile;
     [SerializeField] private Image healthItemIcon;
 
     [SerializeField] private Sprite[] healthItemSprites;
@@ -54,7 +55,12 @@ public class InGameUIController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+#if UNITY_STANDALONE_WIN
         USBIcon.sprite = USBSprites[0];
+#elif UNITY_ANDROID || UNITY_IOS
+        USBIconMobile.sprite = USBSprites[0];
+#endif
+        
         itemHolder = ItemHolder.Instance;
         player = PlayerMovement.Instance;
     }
@@ -218,7 +224,11 @@ public class InGameUIController : MonoBehaviour
 
     void UpdateUSBItemStatus()
     {
+#if UNITY_STANDALONE_WIN
         USBIcon.sprite = USBSprites[itemHolder.USBItemIndex];
+#elif UNITY_ANDROID || UNITY_IOS
+        USBIconMobile.sprite = USBSprites[itemHolder.USBItemIndex];
+#endif
     }
 
     void UpdateHealthItemStatus()
@@ -239,7 +249,11 @@ public class InGameUIController : MonoBehaviour
 
     void UpdateCoinAmount()
     {
+#if UNITY_STANDALONE_WIN
         coinText.text = "x" + itemHolder.Coin.ToString();
+#elif UNITY_ANDROID || UNITY_IOS
+        coinTextMobile.text = "x" + itemHolder.Coin.ToString();
+#endif
     }
 
     void UpdateKeyInfoPanel()

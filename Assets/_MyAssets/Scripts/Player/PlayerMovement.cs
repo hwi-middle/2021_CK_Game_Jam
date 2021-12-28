@@ -88,7 +88,7 @@ public class PlayerMovement : MonoBehaviour
 
     //뽑기, 판독의 동작 처리
     public bool doingTask;
-    
+
     //싱글톤 처리
     static PlayerMovement instance;
 
@@ -177,6 +177,8 @@ public class PlayerMovement : MonoBehaviour
                 currentStamina -= staminaDecreasementAmount * Time.deltaTime;
                 if (currentStamina < 0)
                 {
+                    isRunToggleOn = false;
+                    runToggleText.text = "WALK";
                     currentStamina = 0;
                 }
             }

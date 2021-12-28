@@ -10,7 +10,7 @@ public class Items : MonoBehaviour
     [SerializeField] private EFieldItemType type;
     private InGameUIController inGameUIController;
     private ItemHolder itemHolder;
-    public GameObject interactButton;
+    public CheckButtonPressed interactButton;
     private Text itemText;
     bool isActivated = false;
 
@@ -25,14 +25,26 @@ public class Items : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(isActivated && Input.GetKeyDown(KeyCode.F))
+#if UNITY_STANDALONE_WIN
+        bool keyDown = Input.GetKeyDown(KeyCode.F);
+#elif UNITY_ANDROID || UNITY_IOS
+        bool keyDown = interactButton.pressed;
+#endif
+        if (isActivated && keyDown)
         {
-            switch(type)
+#if UNITY_ANDROID || UNITY_IOS
+            interactButton.pressed = false;
+            interactButton.gameObject.SetActive(false);
+#endif
+            switch (type)
             {
                 case EFieldItemType.USB:
                     if (itemHolder.HasUSBItem)
                     {
                         Debug.Log("이미 USB 소유함");
+#if UNITY_ANDROID || UNITY_IOS
+                        interactButton.gameObject.SetActive(true);
+#endif
                     }
                     else
                     {
@@ -41,6 +53,7 @@ public class Items : MonoBehaviour
                         itemText.text = "";
                         Debug.Log("USB 획득");
                     }
+
                     break;
                 case EFieldItemType.Coin:
                     itemHolder.IncreaseCoin();
@@ -52,7 +65,6 @@ public class Items : MonoBehaviour
                     Debug.Assert(false);
                     break;
             }
-
         }
     }
 
@@ -64,7 +76,7 @@ public class Items : MonoBehaviour
 #if UNITY_STANDALONE_WIN
             itemText.text = "F키를 눌러 아이템 획득";
 #elif UNITY_ANDROID || UNITY_IOS
-            interactButton.SetActive(true);
+            interactButton.gameObject.SetActive(true);
 #endif
         }
     }
@@ -77,7 +89,7 @@ public class Items : MonoBehaviour
 #if UNITY_STANDALONE_WIN
             itemText.text = "";
 #elif UNITY_ANDROID || UNITY_IOS
-            interactButton.SetActive(false);
+            interactButton.gameObject.SetActive(false);
 #endif
         }
     }
