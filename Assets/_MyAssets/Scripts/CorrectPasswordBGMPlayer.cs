@@ -58,14 +58,14 @@ public class CorrectPasswordBGMPlayer : MonoBehaviour
         player.shouldMoveFreeze = true;
         audioSource.clip = beep;
         audioSource.Play();
-        title.text = "��ȣ ��ġ";
+        title.text = "암호 일치";
         yield return new WaitForSeconds(0.5f);
 
         for (int i = 0; i < 3; i++)
         {
             title.text = "";
             yield return new WaitForSeconds(0.5f);
-            title.text = "��ȣ ��ġ";
+            title.text = "암호 일치";
             audioSource.Play();
             yield return new WaitForSeconds(0.5f);
         }
