@@ -122,6 +122,10 @@ public class PlayerMovement : MonoBehaviour
 
         sensitivityX = PlayerPrefs.GetFloat("XSensitivityValue", 2f);
         sensitivityY = PlayerPrefs.GetFloat("YSensitivityValue", 2f);
+#if UNITY_ANDROID || UNITY_IOS
+        sensitivityX *= 0.5f;
+        sensitivityY *= 0.5f;
+#endif
 
         currentHealth = maxHealth;
 

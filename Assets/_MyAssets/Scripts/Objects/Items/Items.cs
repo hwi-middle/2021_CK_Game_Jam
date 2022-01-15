@@ -76,6 +76,7 @@ public class Items : MonoBehaviour
 #if UNITY_STANDALONE_WIN
             itemText.text = "F키를 눌러 아이템 획득";
 #elif UNITY_ANDROID || UNITY_IOS
+            itemText.text = "상호작용 버튼을 눌러 아이템 획득";
             interactButton.gameObject.SetActive(true);
 #endif
         }
@@ -86,9 +87,8 @@ public class Items : MonoBehaviour
         if (other.tag == "Player")
         {
             isActivated = false;
-#if UNITY_STANDALONE_WIN
             itemText.text = "";
-#elif UNITY_ANDROID || UNITY_IOS
+#if UNITY_ANDROID || UNITY_IOS
             interactButton.gameObject.SetActive(false);
 #endif
         }

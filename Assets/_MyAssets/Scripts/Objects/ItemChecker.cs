@@ -359,8 +359,9 @@ public class ItemChecker : MonoBehaviour
         player.doingTask = false;
         player.SetCursorLockState(CursorLockMode.Locked);
 #if UNITY_STANDALONE_WIN
-            itemText.text = "F키를 눌러 컴퓨터 사용";
+        itemText.text = "F키를 눌러 컴퓨터 사용";
 #elif UNITY_ANDROID || UNITY_IOS
+        itemText.text = "상호작용 버튼을 눌러 컴퓨터 사용";
         interactButton.gameObject.SetActive(true);
 #endif
     }
@@ -373,6 +374,7 @@ public class ItemChecker : MonoBehaviour
 #if UNITY_STANDALONE_WIN
             itemText.text = "F키를 눌러 컴퓨터 사용";
 #elif UNITY_ANDROID || UNITY_IOS
+            itemText.text = "상호작용 버튼을 눌러 컴퓨터 사용";
             interactButton.gameObject.SetActive(true);
 #endif
         }
@@ -383,7 +385,9 @@ public class ItemChecker : MonoBehaviour
         if (other.tag == "Player")
         {
             isActivated = false;
-            itemText.text = "";
+#if UNITY_ANDROID || UNITY_IOS
+            interactButton.gameObject.SetActive(false);
+#endif
         }
     }
 }

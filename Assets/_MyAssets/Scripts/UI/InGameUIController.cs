@@ -94,7 +94,8 @@ public class InGameUIController : MonoBehaviour
         {
             return;
         }
-
+    
+#if UNITY_STANDALONE_WIN
         //키입력은 우선순위별로 1개만 받기
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -121,6 +122,7 @@ public class InGameUIController : MonoBehaviour
                 tutorialCanvas.gameObject.SetActive(true);
             }
         }
+#endif
     }
 
     public void PauseOrResume()

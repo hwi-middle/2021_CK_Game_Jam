@@ -7,7 +7,7 @@ public class CheckButtonPressed : MonoBehaviour
 {
     [HideInInspector] public bool pressed = false;
 
-    public void Press( )
+    public void Press()
     {
         pressed = true;
     }

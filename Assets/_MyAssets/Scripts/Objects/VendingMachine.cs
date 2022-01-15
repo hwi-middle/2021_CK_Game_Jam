@@ -148,6 +148,7 @@ public class VendingMachine : MonoBehaviour
 #if UNITY_STANDALONE_WIN
                 itemText.text = "F키를 눌러 아이템 뽑기";
 #elif UNITY_ANDROID || UNITY_IOS
+                itemText.text = "상호작용 버튼을 눌러 아이템 뽑기";
                 interactButton.gameObject.SetActive(true);
 #endif
             }
@@ -164,6 +165,9 @@ public class VendingMachine : MonoBehaviour
         {
             isActivated = false;
             itemText.text = "";
+#if UNITY_ANDROID || UNITY_IOS
+            interactButton.gameObject.SetActive(false);
+#endif        
         }
     }
 }
