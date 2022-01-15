@@ -385,6 +385,7 @@ public class ItemChecker : MonoBehaviour
         if (other.tag == "Player")
         {
             isActivated = false;
+            itemText.text = "";
 #if UNITY_ANDROID || UNITY_IOS
             interactButton.gameObject.SetActive(false);
 #endif

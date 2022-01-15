@@ -282,7 +282,7 @@ public class PlayerMovement : MonoBehaviour
         sensitivityX = PlayerPrefs.GetFloat("XSensitivityValue", 2f);
         sensitivityY = PlayerPrefs.GetFloat("YSensitivityValue", 2f);
 
-#if UNITY_STANDALONE_WIN
+#if UNITY_STANDALONE_WIN || UNITY_EDITOR
         float yRotation = Input.GetAxis("Mouse X") * sensitivityX;
         float xRotation = Input.GetAxis("Mouse Y") * sensitivityY;
 #elif UNITY_ANDROID || UNITY_IOS
@@ -360,7 +360,7 @@ public class PlayerMovement : MonoBehaviour
             isMoving = false;
             return;
         }
-#if UNITY_STANDALONE_WIN
+#if UNITY_STANDALONE_WIN || UNITY_EDITOR
         x = Input.GetAxis("Horizontal");
         z = Input.GetAxis("Vertical");
 #elif UNITY_ANDROID || UNITY_IOS
