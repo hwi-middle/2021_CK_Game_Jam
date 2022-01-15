@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -31,6 +32,8 @@ public class CorrectPasswordBGMPlayer : MonoBehaviour
 
     [SerializeField] private Canvas mobileCanvas;
 
+    private StringBuilder stringBuilder;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -44,12 +47,14 @@ public class CorrectPasswordBGMPlayer : MonoBehaviour
         StartCoroutine(ControlMusicAndScene());
         glitch1.enable.value = false;
         glitch2.enable.value = false;
+
+        int stringBuilderSize = logString1.Length + logString2.Length + logString3.Length + +logString4.Length + logString4.Length * 200;
+        stringBuilder = new StringBuilder(stringBuilderSize);
     }
 
     // Update is called once per frame
     void Update()
     {
-
     }
 
     IEnumerator ControlMusicAndScene()
@@ -74,14 +79,17 @@ public class CorrectPasswordBGMPlayer : MonoBehaviour
         audioSource.volume = PlayerPrefs.GetFloat("SEValue", 1f) * 0.5f;
         for (int i = 0; i < logString1.Length; i++)
         {
-            log.text += logString1[i];
+            stringBuilder.Append(logString1[i]);
+            log.text = stringBuilder.ToString();
             if (logString1[i] == '\n' || logString1[i] == '\t')
             {
                 yield return new WaitForSeconds(0.5f);
             }
+
             audioSource.Play();
             yield return new WaitForSeconds(0.035f);
         }
+
         yield return new WaitForSeconds(2f);
         title.text = "ERROR";
         title.color = Color.red;
@@ -89,11 +97,13 @@ public class CorrectPasswordBGMPlayer : MonoBehaviour
 
         for (int i = 0; i < logString2.Length; i++)
         {
-            log.text += logString2[i];
+            stringBuilder.Append(logString2[i]);
+            log.text = stringBuilder.ToString();
             if (logString2[i] == '\n' || logString2[i] == '\t')
             {
                 yield return new WaitForSeconds(1.2f);
             }
+
             audioSource.Play();
             yield return new WaitForSeconds(0.035f);
         }
@@ -101,11 +111,13 @@ public class CorrectPasswordBGMPlayer : MonoBehaviour
         yield return new WaitForSeconds(1f);
         for (int i = 0; i < logString3.Length; i++)
         {
-            log.text += logString3[i];
+            stringBuilder.Append(logString3[i]);
+            log.text = stringBuilder.ToString();
             if (logString3[i] == '\n' || logString3[i] == '\t')
             {
                 yield return new WaitForSeconds(0.2f);
             }
+
             audioSource.Play();
             yield return new WaitForSeconds(0.035f);
         }
@@ -114,11 +126,13 @@ public class CorrectPasswordBGMPlayer : MonoBehaviour
         string dots = "...";
         for (int i = 0; i < dots.Length; i++)
         {
-            log.text += dots[i];
+            stringBuilder.Append(dots[i]);
+            log.text = stringBuilder.ToString();
             if (dots[i] == '\n' || dots[i] == '\t')
             {
                 yield return new WaitForSeconds(0.2f);
             }
+
             audioSource.Play();
             yield return new WaitForSeconds(0.035f);
         }
@@ -126,11 +140,13 @@ public class CorrectPasswordBGMPlayer : MonoBehaviour
         yield return new WaitForSeconds(2f);
         for (int i = 0; i < logString4.Length; i++)
         {
-            log.text += logString4[i];
+            stringBuilder.Append(logString4[i]);
+            log.text = stringBuilder.ToString();
             if (logString4[i] == '\n' || logString4[i] == '\t')
             {
                 yield return new WaitForSeconds(0.2f);
             }
+
             audioSource.Play();
             yield return new WaitForSeconds(0.035f);
         }
@@ -141,12 +157,17 @@ public class CorrectPasswordBGMPlayer : MonoBehaviour
             glitch1.enable.value = true;
             glitch2.enable.value = true;
         }
+
+
         for (int i = 0; i < 100; i++)
         {
+#if UNITY_STANDALONE_WIN
             int cnt = 0;
             for (int j = 0; j < logString4.Length; j++)
             {
-                log.text += logString4[j];
+                stringBuilder.Append(logString4[j]);
+                log.text = stringBuilder.ToString();
+                // log.text += logString4[j];
                 if (logString4[j] == '\n' || logString4[j] == '\t')
                 {
                     yield return new WaitForSeconds(0.2f);
@@ -160,6 +181,13 @@ public class CorrectPasswordBGMPlayer : MonoBehaviour
                 audioSource.Play();
                 yield return new WaitForSeconds(0.000001f);
             }
+#elif UNITY_ANDROID || UNITY_IOS
+            stringBuilder.Append(logString4);
+            log.text = stringBuilder.ToString();
+
+            audioSource.Play();
+            yield return new WaitForSeconds(0.0001f);
+#endif
         }
 
         yield return new WaitForSeconds(0.2f);
@@ -178,11 +206,13 @@ public class CorrectPasswordBGMPlayer : MonoBehaviour
         {
             yield return null;
         }
+
         audioSource.Play();
         while (audioSource.isPlaying)
         {
             yield return null;
         }
+
         audioSource.clip = endHitClip;
         audioSource.Play();
         player.shouldMoveFreeze = true;
@@ -193,6 +223,7 @@ public class CorrectPasswordBGMPlayer : MonoBehaviour
         {
             yield return null;
         }
+
         player.SetCursorLockState(CursorLockMode.None);
         yield return new WaitForSeconds(1.0f);
         SceneManager.LoadScene("Epilogue");

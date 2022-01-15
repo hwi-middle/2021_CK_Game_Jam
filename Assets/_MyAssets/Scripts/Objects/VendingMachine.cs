@@ -131,6 +131,11 @@ public class VendingMachine : MonoBehaviour
         vendingMachineCanvas.gameObject.SetActive(false);
         player.doingTask = false;
         player.SetCursorLockState(CursorLockMode.Locked);
+#if UNITY_STANDALONE_WIN
+                itemText.text = "F키를 눌러 아이템 뽑기";
+#elif UNITY_ANDROID || UNITY_IOS
+        interactButton.gameObject.SetActive(true);
+#endif
     }
 
     private void OnTriggerEnter(Collider other)

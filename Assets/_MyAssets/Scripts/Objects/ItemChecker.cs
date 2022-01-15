@@ -358,7 +358,11 @@ public class ItemChecker : MonoBehaviour
         USBCheckCanvas.gameObject.SetActive(false);
         player.doingTask = false;
         player.SetCursorLockState(CursorLockMode.Locked);
-        itemText.text = "F키를 눌러 컴퓨터 사용";
+#if UNITY_STANDALONE_WIN
+            itemText.text = "F키를 눌러 컴퓨터 사용";
+#elif UNITY_ANDROID || UNITY_IOS
+        interactButton.gameObject.SetActive(true);
+#endif
     }
 
     private void OnTriggerEnter(Collider other)
