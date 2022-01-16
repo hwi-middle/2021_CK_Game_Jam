@@ -13,7 +13,7 @@ EditorBuildSettings:
     guid: 2b74b03fa98f9194fb7e2e169cfe3bb9
   - enabled: 1
     path: Assets/_MyAssets/Scenes/Intro2.unity
-    guid: 08311ccada483f3419501bc77e600a32
+    guid: 0b2182a96cf7f0d4fa1cad632adb5266
   - enabled: 1
     path: Assets/_MyAssets/Scenes/IntroWarning.unity
     guid: 9940e3d55d809e145a5d9c2dd12bc026
